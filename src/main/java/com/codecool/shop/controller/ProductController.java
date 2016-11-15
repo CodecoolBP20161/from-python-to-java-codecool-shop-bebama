@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     public static ModelAndView renderProductsByProductCategory(Request req, Response res) {
-        SupplierDao productCategoryDataStore = SupplierDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         Map params = new HashMap<>();
         List<ProductCategory> category = new ArrayList<ProductCategory>();
