@@ -21,7 +21,7 @@ public class Order {
     public void add(LineItem item){
         Boolean match = false;
         for (int i = 0; i < listOfSelectedItems.size(); i++) {
-            if (listOfSelectedItems.get(i).getProduct() == item.getProduct() {
+            if (listOfSelectedItems.get(i).getProduct() == item.getProduct()) {
                 listOfSelectedItems.get(i).incQuantity(item.getQuantity());
                 match = true;
             }
@@ -30,7 +30,9 @@ public class Order {
             listOfSelectedItems.add(item);
         }
     }
-
+    public List<LineItem> getListOfSelectedItems(){
+        return listOfSelectedItems;
+    }
     public void remove(LineItem item){
         listOfSelectedItems.remove(item);
     }

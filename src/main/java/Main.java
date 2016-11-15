@@ -41,7 +41,12 @@ public class Main {
             LineItem item = new LineItem(product, quantity);
             Order order = Order.getInstance();
             order.add(item);
-            req.session().attribute("Cart", Order.getInstance());
+            req.session().attribute("Cart", order);
+            Order test = req.session().attribute("Cart");
+            for (int i = 0; i < test.getListOfSelectedItems().size(); i++){
+                System.out.println(test.getListOfSelectedItems().get(i).getProduct());
+                System.out.println(test.getListOfSelectedItems().get(i).getQuantity());
+            }
             res.redirect("/");
             return "";
         });
