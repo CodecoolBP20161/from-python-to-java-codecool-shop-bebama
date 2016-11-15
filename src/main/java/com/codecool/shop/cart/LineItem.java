@@ -1,3 +1,6 @@
+package com.codecool.shop.cart;
+
+
 import com.codecool.shop.model.Product;
 
 /**

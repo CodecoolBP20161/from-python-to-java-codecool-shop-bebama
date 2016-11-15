@@ -1,3 +1,5 @@
+package com.codecool.shop.cart;
+
 import java.util.ArrayList;
 import java.util.List;
 

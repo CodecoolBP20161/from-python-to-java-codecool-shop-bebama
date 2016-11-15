@@ -1,3 +1,5 @@
+import com.codecool.shop.cart.LineItem;
+import com.codecool.shop.cart.Order;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
