@@ -31,8 +31,10 @@ public class ProductController {
 
         Map params = new HashMap<>();
         List<ProductCategory> category = new ArrayList<ProductCategory>();
+        List<ProductCategory> allCategories = productCategoryDataStore.getAll();
+        params.put("categories", allCategories);
         category.add(productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", category);
+        params.put("filterCategories", category);
         return new ModelAndView(params, "product/index");
     }
 
@@ -41,8 +43,10 @@ public class ProductController {
 
         Map params = new HashMap<>();
         List<Supplier> supplier = new ArrayList<Supplier>();
+        List<com.codecool.shop.model.Supplier> allSuppliers = supplierDataStore.getAll();
+        params.put("suppliers", allSuppliers);
         supplier.add((Supplier) supplierDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", supplier);
+        params.put("filterSuppliers", supplier);
         return new ModelAndView(params, "product/index");
     }
 
