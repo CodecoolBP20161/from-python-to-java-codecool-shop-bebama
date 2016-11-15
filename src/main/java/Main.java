@@ -1,11 +1,17 @@
+import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
-
-import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.model.*;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
 
@@ -21,6 +27,12 @@ public class Main {
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
+
+        //render the products by category
+        get("/category/:id",ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
+
+        //render the products by supplier
+        //get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
