@@ -67,8 +67,8 @@
                 </ul>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class="navbar-brand active" href="#">My cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+        <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span th:text="${total}+' item(s) in '"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
             </li>
         </ul>
     </div>
@@ -94,7 +94,7 @@
                             </div>
                             <form action="/additemtocart" method="post">
                                 <div class="col-xs-12 col-md-3">
-                                    <button type="submit" class="btn btn-success" >Add to cart</button>
+                                    <button type="submit" class="btn btn-success">Add to cart</button>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <input hidden="hidden" name="id" th:value="${prod.id}"></input>

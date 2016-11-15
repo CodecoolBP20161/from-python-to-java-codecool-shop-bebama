@@ -9,6 +9,7 @@ import com.codecool.shop.model.Supplier;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import com.codecool.shop.cart.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,16 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
         params.put("filterCategories", params.get("categories"));
+        int total = 0;
+        Order order = req.session().attribute("Cart");
+        try {
+            for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
+                total += order.getListOfSelectedItems().get(i).getQuantity();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("total", total);
         return new ModelAndView(params, "product/index");
     }
 
