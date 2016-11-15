@@ -34,6 +34,18 @@ public class Main {
         //render the products by supplier
         get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
+        post("/additemtocart", (req, res) -> {
+            ProductDaoMem products = ProductDaoMem.getInstance();
+            Product product = products.find(Integer.parseInt(req.queryParams("id")));
+            int quantity = Integer.parseInt(req.queryParams("quantity"));
+            LineItem item = new LineItem(product, quantity);
+            Order order = Order.getInstance();
+            order.add(item);
+            req.session().attribute("Cart", Order.getInstance());
+            res.redirect("/");
+            return "";
+        });
+
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
