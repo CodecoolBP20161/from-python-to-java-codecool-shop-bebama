@@ -53,11 +53,27 @@
                 </ul>
             </li>
         </ul>
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Suppliers <span
+                    class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter()"
+                               autofocus="true"></input></li>
+                    <div id="search-sup">
+                        <li>
+                            <div th:each="supplier,iterStat : ${suppliers}">
+                                <a th:text="${supplier.name}" th:href="'/supplier/'+${supplier.id}">Supplier</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <div class="container" th:each="category,iterStat : ${categories}">
+    <div class="container" th:each="category,iterStat : ${filterCategories}">
         <div class="well well-sm">
 
             <strong th:text="${category.name}">Category Title</strong>
