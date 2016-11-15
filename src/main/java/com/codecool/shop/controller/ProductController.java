@@ -9,6 +9,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,12 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static ModelAndView renderProductsByCategory(Request req, Response res) {
+    public static ModelAndView renderProductsByProductCategory(Request req, Response res) {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
-        String categoryId = req.params(":id");
-        int id = Integer.parseInt(categoryId);
         Map params = new HashMap<>();
-        ProductCategory category = productCategoryDataStore.find(id);
+        List<ProductCategory> category = new ArrayList<ProductCategory>();
+        category.add(productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
         params.put("categories", category);
         return new ModelAndView(params, "product/index");
     }
@@ -39,11 +39,10 @@ public class ProductController {
     public static ModelAndView renderProductsBySupplier(Request req, Response res) {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        String supplierId = req.params(":id");
-        int id = Integer.parseInt(supplierId);
         Map params = new HashMap<>();
-        Supplier supplier = (Supplier) supplierDataStore.find(id);
-        params.put("supplier", supplier);
+        List<Supplier> supplier = new ArrayList<Supplier>();
+        supplier.add((Supplier) supplierDataStore.find(Integer.parseInt(req.params(":id"))));
+        params.put("categories", supplier);
         return new ModelAndView(params, "product/index");
     }
 
