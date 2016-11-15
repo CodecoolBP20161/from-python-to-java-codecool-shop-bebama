@@ -29,7 +29,7 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         //render the products by category
-        get("/category/:id",ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
+        get("/category/:id",ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
 
         //render the products by supplier
         get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
