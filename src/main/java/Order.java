@@ -19,7 +19,16 @@ public class Order {
     }
 
     public void add(LineItem item){
-        listOfSelectedItems.add(item);
+        Boolean match = false;
+        for (int i = 0; i < listOfSelectedItems.size(); i++) {
+            if listOfSelectedItems.get(i).getProduct() == item.getProduct() {
+                listOfSelectedItems.get(i).incQuantity(item.getQuantity());
+                match = true;
+            }
+        }
+        if (!match){
+            listOfSelectedItems.add(item);
+        }
     }
 
     public void remove(LineItem item){
