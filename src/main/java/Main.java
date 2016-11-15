@@ -32,7 +32,7 @@ public class Main {
         get("/category/:id",ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         //render the products by supplier
-        //get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+        get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
