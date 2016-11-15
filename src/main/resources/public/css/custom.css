@@ -118,3 +118,9 @@ color: black}
 .navbar-brand{
     color: black;
 }
+
+.quantity{
+    text-align: center;
+    margin: 5px;
+    width: 40px;
+}
