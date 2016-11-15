@@ -24,6 +24,8 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
+        ProductController.setSuppliers();
+        ProductController.setCategories();
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
