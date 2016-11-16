@@ -41,8 +41,7 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span
                     class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"
-                               autofocus="true"></input></li>
+                    <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
                     <div id="search-cat">
                         <li>
                             <div th:each="category,iterStat : ${categories}">
@@ -57,8 +56,7 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Suppliers <span
                     class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"
-                               autofocus="true"></input></li>
+                    <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
                     <div id="search-sup">
                         <li>
                             <div th:each="supplier,iterStat : ${suppliers}">
@@ -69,8 +67,9 @@
                 </ul>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class="navbar-brand active" href="#">My cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+        <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span th:text="${total}+' item(s) in '"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -78,12 +77,9 @@
 <div class="container-fluid">
     <div class="container" th:each="category,iterStat : ${filterCategories}">
         <div class="well well-sm">
-
             <strong th:text="${category.name}">Category Title</strong>
         </div>
-
         <div id="products" class="row list-group">
-
             <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${category.products}">
                 <div class="thumbnail">
                     <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
@@ -96,9 +92,15 @@
                             <div class="col-xs-12 col-md-6">
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" href="#">Add to cart</a>
-                            </div>
+                            <form action="/additemtocart" method="post">
+                                <div class="col-xs-12 col-md-3">
+                                    <button type="submit" class="btn btn-success">Add to cart</button>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <input hidden="hidden" name="id" th:value="${prod.id}"></input>
+                                    <input type="number" class="quantity" name="quantity" value="1" max="100"></input>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

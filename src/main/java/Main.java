@@ -1,3 +1,5 @@
+import com.codecool.shop.cart.LineItem;
+import com.codecool.shop.cart.Order;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
@@ -24,15 +26,26 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
+        ProductController.setSuppliers();
+        ProductController.setCategories();
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
 
         //render the products by category
-        get("/category/:id",ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
+        get("/category/:id", ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
 
         //render the products by supplier
-        get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+        get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
+        post("/additemtocart", (req, res) -> {
+            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
+            int quantity = Integer.parseInt(req.queryParams("quantity"));
+            LineItem item = new LineItem(product, quantity);
+            Order.addItemToSession(req, item);
+            res.redirect("/");
+            return "";
+        });
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
@@ -77,6 +90,4 @@ public class Main {
         productDataStore.add(new Product("AmazonPhone", 59, "USD", "Amazon's very own budget phone.", phone, amazon));
 
     }
-
-
 }
