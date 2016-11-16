@@ -32,10 +32,6 @@ var modal = document.getElementById("productsModal");
 
 var button = document.getElementById("cart");
 
-button.onclick = function() {
-    modal.style.display = "block";
-}
-
 function productsWriter(products) {
     console.log(products);
     // for (var x = 0; x < products.length; i++){
