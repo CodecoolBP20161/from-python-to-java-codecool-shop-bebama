@@ -33,6 +33,7 @@ var modal = document.getElementById("productsModal");
 var button = document.getElementById("cart");
 
 function productsWriter(products) {
+    $(".product").html("");
     for (var x = 0; x < products.length; x++){
         console.log(products[x]);
     }
@@ -41,6 +42,7 @@ function productsWriter(products) {
     var sum = 0;
     for ( var j = 0; j < products.length; j++) {
          var row = table.insertRow();
+        row.setAttribute("class", "product");
          var cell = row.insertCell(0);
          cell.innerHTML = products[j].name;
          var cell = row.insertCell(1);
@@ -53,6 +55,7 @@ function productsWriter(products) {
          cell.innerHTML = total.toString() + " USD";
      }
     var row = table.insertRow();
+    row.setAttribute("class", "product");
     var cell = row.insertCell(0);
     var cell = row.insertCell(1);
     var cell = row.insertCell(2);
