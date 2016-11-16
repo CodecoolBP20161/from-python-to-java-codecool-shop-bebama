@@ -11,6 +11,10 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import org.json.simple.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -45,6 +49,26 @@ public class Main {
             Order.addItemToSession(req, item);
             res.redirect("/");
             return "";
+        });
+
+        get("/showcart", (req, res) -> {
+            JSONObject obj = new JSONObject();
+            List<JSONObject> products = new ArrayList<>();
+            try {
+                Order order = req.session().attribute("Cart");
+                for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
+                    String name = order.getListOfSelectedItems().get(i).getProduct().getName();
+                    obj.put("name", name);
+                    String price = order.getListOfSelectedItems().get(i).getProduct().getPrice();
+                    obj.put("price", price);
+                    String quantity = Integer.toString(order.getListOfSelectedItems().get(i).getQuantity());
+                    obj.put("quantity", quantity);
+                    products.add(obj);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return products;
         });
 
         // Always add generic routes to the end
