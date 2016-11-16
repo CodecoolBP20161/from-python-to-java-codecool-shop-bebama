@@ -42,13 +42,20 @@ function productsWriter(products) {
         var cell = row.insertCell(0);
         cell.innerHTML = products[j].name;
         var cell = row.insertCell(1);
-        cell.innerHTML = products[j].quantity;
+        var input = document.createElement("input");
+        input.type = "number";
+        input.name = "quantity";
+        input.value = products[j].quantity;
+        input.setAttribute("min", 1);
+        input.setAttribute("max", 100);
+        cell.appendChild(input);
         var cell = row.insertCell(2);
         cell.innerHTML = products[j].price;
         var cell = row.insertCell(3);
         var total = Number(products[j].quantity) * Number(products[j].price.replace(" USD", ""));
         sum += total;
         cell.innerHTML = total.toString() + " USD";
+        //var cell = row.insertCell(4);
     }
     var row = table.insertRow();
     row.setAttribute("class", "product");
