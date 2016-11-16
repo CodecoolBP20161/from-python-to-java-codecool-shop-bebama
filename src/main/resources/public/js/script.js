@@ -34,10 +34,6 @@ var button = document.getElementById("cart");
 
 function productsWriter(products) {
     $(".product").html("");
-    for (var x = 0; x < products.length; x++) {
-        console.log(products[x]);
-    }
-    console.log(products.typeof);
     var table = document.getElementById("productsTable");
     var sum = 0;
     for (var j = 0; j < products.length; j++) {
