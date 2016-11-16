@@ -33,20 +33,22 @@ var modal = document.getElementById("productsModal");
 var button = document.getElementById("cart");
 
 function productsWriter(products) {
-    console.log(products);
-    // for (var x = 0; x < products.length; i++){
-    //     console.log(JSON.parse(products[x]));
-    // }
+    for (var x = 0; x < products.length; x++){
+        console.log(products[x]);
+    }
+    console.log(products.typeof);
     var table = document.getElementById("productsTable");
-    var data = ["name", "quality", "price", "sum"];
-    // for ( var i = 0; i < product.length; i++) {
-    //     var row = table.insertRow();
-    //     row.setAttribute("class", "product");
-    //     for (var i = 0; i < 8; i++) {
-    //         var cell = row.insertCell(i);
-    //         cell.innerHTML = product[data[i]];
-    //     }
-    // }
+    for ( var j = 0; j < products.length; j++) {
+         var row = table.insertRow();
+         //row.setAttribute("class", "product");
+         var cell = row.insertCell(0);
+         cell.innerHTML = products[j].name;
+         var cell = row.insertCell(1);
+         cell.innerHTML = products[j].quantity;
+         var cell = row.insertCell(2);
+         cell.innerHTML = products[j].price;
+       
+     }
 }
 $(button).click(function () {
     clickOnCartEventHandler();
