@@ -27,3 +27,50 @@ function filter(filterby) {
         }
     }
 }
+
+var modal = document.getElementById("productsModal");
+
+var button = document.getElementById("cart");
+
+function productsWriter(products) {
+    $(".product").html("");
+    var table = document.getElementById("productsTable");
+    var sum = 0;
+    for (var j = 0; j < products.length; j++) {
+        var row = table.insertRow();
+        row.setAttribute("class", "product");
+        var cell = row.insertCell(0);
+        cell.innerHTML = products[j].name;
+        var cell = row.insertCell(1);
+        cell.innerHTML = products[j].quantity;
+        var cell = row.insertCell(2);
+        cell.innerHTML = products[j].price;
+        var cell = row.insertCell(3);
+        var total = Number(products[j].quantity) * Number(products[j].price.replace(" USD", ""));
+        sum += total;
+        cell.innerHTML = total.toString() + " USD";
+    }
+    var row = table.insertRow();
+    row.setAttribute("class", "product");
+    var cell = row.insertCell(0);
+    var cell = row.insertCell(1);
+    var cell = row.insertCell(2);
+    cell.innerHTML = "Total price:";
+    var cell = row.insertCell(3);
+    cell.innerHTML = sum.toString() + " USD";
+}
+
+$(button).click(function () {
+    clickOnCartEventHandler();
+})
+
+function clickOnCartEventHandler() {
+    $.ajax({
+        type: "GET",
+        url: "/showcart",
+        dataType: "json",
+        success: function (data) {
+            productsWriter(data)
+        },
+    });
+}

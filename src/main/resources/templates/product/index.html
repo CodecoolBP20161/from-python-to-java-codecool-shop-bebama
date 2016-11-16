@@ -31,6 +31,29 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
+
+<div class="modal fade" id="productsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Products in your cart</h4>
+            </div>
+            <div class="modal-body">
+                <table id="productsTable">
+                    <tr id="productHeader">
+                        <td>Product</td>
+                        <td>Quantity</td>
+                        <td>Unit price</td>
+                        <td>Total price</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -68,7 +91,7 @@
             </li>
         </ul>
         <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span th:text="${total}+' item(s) in '"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+            <li id="cart" data-toggle="modal" data-target="#productsModal"><a href="#"><span th:text="${total}+' item(s) in '"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
             </li>
         </ul>
     </div>
