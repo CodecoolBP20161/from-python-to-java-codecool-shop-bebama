@@ -27,3 +27,11 @@ function filter(filterby) {
         }
     }
 }
+
+var modal = document.getElementById("productsModal");
+
+var button = document.getElementById("cart");
+
+button.onclick = function() {
+    modal.style.display = "block";
+}
