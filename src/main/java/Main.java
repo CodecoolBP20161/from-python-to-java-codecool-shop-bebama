@@ -51,18 +51,35 @@ public class Main {
             return "";
         });
 
+
+        post("/editcart/:id", (req, res) -> {
+            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
+            int quantity = Integer.parseInt(req.queryParams("quantity"));
+            Order order = req.session().attribute("Cart");
+            for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
+                if (order.getListOfSelectedItems().get(i).getProduct().equals(product)) {
+                    if (quantity >= 1) {
+                        order.getListOfSelectedItems().get(i).setQuantity(quantity);
+                    } else {
+                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(i));
+                    }
+                }
+            }
+            req.session().attribute("Cart", order);
+            res.redirect("/");
+            return "";
+        });
+
         get("/showcart", (req, res) -> {
             JSONArray cart = new JSONArray();
             try {
                 Order order = req.session().attribute("Cart");
                 for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
                     JSONObject obj = new JSONObject();
-                    String name = order.getListOfSelectedItems().get(i).getProduct().getName();
-                    obj.put("name", name);
-                    String price = order.getListOfSelectedItems().get(i).getProduct().getPrice();
-                    obj.put("price", price);
-                    String quantity = Integer.toString(order.getListOfSelectedItems().get(i).getQuantity());
-                    obj.put("quantity", quantity);
+                    obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
+                    obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
+                    obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
+                    obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
                     cart.add(obj);
                 }
             } catch (Exception e) {
