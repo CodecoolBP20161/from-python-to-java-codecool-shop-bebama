@@ -52,23 +52,24 @@ public class Main {
         });
 
         get("/showcart", (req, res) -> {
-            JSONObject obj = new JSONObject();
-            List<JSONObject> products = new ArrayList<>();
+            JSONArray cart = new JSONArray();
             try {
                 Order order = req.session().attribute("Cart");
                 for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
+                    JSONObject obj = new JSONObject();
                     String name = order.getListOfSelectedItems().get(i).getProduct().getName();
                     obj.put("name", name);
                     String price = order.getListOfSelectedItems().get(i).getProduct().getPrice();
                     obj.put("price", price);
                     String quantity = Integer.toString(order.getListOfSelectedItems().get(i).getQuantity());
                     obj.put("quantity", quantity);
-                    products.add(obj);
+                    cart.add(obj);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return products;
+            System.out.println(cart);
+            return cart;
         });
 
         // Always add generic routes to the end
