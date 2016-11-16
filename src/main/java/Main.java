@@ -33,24 +33,16 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         //render the products by category
-        get("/category/:id",ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
+        get("/category/:id", ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
 
         //render the products by supplier
-        get("/supplier/:id",ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+        get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         post("/additemtocart", (req, res) -> {
-            ProductDaoMem products = ProductDaoMem.getInstance();
-            Product product = products.find(Integer.parseInt(req.queryParams("id")));
+            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
             int quantity = Integer.parseInt(req.queryParams("quantity"));
             LineItem item = new LineItem(product, quantity);
-            Order order = Order.getInstance();
-            order.add(item);
-            req.session().attribute("Cart", order);
-            Order test = req.session().attribute("Cart");
-            for (int i = 0; i < test.getListOfSelectedItems().size(); i++){
-                System.out.println(test.getListOfSelectedItems().get(i).getProduct());
-                System.out.println(test.getListOfSelectedItems().get(i).getQuantity());
-            }
+            Order.addItemToSession(req, item);
             res.redirect("/");
             return "";
         });
@@ -98,6 +90,4 @@ public class Main {
         productDataStore.add(new Product("AmazonPhone", 59, "USD", "Amazon's very own budget phone.", phone, amazon));
 
     }
-
-
 }
