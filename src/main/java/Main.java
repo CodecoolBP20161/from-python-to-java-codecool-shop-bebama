@@ -82,7 +82,7 @@ public class Main {
                 }
                 counter++;
             }
-//            saving the updtaed order to cart
+//            saving the updated order to cart
             req.session().attribute("Cart", order);
             res.redirect("/");
             return "";
