@@ -54,7 +54,8 @@ public class Main {
         post("/editcart", (req, res) -> {
             Order order = Order.getOrder(req);
             for (LineItem item : order.getListOfSelectedItems()) {
-                order.edit(new LineItem(item.getProduct(), Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()))));
+                int quantity = Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()));
+                order.edit(new LineItem(item.getProduct(), quantity));
             }
             req.session().attribute("Cart", order);
             res.redirect(req.queryParams("redirect"));
