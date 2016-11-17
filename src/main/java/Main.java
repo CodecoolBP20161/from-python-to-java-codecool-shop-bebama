@@ -52,7 +52,7 @@ public class Main {
         });
 
 
-        post("/editcart/:id", (req, res) -> {
+        post("/editcart", (req, res) -> {
             Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
             int quantity = Integer.parseInt(req.queryParams("quantity"));
             Order order = req.session().attribute("Cart");
