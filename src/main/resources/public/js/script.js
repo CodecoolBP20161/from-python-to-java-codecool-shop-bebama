@@ -5,11 +5,11 @@
 $(".dropdown-toggle").click(function () {
     $("#input-cat").val("");
     $("#input-sup").val("");
-})
+});
 
 
 function filter(filterby) {
-    var input, filter, ul, li, a;
+    var input, filter, a, div;
 
     if (filterby === "cat") {
         input = document.getElementById("input-cat");
@@ -33,8 +33,6 @@ function filter(filterby) {
         }
     }
 }
-
-var modal = document.getElementById("productsModal");
 
 var button = document.getElementById("cart");
 
@@ -69,7 +67,6 @@ function productsWriter(products) {
         var total = Number(products[j].quantity) * Number(products[j].price.replace(" USD", ""));
         sum += total;
         cell.innerHTML = total.toFixed(1).toString() + " USD";
-        //var cell = row.insertCell(4);
     }
     var row = table.insertRow();
     row.setAttribute("class", "product");
@@ -83,7 +80,7 @@ function productsWriter(products) {
 
 $(button).click(function () {
     clickOnCartEventHandler();
-})
+});
 
 function clickOnCartEventHandler() {
     $.ajax({
@@ -92,6 +89,6 @@ function clickOnCartEventHandler() {
         dataType: "json",
         success: function (data) {
             productsWriter(data)
-        },
+        }
     });
 }
