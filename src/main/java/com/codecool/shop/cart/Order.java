@@ -6,38 +6,43 @@ import java.util.List;
  * Created by makaimark on 2016.11.15..
  */
 public class Order {
-    private List<LineItem> listOfSelectedItems = new ArrayList<>();
-    public Order() {}
-    public void add(LineItem item){
-        Boolean match = false;
-        for (int i = 0; i < this.listOfSelectedItems.size(); i++) {
-            if (this.listOfSelectedItems.get(i).getProduct() == item.getProduct()) {
-                this.listOfSelectedItems.get(i).incQuantity(item.getQuantity());
-                match = true;
-            }
-        }
-        if (!match){
-            this.listOfSelectedItems.add(item);
+    private List<LineItem> listOfSelectedItems;
+
+    private Order(){
+        this.listOfSelectedItems = new ArrayList<>();
+    }
+
+    public static Order getOrder(Request req) {
+        if (req.session().attribute("Cart") != null) {
+            return req.session().attribute("Cart");
+        } else {
+            return new Order();
         }
     }
+
     public List<LineItem> getListOfSelectedItems(){
         return this.listOfSelectedItems;
     }
+
+    public Order add(LineItem item) {
+        LineItem product = this.find(item);
+        if (product != null) {
+            product.incQuantity(item.getQuantity());
+        } else {
+            this.listOfSelectedItems.add(item);
+        }
+        return this;
+    }
+
     public void remove(LineItem item){
         this.listOfSelectedItems.remove(item);
     }
+
+    private LineItem find(LineItem item){
+        return this.listOfSelectedItems.stream().filter(i -> i.getProduct() == item.getProduct()).findFirst().orElse(null);
+    }
+
     public int getTotalQuantity(){
         return this.listOfSelectedItems.stream().mapToInt(o -> o.getQuantity()).sum();
-    }
-    public static void addItemToSession(Request req, LineItem item) {
-        if ( req.session().attribute("Cart") != null ) {
-            Order order = req.session().attribute("Cart");
-            order.add(item);
-            req.session().attribute("Cart", order);
-        } else {
-            Order order = new Order();
-            order.add(item);
-            req.session().attribute("Cart", order);
-        }
     }
 }

@@ -48,7 +48,7 @@ public class Main {
             Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
             int quantity = Integer.parseInt(req.queryParams("quantity"));
             LineItem item = new LineItem(product, quantity);
-            Order.addItemToSession(req, item);
+            req.session().attribute("Cart", Order.getOrder(req).add(item));
             res.redirect("/");
             return "";
         });
