@@ -41,10 +41,7 @@ var button = document.getElementById("cart");
 function productsWriter(products) {
     $(".product").html("");
     var table = document.getElementById("productsTable");
-    var sum = 0;
-    for (var j = 0; j < products.length; j++) {
-
-
+    for (var j = 0; j < products.length-1; j++) {
         var row = table.insertRow();
         row.setAttribute("class", "product");
         var cell = row.insertCell(0);
@@ -66,9 +63,8 @@ function productsWriter(products) {
         var cell = row.insertCell(2);
         cell.innerHTML = products[j].price;
         var cell = row.insertCell(3);
-        var total = Number(products[j].quantity) * Number(products[j].price.replace(" USD", ""));
-        sum += total;
-        cell.innerHTML = total.toFixed(1).toString() + " USD";
+        var total = products[j].totalPrice;
+        cell.innerHTML = total.toString() + " USD";
         //var cell = row.insertCell(4);
     }
     var row = table.insertRow();
@@ -78,7 +74,7 @@ function productsWriter(products) {
     var cell = row.insertCell(2);
     cell.innerHTML = "Total price:";
     var cell = row.insertCell(3);
-    cell.innerHTML = sum.toFixed(1).toString() + " USD";
+    cell.innerHTML = products[products.length-1].totalPrice.toString() + " USD";
 }
 
 $(button).click(function () {

@@ -45,4 +45,8 @@ public class Order {
     public int getTotalQuantity(){
         return this.listOfSelectedItems.stream().mapToInt(o -> o.getQuantity()).sum();
     }
+
+    public Float getTotalPrice(){
+        return (float)this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
+    }
 }

@@ -90,15 +90,19 @@ public class Main {
         get("/showcart", (req, res) -> {
             JSONArray cart = new JSONArray();
             try {
-                Order order = req.session().attribute("Cart");
+                Order order = Order.getOrder(req);
                 for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
                     JSONObject obj = new JSONObject();
                     obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
                     obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
                     obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
+                    obj.put("totalPrice", Float.toString(order.getListOfSelectedItems().get(i).getTotalPrice()));
                     obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
                     cart.add(obj);
                 }
+                JSONObject currOrder = new JSONObject();
+                currOrder.put("totalPrice", Float.toString(order.getTotalPrice()));
+                cart.add(currOrder);
             } catch (Exception e) {
                 e.printStackTrace();
             }
