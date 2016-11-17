@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+
+<form action="/checkout" method="post">
+    <h4>Checkout page</h4>
+    <div class="modal-body">
+        <div class="input-group">
+            <input type="text" name='name' class="form-control" placeholder="Name"
+                   aria-describedby="basic-addon1" required="required"></input>
+        </div>
+
+        <h4>Email address</h4>
+        <div class="input-group">
+            <input type="text" name='email' class="form-control"
+                   placeholder="Email address" required="required"></input>
+        </div>
+
+        <h4>Phone number</h4>
+        <div class="input-group">
+            <input type="text" name='phone' class="form-control"
+                   placeholder="Phone number" required="required"></input>
+        </div>
+
+        <h4>Billing address</h4>
+        <div class="input-group">
+            <input name='billing_address' type="text" class="form-control" required="required"></input>
+        </div>
+
+        <h4>Shipping address</h4>
+        <div class="input-group">
+            <input name='shipping_address' type="text" class="form-control" required="required"></input>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-info" id="checkout">Submit</button>
+    </div>
+</form>
+
+</body>
+</html>

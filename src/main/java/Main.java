@@ -10,12 +10,13 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import org.json.simple.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static spark.Spark.*;
@@ -104,6 +105,8 @@ public class Main {
             }
             return cart;
         });
+
+        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/form")));
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
