@@ -54,35 +54,12 @@ public class Main {
             Order order = Order.getOrder(req);
             List<LineItem> copy = new ArrayList<LineItem>(order.getListOfSelectedItems());
             for (LineItem item : copy) {
-                System.out.println("wtf");
                 int quantity = Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()));
                 order.edit(new LineItem(item.getProduct(), quantity));
             }
             req.session().attribute("Cart", order);
             res.redirect(req.queryParams("redirect"));
             return "";
-        });
-
-        get("/showcart", (req, res) -> {
-            JSONArray cart = new JSONArray();
-            try {
-                Order order = Order.getOrder(req);
-                for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
-                    JSONObject obj = new JSONObject();
-                    obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
-                    obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
-                    obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
-                    obj.put("totalPrice", Float.toString(order.getListOfSelectedItems().get(i).getTotalPrice()));
-                    obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
-                    cart.add(obj);
-                }
-                JSONObject currOrder = new JSONObject();
-                currOrder.put("totalPrice", Float.toString(order.getTotalPrice()));
-                cart.add(currOrder);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return cart;
         });
 
         get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/form")));
