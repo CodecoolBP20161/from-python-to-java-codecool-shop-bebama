@@ -53,14 +53,21 @@
                         </tr>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-info">OK</button>
-                    <button type="submit" class="btn btn-success" disabled="disabled" >Checkout</button>
+                <div id="ok-btn-div">
+                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
                 </div>
             </form>
+            <div class="modal-footer">
+                <form id="checkout-btn-form" action="/checkout" method="GET">
+                    <button class="btn btn-success" id="checkout-btn" href="/checkout">
+                        Checkout
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -99,8 +106,9 @@
             </li>
         </ul>
         <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
-            <li id="cart" data-toggle="modal" data-target="#productsModal"><a href="#"><span
-                    th:text="${total}+' item(s) in '"></span><span id="cart-icon" class="glyphicon glyphicon-shopping-cart"></span></a>
+            <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
+                    th:text="${total}+' item(s) in '"></span><span id="cart-icon"
+                                                                   class="glyphicon glyphicon-shopping-cart"></span></a>
             </li>
         </ul>
     </div>

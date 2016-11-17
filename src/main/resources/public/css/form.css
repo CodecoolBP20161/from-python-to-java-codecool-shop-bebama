@@ -1,0 +1,39 @@
+.jumbotron {
+    background: url("/img/header.png");
+    background-size: 1300px 360px;
+    color: #9a9a9a;
+    font-variant: small-caps;
+    font-weight: 600;
+    font-family: 'Bungee Inline', cursive;
+}
+
+.jumbotron > h1 {
+    font-size: 80px;
+}
+
+.col-md-8 form {
+    text-align:center;
+
+    display:inline-block;
+    display:table;
+    margin:auto;
+}
+
+h4 {
+    text-align: left;
+}
+
+.input-group .form-control:first-child {
+    width: 700px;
+}
+
+#correct-data {
+    text-align: left;
+    margin-right: 30px;
+    margin-left: 200px;
+}
+
+#back-btn{
+    text-decoration: none;
+    color:white;
+}

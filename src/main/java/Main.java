@@ -10,12 +10,14 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import org.json.simple.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static spark.Spark.*;
@@ -81,7 +83,7 @@ public class Main {
                 }
                 counter++;
             }
-//            saving the updtaed order to cart
+//            saving the updated order to cart
             req.session().attribute("Cart", order);
             res.redirect("/");
             return "";
@@ -104,6 +106,24 @@ public class Main {
             }
             return cart;
         });
+
+        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/form")));
+
+        post("/checkout", (req, res) -> {
+            Order order = req.session().attribute("Cart");
+            Map<String, String> shippingDetails = new HashMap<String, String>();
+            shippingDetails.put("name", req.queryParams("name"));
+            shippingDetails.put("email", req.queryParams("email"));
+            shippingDetails.put("phone", req.queryParams("phone"));
+            shippingDetails.put("billingAddress", req.queryParams("billing_address"));
+            shippingDetails.put("shippingAddress", req.queryParams("shipping_address"));
+            order.setCheckoutItems(order, shippingDetails);
+            res.redirect("/payment");
+            return "";
+        });
+
+        get("/payment", (req, res) ->
+            new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/payment")));
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());

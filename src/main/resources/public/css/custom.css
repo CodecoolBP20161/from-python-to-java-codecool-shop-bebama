@@ -158,6 +158,12 @@ tr:nth-child(even) {
     color: white;
 }
 
+#ok-btn, #ok-btn-div {
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
 .jumbotron {
     background: url("/img/header.png");
     background-size: 1300px 360px;
@@ -169,5 +175,4 @@ tr:nth-child(even) {
 
 .jumbotron > h1 {
     font-size: 80px;
-
 }

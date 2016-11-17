@@ -1,0 +1,16 @@
+.jumbotron {
+    background: url("/img/header.png");
+    background-size: 1300px 360px;
+    color: #9a9a9a;
+    font-variant: small-caps;
+    font-weight: 600;
+    font-family: 'Bungee Inline', cursive;
+}
+
+.jumbotron > h1 {
+    font-size: 80px;
+}
+
+h2 {
+    font-family: 'Bungee Inline', cursive;
+}

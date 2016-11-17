@@ -1,15 +1,41 @@
 package com.codecool.shop.cart;
+
 import spark.Request;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * Created by makaimark on 2016.11.15..
  */
 public class Order {
+
+    private String status;
+
+    private Map<Order, Map<String, String>> checkoutItems = new HashMap<>();
+
     private List<LineItem> listOfSelectedItems;
 
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
+    }
+
+    public void setOrder(String status){
+        this.status = status;
+    }
+
+    public String getStatus(){
+        return this.status;
+    }
+
+    public void setCheckoutItems(Order order, Map<String, String> items){
+        this.checkoutItems.put(order, items);
+    }
+
+    public Map<Order, Map<String, String>> getCheckoutItems(){
+        return this.checkoutItems;
     }
 
     public static Order getOrder(Request req) {
