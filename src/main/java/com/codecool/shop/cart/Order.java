@@ -60,6 +60,15 @@ public class Order {
         return this;
     }
 
+    public void edit(LineItem item) {
+        LineItem product = this.find(item);
+        if (item.getQuantity() != 0){
+            product.setQuantity(item.getQuantity());
+        } else {
+            this.remove(product);
+        }
+    }
+
     public void remove(LineItem item){
         this.listOfSelectedItems.remove(item);
     }
@@ -70,5 +79,9 @@ public class Order {
 
     public int getTotalQuantity(){
         return this.listOfSelectedItems.stream().mapToInt(o -> o.getQuantity()).sum();
+    }
+
+    public Float getTotalPrice(){
+        return (float)this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
     }
 }

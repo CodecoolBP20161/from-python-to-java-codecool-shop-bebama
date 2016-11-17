@@ -56,6 +56,10 @@
                 <div id="ok-btn-div">
                     <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
                 </div>
+                <div class="modal-footer">
+                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
+                    <button type="submit">OK</button>
+                </div>
             </form>
             <div class="modal-footer">
                 <form id="checkout-btn-form" action="/checkout" method="GET">
@@ -115,7 +119,7 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="container" th:each="category,iterStat : ${filterCategories}">
+    <div class="container" th:each="category,iterStat : ${filter}">
         <div class="well well-sm">
             <strong th:text="${category.name}">Category Title</strong>
         </div>
@@ -137,6 +141,7 @@
                                     <button type="submit" class="btn btn-success">Add to cart</button>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
+                                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
                                     <input hidden="hidden" name="id" th:value="${prod.id}"></input>
                                     <input type="number" class="quantity" name="quantity" value="1" min="1"
                                            max="100"></input>

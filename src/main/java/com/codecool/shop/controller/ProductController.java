@@ -21,41 +21,37 @@ public class ProductController {
     private static Map params = new HashMap<>();
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        params.put("filterCategories", params.get("categories"));
-        int total = 0;
-        Order order = req.session().attribute("Cart");
-        try {
-            for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
-                total += order.getListOfSelectedItems().get(i).getQuantity();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        params.put("total", total);
+        setParams(req);
+        params.put("filter", params.get("categories"));
+        params.put("redirect", "/");
         return new ModelAndView(params, "product/index");
     }
 
     public static ModelAndView renderProductsByProductCategory(Request req, Response res) {
+        setParams(req);
+        int categoryId = Integer.parseInt(req.params(":id"));
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         List<ProductCategory> category = new ArrayList<>();
-        category.add(productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("filterCategories", category);
+        category.add(productCategoryDataStore.find(categoryId));
+        params.put("filter", category);
+        params.put("redirect", "/category/" + categoryId);
         return new ModelAndView(params, "product/index");
     }
 
     public static ModelAndView renderProductsBySupplier(Request req, Response res) {
+        setParams(req);
+        int supplierId = Integer.parseInt(req.params(":id"));
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         List<Supplier> supplier = new ArrayList<>();
-        supplier.add(supplierDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("filterCategories", supplier);
+        supplier.add(supplierDataStore.find(supplierId));
+        params.put("filter", supplier);
+        params.put("redirect", "/supplier/" + supplierId);
         return new ModelAndView(params, "product/index");
     }
 
-    public static void setCategories() {
-        params.put("categories", ProductCategoryDaoMem.getInstance().getAll());
-    }
-
-    public static void setSuppliers() {
-        params.put("suppliers", SupplierDaoMem.getInstance().getAll());
-    }
+   public static void setParams(Request req) {
+       params.put("categories", ProductCategoryDaoMem.getInstance().getAll());
+       params.put("suppliers", SupplierDaoMem.getInstance().getAll());
+       params.put("total", Order.getOrder(req).getTotalQuantity());
+   }
 }
