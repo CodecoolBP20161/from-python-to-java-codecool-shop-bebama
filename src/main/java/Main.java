@@ -122,9 +122,8 @@ public class Main {
             return "";
         });
 
-        get("/payment", (req, res) -> {
-            return "Under developement.";
-        });
+        get("/payment", (req, res) ->
+            new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/payment")));
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());

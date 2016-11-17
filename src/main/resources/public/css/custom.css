@@ -162,6 +162,8 @@ tr:nth-child(even) {
     text-align: right;
     margin-right: 10px;
     margin-bottom: 5px;
+}
+
 .jumbotron {
     background: url("/img/header.png");
     background-size: 1300px 360px;

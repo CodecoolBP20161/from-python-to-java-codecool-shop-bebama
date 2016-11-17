@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Codecool Shop</title>
+    <title>Codecool Shop - Checkout</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -23,45 +23,62 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/form.css"/>
+    <!-- Custom font from google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet"></link>
 </head>
 
 <body>
-
-<form action="/checkout" method="post">
-    <h4>Checkout page</h4>
-    <div class="modal-body">
-        <div class="input-group">
-            <input type="text" name='name' class="form-control" placeholder="Name"
-                   aria-describedby="basic-addon1" required="required"></input>
-        </div>
-
-        <h4>Email address</h4>
-        <div class="input-group">
-            <input type="text" name='email' class="form-control"
-                   placeholder="Email address" required="required"></input>
-        </div>
-
-        <h4>Phone number</h4>
-        <div class="input-group">
-            <input type="text" name='phone' class="form-control"
-                   placeholder="Phone number" required="required"></input>
-        </div>
-
-        <h4>Billing address</h4>
-        <div class="input-group">
-            <input name='billing_address' type="text" class="form-control" required="required"></input>
-        </div>
-
-        <h4>Shipping address</h4>
-        <div class="input-group">
-            <input name='shipping_address' type="text" class="form-control" required="required"></input>
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron text-center">
+            <h1>Codecool Shop</h1>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-info" id="checkout">Submit</button>
-    </div>
-</form>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+                <h2>Checkout page</h2>
+                <form class="form" action="/checkout" method="post" id="checkout-form">
+                    <br></br>
+                    <h4>Name</h4>
+                    <div class="input-group">
+                            <input type="text" name='name' class="form-control" placeholder="Name"
+                                   aria-describedby="basic-addon1" required="required"></input>
+                        </div>
 
+                        <h4>Email address</h4>
+                        <div class="input-group">
+                            <input type="email" name='email' class="form-control"
+                                   placeholder="Email address" required="required"></input>
+                        </div>
+
+                        <h4>Phone number</h4>
+                        <div class="input-group">
+                            <input type="text" name='phone' class="form-control"
+                                   placeholder="Phone number" required="required"></input>
+                        </div>
+
+                        <h4>Billing address</h4>
+                        <div class="input-group">
+                            <textarea name='billing_address' class="form-control" required="required" placeholder="Billing address"></textarea>
+                        </div>
+
+                        <h4>Shipping address</h4>
+                        <div class="input-group">
+                            <textarea name='shipping_address' class="form-control" required="required" placeholder="Shipping address"></textarea>
+                        </div>
+                    <div class="modal-footer">
+                        <span id="correct-data">
+                        <input type="checkbox" required="required"> My details are correct. Proceed to payment page.</input></span>
+                        <button type="submit" class="btn btn-success btn-md" id="checkout">Submit</button>
+                    </div>
+                </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<div th:replace="footer :: copy"></div>
 </body>
 </html>
