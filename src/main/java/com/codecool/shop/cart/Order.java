@@ -12,12 +12,22 @@ import java.util.Map;
  */
 public class Order {
 
+    private String status;
+
     private Map<String, String> checkoutItems = new HashMap<>();
 
     private List<LineItem> listOfSelectedItems;
 
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
+    }
+
+    public void setOrder(String status){
+        this.status = status;
+    }
+
+    public String getStatus(){
+        return this.status;
     }
 
     public void setCheckoutItems(Map<String, String> items){
