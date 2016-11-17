@@ -48,11 +48,6 @@ function productsWriter(products) {
         cell.innerHTML = products[j].name;
         var cell = row.insertCell(1);
         var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.name = "id_"+products[j].id;
-        input.value = products[j].id;
-        cell.appendChild(input);
-        var input = document.createElement("input");
         input.type = "number";
         input.name = "quantity_" + products[j].id;
         input.value = products[j].quantity;
