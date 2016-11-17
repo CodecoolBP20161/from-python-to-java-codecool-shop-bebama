@@ -54,11 +54,8 @@
                     </table>
                 </div>
                 <div id="ok-btn-div">
-                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
-                </div>
-                <div class="modal-footer">
                     <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
-                    <button type="submit">OK</button>
+                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
                 </div>
             </form>
             <div class="modal-footer">
@@ -80,8 +77,9 @@
                     class="glyphicon glyphicon-home"></span> Home</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span
-                    class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+            <li class="dropdown"><a id="href-cat" class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                <span
+                        class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
                     <div id="search-cat">
@@ -95,7 +93,8 @@
             </li>
         </ul>
         <ul class="nav navbar-nav">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Suppliers <span
+            <li class="dropdown" id="dropdown-sup"><a id="href-sup" class="dropdown-toggle" data-toggle="dropdown"
+                                                      href="#">Suppliers <span
                     class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
