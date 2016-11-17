@@ -51,15 +51,17 @@
                         </tr>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-info">OK</button>
+                <div id="ok-btn-div">
+                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
                 </div>
             </form>
-            <form action="/checkout" method="GET">
-            <button class="btn btn-success" id="checkoutButton" href="/checkout">
-                Checkout
-            </button>
-            </form>
+            <div class="modal-footer">
+                <form id="checkout-btn-form" action="/checkout" method="GET">
+                    <button class="btn btn-success" id="checkout-btn" href="/checkout">
+                        Checkout
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

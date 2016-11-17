@@ -155,3 +155,9 @@ tr:nth-child(even) {
 #cart:active, #cart > a:active, #cart:hover #cart > a:hover{
     color: white;
 }
+
+#ok-btn, #ok-btn-div {
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
