@@ -34,6 +34,15 @@ public class Order {
         return this;
     }
 
+    public void edit(LineItem item) {
+        LineItem product = this.find(item);
+        if (item.getQuantity() != 0){
+            product.setQuantity(item.getQuantity());
+        } else {
+            this.listOfSelectedItems.remove(product);
+        }
+    }
+
     public void remove(LineItem item){
         this.listOfSelectedItems.remove(item);
     }

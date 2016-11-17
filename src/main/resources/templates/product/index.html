@@ -52,6 +52,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
                     <button type="submit">OK</button>
                 </div>
             </form>
@@ -104,6 +105,7 @@
 </nav>
 
 <div class="container-fluid">
+    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
     <div class="container" th:each="category,iterStat : ${filter}">
         <div class="well well-sm">
             <strong th:text="${category.name}">Category Title</strong>
