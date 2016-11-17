@@ -14,7 +14,7 @@ public class Order {
 
     private String status;
 
-    private Map<String, String> checkoutItems = new HashMap<>();
+    private Map<Order, Map<String, String>> checkoutItems = new HashMap<>();
 
     private List<LineItem> listOfSelectedItems;
 
@@ -30,11 +30,11 @@ public class Order {
         return this.status;
     }
 
-    public void setCheckoutItems(Map<String, String> items){
-        this.checkoutItems = items;
+    public void setCheckoutItems(Order order, Map<String, String> items){
+        this.checkoutItems.put(order, items);
     }
 
-    public Map<String, String> getCheckoutItems(){
+    public Map<Order, Map<String, String>> getCheckoutItems(){
         return this.checkoutItems;
     }
 
