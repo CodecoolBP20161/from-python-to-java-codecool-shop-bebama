@@ -15,10 +15,7 @@ import org.json.simple.JSONObject;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -34,8 +31,6 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
-        ProductController.setSuppliers();
-        ProductController.setCategories();
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
@@ -51,56 +46,39 @@ public class Main {
             int quantity = Integer.parseInt(req.queryParams("quantity"));
             LineItem item = new LineItem(product, quantity);
             req.session().attribute("Cart", Order.getOrder(req).add(item));
-            res.redirect("/");
+            res.redirect(req.queryParams("redirect"));
             return "";
         });
         
         post("/editcart", (req, res) -> {
-            Set<String> changes = new HashSet<String>();
-            changes = req.queryParams();
-//            empty Product to override in loop
-            Product product = new Product("", 0f, "USD", "", new ProductCategory("", "", ""), new Supplier("", ""));
-            int counter = 1;
-            Order order = req.session().attribute("Cart");
-            for (String i : changes) {
-                //            counting iterations : even -> quantity, odd -> product id
-                if (counter % 2 == 0) {
-                    String q = req.queryParams(i);
-                    int quantity = Integer.parseInt(q);
-//                    iterating the cart, if the current product matches AND the quantity is 1<, increase, otherwise remove from cart
-                    for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
-                        if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
-                            if (quantity >= 1) {
-                                order.getListOfSelectedItems().get(t).setQuantity(quantity);
-                            } else {
-                                order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
-                            }
-                        }
-                    }
-                } else {
-                    String id = i.substring(3);
-                    product = ProductDaoMem.getInstance().find(Integer.parseInt(id));
-                }
-                counter++;
+            Order order = Order.getOrder(req);
+            List<LineItem> copy = new ArrayList<LineItem>(order.getListOfSelectedItems());
+            for (LineItem item : copy) {
+                System.out.println("wtf");
+                int quantity = Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()));
+                order.edit(new LineItem(item.getProduct(), quantity));
             }
-//            saving the updated order to cart
             req.session().attribute("Cart", order);
-            res.redirect("/");
+            res.redirect(req.queryParams("redirect"));
             return "";
         });
 
         get("/showcart", (req, res) -> {
             JSONArray cart = new JSONArray();
             try {
-                Order order = req.session().attribute("Cart");
+                Order order = Order.getOrder(req);
                 for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
                     JSONObject obj = new JSONObject();
                     obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
                     obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
                     obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
+                    obj.put("totalPrice", Float.toString(order.getListOfSelectedItems().get(i).getTotalPrice()));
                     obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
                     cart.add(obj);
                 }
+                JSONObject currOrder = new JSONObject();
+                currOrder.put("totalPrice", Float.toString(order.getTotalPrice()));
+                cart.add(currOrder);
             } catch (Exception e) {
                 e.printStackTrace();
             }
