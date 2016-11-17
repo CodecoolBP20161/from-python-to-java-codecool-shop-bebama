@@ -14,3 +14,7 @@
 h2 {
     font-family: 'Bungee Inline', cursive;
 }
+
+.col-md-8 {
+    text-align: center;
+}
