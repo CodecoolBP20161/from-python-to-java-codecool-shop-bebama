@@ -63,7 +63,6 @@
 
 
 .dropdown-toggle {
-    background-color: #000;
     color: white;
     padding: 16px 32px;
     margin: auto 16px;
@@ -135,4 +134,24 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.well, .well-sm {
+    color: #dddddd;
+    background: linear-gradient(#454545, #757575);
+}
+
+#cart-icon {
+    font-size: 17px;
+}
+
+#cart {
+    background-color: #9a9a9a;
+}
+
+#cart > a {
+    color: black;
+}
+#cart:active, #cart > a:active, #cart:hover #cart > a:hover{
+    color: white;
 }
