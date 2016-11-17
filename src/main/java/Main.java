@@ -32,8 +32,6 @@ public class Main {
 
         // populate some data for the memory storage
         populateData();
-        ProductController.setSuppliers();
-        ProductController.setCategories();
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
@@ -49,7 +47,7 @@ public class Main {
             int quantity = Integer.parseInt(req.queryParams("quantity"));
             LineItem item = new LineItem(product, quantity);
             req.session().attribute("Cart", Order.getOrder(req).add(item));
-            res.redirect("/");
+            res.redirect(req.queryParams("redirect"));
             return "";
         });
         
