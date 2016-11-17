@@ -14,7 +14,9 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import org.json.simple.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -50,6 +52,40 @@ public class Main {
             res.redirect("/");
             return "";
         });
+        
+        post("/editcart", (req, res) -> {
+            Set<String> changes = new HashSet<String>();
+            changes = req.queryParams();
+//            empty Product to override in loop
+            Product product = new Product("", 0f, "USD", "", new ProductCategory("", "", ""), new Supplier("", ""));
+            int counter = 1;
+            Order order = req.session().attribute("Cart");
+            for (String i : changes) {
+                //            counting iterations : even -> quantity, odd -> product id
+                if (counter % 2 == 0) {
+                    String q = req.queryParams(i);
+                    int quantity = Integer.parseInt(q);
+//                    iterating the cart, if the current product matches AND the quantity is 1<, increase, otherwise remove from cart
+                    for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
+                        if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
+                            if (quantity >= 1) {
+                                order.getListOfSelectedItems().get(t).setQuantity(quantity);
+                            } else {
+                                order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
+                            }
+                        }
+                    }
+                } else {
+                    String id = i.substring(3);
+                    product = ProductDaoMem.getInstance().find(Integer.parseInt(id));
+                }
+                counter++;
+            }
+//            saving the updtaed order to cart
+            req.session().attribute("Cart", order);
+            res.redirect("/");
+            return "";
+        });
 
         get("/showcart", (req, res) -> {
             JSONArray cart = new JSONArray();
@@ -57,12 +93,10 @@ public class Main {
                 Order order = req.session().attribute("Cart");
                 for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
                     JSONObject obj = new JSONObject();
-                    String name = order.getListOfSelectedItems().get(i).getProduct().getName();
-                    obj.put("name", name);
-                    String price = order.getListOfSelectedItems().get(i).getProduct().getPrice();
-                    obj.put("price", price);
-                    String quantity = Integer.toString(order.getListOfSelectedItems().get(i).getQuantity());
-                    obj.put("quantity", quantity);
+                    obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
+                    obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
+                    obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
+                    obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
                     cart.add(obj);
                 }
             } catch (Exception e) {
@@ -115,3 +149,4 @@ public class Main {
 
     }
 }
+
