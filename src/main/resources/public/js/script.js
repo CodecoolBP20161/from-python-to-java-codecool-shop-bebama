@@ -62,7 +62,7 @@ function productsWriter(products) {
         var cell = row.insertCell(3);
         var total = Number(products[j].quantity) * Number(products[j].price.replace(" USD", ""));
         sum += total;
-        cell.innerHTML = total.toString() + " USD";
+        cell.innerHTML = total.toFixed(1).toString() + " USD";
         //var cell = row.insertCell(4);
     }
     var row = table.insertRow();
@@ -72,7 +72,7 @@ function productsWriter(products) {
     var cell = row.insertCell(2);
     cell.innerHTML = "Total price:";
     var cell = row.insertCell(3);
-    cell.innerHTML = sum.toString() + " USD";
+    cell.innerHTML = sum.toFixed(1).toString() + " USD";
 }
 
 $(button).click(function () {
