@@ -14,7 +14,9 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import org.json.simple.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -53,19 +55,45 @@ public class Main {
 
 
         post("/editcart", (req, res) -> {
-            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
-            int quantity = Integer.parseInt(req.queryParams("quantity"));
+            Set<String> changes = new HashSet<String>();
+            changes = req.queryParams();
+            Product product = new Product("", 0f, "USD", "", new ProductCategory("","",""), new Supplier("", ""));
+            int counter = 1;
             Order order = req.session().attribute("Cart");
-            for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
-                if (order.getListOfSelectedItems().get(i).getProduct().equals(product)) {
+            for (String i : changes){
+                if (counter%2==0){
+                    String q = req.queryParams(i);
+                    int quantity = Integer.parseInt(q);
+                    for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
+                if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
                     if (quantity >= 1) {
-                        order.getListOfSelectedItems().get(i).setQuantity(quantity);
+                        order.getListOfSelectedItems().get(t).setQuantity(quantity);
                     } else {
-                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(i));
+                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
                     }
                 }
             }
-            req.session().attribute("Cart", order);
+                }
+                else{
+                    String id = i.substring(3);
+                    product = ProductDaoMem.getInstance().find(Integer.parseInt(id));
+                }
+                counter++;
+//            int quantity = Integer.parseInt(req.queryParams("quantity"));
+//            Order order = req.session().attribute("Cart");
+//            for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
+//                if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
+//                    if (quantity >= 1) {
+//                        order.getListOfSelectedItems().get(t).setQuantity(quantity);
+//                    } else {
+//                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
+//                    }
+//                }
+//            }
+
+            }
+//
+//            req.session().attribute("Cart", order);
             res.redirect("/");
             return "";
         });
@@ -132,3 +160,4 @@ public class Main {
 
     }
 }
+

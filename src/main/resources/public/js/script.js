@@ -37,23 +37,24 @@ function productsWriter(products) {
     var table = document.getElementById("productsTable");
     var sum = 0;
     for (var j = 0; j < products.length; j++) {
+
+
         var row = table.insertRow();
         row.setAttribute("class", "product");
         var cell = row.insertCell(0);
         cell.innerHTML = products[j].name;
         var cell = row.insertCell(1);
         var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.name = "id_"+products[j].id;
+        input.value = products[j].id;
+        cell.appendChild(input);
+        var input = document.createElement("input");
         input.type = "number";
-        input.name = "quantity";
+        input.name = "quantity_" + products[j].id;
         input.value = products[j].quantity;
         input.setAttribute("min", 0);
         input.setAttribute("max", 100);
-        cell.appendChild(input);
-
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.name = "id";
-        input.value = products[j].id;
         cell.appendChild(input);
 
         var cell = row.insertCell(2);
