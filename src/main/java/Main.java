@@ -52,48 +52,37 @@ public class Main {
             res.redirect("/");
             return "";
         });
-
-
+        
         post("/editcart", (req, res) -> {
             Set<String> changes = new HashSet<String>();
             changes = req.queryParams();
-            Product product = new Product("", 0f, "USD", "", new ProductCategory("","",""), new Supplier("", ""));
+//            empty Product to override in loop
+            Product product = new Product("", 0f, "USD", "", new ProductCategory("", "", ""), new Supplier("", ""));
             int counter = 1;
             Order order = req.session().attribute("Cart");
-            for (String i : changes){
-                if (counter%2==0){
+            for (String i : changes) {
+                //            counting iterations : even -> quantity, odd -> product id
+                if (counter % 2 == 0) {
                     String q = req.queryParams(i);
                     int quantity = Integer.parseInt(q);
+//                    iterating the cart, if the current product matches AND the quantity is 1<, increase, otherwise remove from cart
                     for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
-                if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
-                    if (quantity >= 1) {
-                        order.getListOfSelectedItems().get(t).setQuantity(quantity);
-                    } else {
-                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
+                        if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
+                            if (quantity >= 1) {
+                                order.getListOfSelectedItems().get(t).setQuantity(quantity);
+                            } else {
+                                order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
+                            }
+                        }
                     }
-                }
-            }
-                }
-                else{
+                } else {
                     String id = i.substring(3);
                     product = ProductDaoMem.getInstance().find(Integer.parseInt(id));
                 }
                 counter++;
-//            int quantity = Integer.parseInt(req.queryParams("quantity"));
-//            Order order = req.session().attribute("Cart");
-//            for (int t = 0; t < order.getListOfSelectedItems().size(); t++) {
-//                if (order.getListOfSelectedItems().get(t).getProduct().equals(product)) {
-//                    if (quantity >= 1) {
-//                        order.getListOfSelectedItems().get(t).setQuantity(quantity);
-//                    } else {
-//                        order.getListOfSelectedItems().remove(order.getListOfSelectedItems().get(t));
-//                    }
-//                }
-//            }
-
             }
-//
-//            req.session().attribute("Cart", order);
+//            saving the updtaed order to cart
+            req.session().attribute("Cart", order);
             res.redirect("/");
             return "";
         });
