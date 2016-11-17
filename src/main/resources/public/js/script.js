@@ -2,6 +2,12 @@
  * Created by cickib on 2016.11.14..
  */
 
+$(".dropdown-toggle").click(function () {
+    $("#input-cat").val("");
+    $("#input-sup").val("");
+})
+
+
 function filter(filterby) {
     var input, filter, ul, li, a;
 
