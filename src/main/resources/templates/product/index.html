@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Codecool Shop</title>
 
@@ -13,18 +13,20 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+    <!-- Custom font from google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet"></link>
+    <link rel="icon" type="image/png" href="img/logo.png" sizes="32x32"></link>
 </head>
 
 <body>
@@ -33,35 +35,128 @@
     <h1>Codecool Shop</h1>
 </div>
 
-<div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+<div class="modal fade" id="productsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/editcart" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Products in your cart</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="productsTable">
+                        <tr id="productHeader">
+                            <td>Product</td>
+                            <td>Quantity</td>
+                            <td>Unit price</td>
+                            <td>Total price</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ok-btn-div">
+                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
+                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <form id="checkout-btn-form" action="/checkout" method="GET">
+                    <button class="btn btn-success" id="checkout-btn" href="/checkout">
+                        Checkout
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div id="products" class="row list-group">
 
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="/"><span
+                    class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a id="href-cat" class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                <span
+                        class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
+                    <div id="search-cat">
+                        <li>
+                            <div th:each="category,iterStat : ${categories}">
+                                <a th:text="${category.name}" th:href="'/category/'+${category.id}">Category</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li class="dropdown" id="dropdown-sup"><a id="href-sup" class="dropdown-toggle" data-toggle="dropdown"
+                                                      href="#">Suppliers <span
+                    class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
+                    <div id="search-sup">
+                        <li>
+                            <div th:each="supplier,iterStat : ${suppliers}">
+                                <a th:text="${supplier.name}" th:href="'/supplier/'+${supplier.id}">Supplier</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </li>
+        </ul>
+        <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
+            <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
+                    th:text="${total}+' item(s) in '"></span><span id="cart-icon"
+                                                                   class="glyphicon glyphicon-shopping-cart"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="container" th:each="category,iterStat : ${filter}">
+        <div class="well well-sm">
+            <strong th:text="${category.name}">Category Title</strong>
+        </div>
+        <div id="products" class="row list-group">
+            <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${category.products}">
+                <div class="thumbnail">
+                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                         th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                        <p class="group inner list-group-item-text" th:text="${prod.description}">Product
+                            description... </p>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <form action="/additemtocart" method="post">
+                                <div class="col-xs-12 col-md-3">
+                                    <button type="submit" class="btn btn-success">Add to cart</button>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
+                                    <input hidden="hidden" name="id" th:value="${prod.id}"></input>
+                                    <input type="number" class="quantity" name="quantity" value="1" min="1"
+                                           max="100"></input>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-
 </div>
-
 <div th:replace="footer :: copy"></div>
+<script src="/js/script.js"></script>
 
 </body>
 </html>
