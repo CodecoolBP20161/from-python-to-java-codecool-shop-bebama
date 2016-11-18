@@ -25,7 +25,7 @@ public class CartController {
 
     public static Response editCart(Request req, Response res) {
         Order order = Order.getOrder(req);
-        List<LineItem> copy = new ArrayList<LineItem>(order.getListOfSelectedItems());
+        List<LineItem> copy = new ArrayList<>(order.getListOfSelectedItems());
         for (LineItem item : copy) {
             int quantity = Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()));
             order.edit(new LineItem(item.getProduct(), quantity));
@@ -35,14 +35,13 @@ public class CartController {
     }
 
     public static Response checkOut(Request req, Response res) {
-        Order order = Order.getOrder(req);
-        Map<String, String> shippingDetails = new HashMap<String, String>();
+        Map<String, String> shippingDetails = new HashMap<>();
         shippingDetails.put("name", req.queryParams("name"));
         shippingDetails.put("email", req.queryParams("email"));
         shippingDetails.put("phone", req.queryParams("phone"));
         shippingDetails.put("billingAddress", req.queryParams("billing_address"));
         shippingDetails.put("shippingAddress", req.queryParams("shipping_address"));
-        order.setCheckoutItems(order, shippingDetails);
+        Order.getOrder(req).setCheckoutItems(shippingDetails);
         res.redirect("/payment");
         return res;
     }

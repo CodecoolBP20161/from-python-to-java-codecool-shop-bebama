@@ -13,14 +13,14 @@ import java.util.Map;
 public class Order {
 
     private String status;
-    private Map<Order, Map<String, String>> checkoutItems = new HashMap<>();
+    private Map<String, String> checkoutItems = new HashMap<>();
     private List<LineItem> listOfSelectedItems;
 
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
     }
 
-    public void setOrder(String status){
+    public void setStatus(String status){
         this.status = status;
     }
 
@@ -28,11 +28,11 @@ public class Order {
         return this.status;
     }
 
-    public void setCheckoutItems(Order order, Map<String, String> items){
-        this.checkoutItems.put(order, items);
+    public void setCheckoutItems(Map<String, String> items){
+        this.checkoutItems = items;
     }
 
-    public Map<Order, Map<String, String>> getCheckoutItems(){
+    public Map<String, String> getCheckoutItems(){
         return this.checkoutItems;
     }
 
@@ -61,12 +61,8 @@ public class Order {
         if (item.getQuantity() != 0){
             product.setQuantity(item.getQuantity());
         } else {
-            this.remove(product);
+            this.listOfSelectedItems.remove(product);
         }
-    }
-
-    public void remove(LineItem item){
-        this.listOfSelectedItems.remove(item);
     }
 
     private LineItem find(LineItem item){

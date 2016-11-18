@@ -13,6 +13,8 @@ import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 
+import java.util.HashMap;
+
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
@@ -28,26 +30,15 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
-        // Always start with more specific routes
+        // define routes
         get("/hello", (req, res) -> "Hello World");
-
-        //render the products by category
         get("/category/:id", ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
-
-        //render the products by supplier
         get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
-
         post("/additemtocart", CartController::addItemToCart);
-        
         post("/editcart", CartController::editCart);
-
-        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView("", "product/form")));
-
+        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/form")));
         post("/checkout", CartController::checkOut);
-
-        get("/payment", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView("", "product/payment")));
-
-        // Always add generic routes to the end
+        get("/payment", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/payment")));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen
