@@ -39,25 +39,23 @@ public class Order {
     }
 
     public static Order getOrder(Request req) {
-        if (req.session().attribute("Cart") != null) {
-            return req.session().attribute("Cart");
-        } else {
-            return new Order();
+        if (req.session().attribute("Cart") == null) {
+            req.session().attribute("Cart", new Order());
         }
+        return req.session().attribute("Cart");
     }
 
     public List<LineItem> getListOfSelectedItems(){
         return this.listOfSelectedItems;
     }
 
-    public Order add(LineItem item) {
+    public void add(LineItem item) {
         LineItem product = this.find(item);
         if (product != null) {
             product.incQuantity(item.getQuantity());
         } else {
             this.listOfSelectedItems.add(item);
         }
-        return this;
     }
 
     public void edit(LineItem item) {
