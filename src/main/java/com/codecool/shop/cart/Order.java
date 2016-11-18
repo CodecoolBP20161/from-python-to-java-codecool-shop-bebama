@@ -13,9 +13,7 @@ import java.util.Map;
 public class Order {
 
     private String status;
-
     private Map<Order, Map<String, String>> checkoutItems = new HashMap<>();
-
     private List<LineItem> listOfSelectedItems;
 
     private Order(){

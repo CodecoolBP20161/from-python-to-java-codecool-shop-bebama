@@ -1,5 +1,3 @@
-import com.codecool.shop.cart.LineItem;
-import com.codecool.shop.cart.Order;
 import com.codecool.shop.controller.CartController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
@@ -11,13 +9,9 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import spark.ModelAndView;
-import spark.Request;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.*;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
