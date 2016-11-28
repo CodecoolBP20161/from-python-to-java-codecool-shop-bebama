@@ -10,10 +10,6 @@ import java.util.Map;
 
 public interface OrderInterface {
 
-    String status = "status";
-    Map<String, String> checkoutItems = new HashMap<>();
-    List<LineItem> listOfSelectedItems = new ArrayList<>();
-
     void setStatus(String status);
 
     String getStatus();
