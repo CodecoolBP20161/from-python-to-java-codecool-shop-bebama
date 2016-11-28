@@ -1,6 +1,7 @@
-import com.codecool.shop.cart.LineItem;
-import com.codecool.shop.cart.Order;
+import com.codecool.shop.controller.CartController;
+import com.codecool.shop.controller.CategoryController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.SupplierController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -10,12 +11,11 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.*;
+
+import java.util.HashMap;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -32,78 +32,15 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
-        // Always start with more specific routes
+        // define routes
         get("/hello", (req, res) -> "Hello World");
-
-        //render the products by category
-        get("/category/:id", ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
-
-        //render the products by supplier
-        get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
-
-        post("/additemtocart", (req, res) -> {
-            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("id")));
-            int quantity = Integer.parseInt(req.queryParams("quantity"));
-            LineItem item = new LineItem(product, quantity);
-            req.session().attribute("Cart", Order.getOrder(req).add(item));
-            res.redirect(req.queryParams("redirect"));
-            return "";
-        });
-        
-        post("/editcart", (req, res) -> {
-            Order order = Order.getOrder(req);
-            List<LineItem> copy = new ArrayList<LineItem>(order.getListOfSelectedItems());
-            for (LineItem item : copy) {
-                System.out.println("wtf");
-                int quantity = Integer.parseInt(req.queryParams("quantity_" + item.getProduct().getId()));
-                order.edit(new LineItem(item.getProduct(), quantity));
-            }
-            req.session().attribute("Cart", order);
-            res.redirect(req.queryParams("redirect"));
-            return "";
-        });
-
-        get("/showcart", (req, res) -> {
-            JSONArray cart = new JSONArray();
-            try {
-                Order order = Order.getOrder(req);
-                for (int i = 0; i < order.getListOfSelectedItems().size(); i++) {
-                    JSONObject obj = new JSONObject();
-                    obj.put("name", order.getListOfSelectedItems().get(i).getProduct().getName());
-                    obj.put("price", order.getListOfSelectedItems().get(i).getProduct().getPrice());
-                    obj.put("quantity", Integer.toString(order.getListOfSelectedItems().get(i).getQuantity()));
-                    obj.put("totalPrice", Float.toString(order.getListOfSelectedItems().get(i).getTotalPrice()));
-                    obj.put("id", Integer.toString(order.getListOfSelectedItems().get(i).getProduct().getId()));
-                    cart.add(obj);
-                }
-                JSONObject currOrder = new JSONObject();
-                currOrder.put("totalPrice", Float.toString(order.getTotalPrice()));
-                cart.add(currOrder);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return cart;
-        });
-
-        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/form")));
-
-        post("/checkout", (req, res) -> {
-            Order order = req.session().attribute("Cart");
-            Map<String, String> shippingDetails = new HashMap<String, String>();
-            shippingDetails.put("name", req.queryParams("name"));
-            shippingDetails.put("email", req.queryParams("email"));
-            shippingDetails.put("phone", req.queryParams("phone"));
-            shippingDetails.put("billingAddress", req.queryParams("billing_address"));
-            shippingDetails.put("shippingAddress", req.queryParams("shipping_address"));
-            order.setCheckoutItems(order, shippingDetails);
-            res.redirect("/payment");
-            return "";
-        });
-
-        get("/payment", (req, res) ->
-            new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(){{put("","");}}, "product/payment")));
-
-        // Always add generic routes to the end
+        get("/category/:id", CategoryController::renderProducts, new ThymeleafTemplateEngine());
+        get("/supplier/:id", SupplierController::renderProducts, new ThymeleafTemplateEngine());
+        post("/additemtocart", CartController::addItemToCart);
+        post("/editcart", CartController::editCart);
+        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/form")));
+        post("/checkout", CartController::checkOut);
+        get("/payment", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/payment")));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen

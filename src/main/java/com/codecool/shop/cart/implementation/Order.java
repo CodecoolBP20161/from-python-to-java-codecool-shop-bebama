@@ -1,5 +1,7 @@
-package com.codecool.shop.cart;
+package com.codecool.shop.cart.implementation;
 
+import com.codecool.shop.cart.LineItem;
+import com.codecool.shop.cart.OrderInterface;
 import spark.Request;
 
 import java.util.ArrayList;
@@ -10,19 +12,17 @@ import java.util.Map;
 /**
  * Created by makaimark on 2016.11.15..
  */
-public class Order {
+public class Order implements OrderInterface{
 
     private String status;
-
-    private Map<Order, Map<String, String>> checkoutItems = new HashMap<>();
-
+    private Map<String, String> checkoutItems = new HashMap<>();
     private List<LineItem> listOfSelectedItems;
 
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
     }
 
-    public void setOrder(String status){
+    public void setStatus(String status){
         this.status = status;
     }
 
@@ -30,34 +30,32 @@ public class Order {
         return this.status;
     }
 
-    public void setCheckoutItems(Order order, Map<String, String> items){
-        this.checkoutItems.put(order, items);
+    public void setCheckoutItems(Map<String, String> items){
+        this.checkoutItems = items;
     }
 
-    public Map<Order, Map<String, String>> getCheckoutItems(){
+    public Map<String, String> getCheckoutItems(){
         return this.checkoutItems;
     }
 
     public static Order getOrder(Request req) {
-        if (req.session().attribute("Cart") != null) {
-            return req.session().attribute("Cart");
-        } else {
-            return new Order();
+        if (req.session().attribute("Cart") == null) {
+            req.session().attribute("Cart", new Order());
         }
+        return req.session().attribute("Cart");
     }
 
     public List<LineItem> getListOfSelectedItems(){
         return this.listOfSelectedItems;
     }
 
-    public Order add(LineItem item) {
+    public void add(LineItem item) {
         LineItem product = this.find(item);
         if (product != null) {
             product.incQuantity(item.getQuantity());
         } else {
             this.listOfSelectedItems.add(item);
         }
-        return this;
     }
 
     public void edit(LineItem item) {
@@ -65,15 +63,10 @@ public class Order {
         if (item.getQuantity() != 0){
             product.setQuantity(item.getQuantity());
         } else {
-            this.remove(product);
+            this.listOfSelectedItems.remove(product);
         }
     }
-
-    public void remove(LineItem item){
-        this.listOfSelectedItems.remove(item);
-    }
-
-    private LineItem find(LineItem item){
+    public LineItem find(LineItem item){
         return this.listOfSelectedItems.stream().filter(i -> i.getProduct() == item.getProduct()).findFirst().orElse(null);
     }
 
