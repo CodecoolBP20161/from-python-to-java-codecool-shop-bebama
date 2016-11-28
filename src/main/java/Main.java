@@ -1,5 +1,7 @@
 import com.codecool.shop.controller.CartController;
+import com.codecool.shop.controller.CategoryController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.SupplierController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -32,8 +34,8 @@ public class Main {
 
         // define routes
         get("/hello", (req, res) -> "Hello World");
-        get("/category/:id", ProductController::renderProductsByProductCategory, new ThymeleafTemplateEngine());
-        get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+        get("/category/:id", CategoryController::renderProducts, new ThymeleafTemplateEngine());
+        get("/supplier/:id", SupplierController::renderProducts, new ThymeleafTemplateEngine());
         post("/additemtocart", CartController::addItemToCart);
         post("/editcart", CartController::editCart);
         get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/form")));
