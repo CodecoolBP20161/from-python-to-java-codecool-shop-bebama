@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
@@ -9,7 +10,6 @@ import com.codecool.shop.model.Supplier;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import com.codecool.shop.cart.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

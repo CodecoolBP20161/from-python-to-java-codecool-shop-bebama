@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.cart.LineItem;
-import com.codecool.shop.cart.Order;
+import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import spark.Request;

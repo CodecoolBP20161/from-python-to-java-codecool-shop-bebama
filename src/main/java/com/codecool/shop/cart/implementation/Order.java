@@ -1,5 +1,7 @@
-package com.codecool.shop.cart;
+package com.codecool.shop.cart.implementation;
 
+import com.codecool.shop.cart.LineItem;
+import com.codecool.shop.cart.OrderInterface;
 import spark.Request;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.Map;
 /**
  * Created by makaimark on 2016.11.15..
  */
-public class Order {
+public class Order implements OrderInterface{
 
     private String status;
     private Map<String, String> checkoutItems = new HashMap<>();
@@ -64,8 +66,7 @@ public class Order {
             this.listOfSelectedItems.remove(product);
         }
     }
-
-    private LineItem find(LineItem item){
+    public LineItem find(LineItem item){
         return this.listOfSelectedItems.stream().filter(i -> i.getProduct() == item.getProduct()).findFirst().orElse(null);
     }
 
