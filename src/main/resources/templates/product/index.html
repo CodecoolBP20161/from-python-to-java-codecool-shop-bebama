@@ -52,6 +52,12 @@
                             <td>Unit price</td>
                             <td>Total price</td>
                         </tr>
+                        <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
+                            <td th:text="${item.getProduct().getName()}">Product Name</td>
+                            <td><input type="number" th:name="quantity_+${item.getProduct().getId()}" min="0" max="100" th:value="${item.getQuantity()}"/></td>
+                            <td th:text="${item.getProduct().getDefaultPrice()}+ USD">1.0 USD</td>
+                            <td th:text="${item.getTotalPrice()}+ USD">1.0 USD</td>
+                        </tr>
                     </table>
                 </div>
                 <div id="ok-btn-div">
@@ -109,9 +115,9 @@
                 </ul>
             </li>
         </ul>
-        <ul th:if="${total!=0}" class="nav navbar-nav navbar-right">
+        <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
             <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
-                    th:text="${total}+' item(s) in '"></span><span id="cart-icon"
+                    th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
                                                                    class="glyphicon glyphicon-shopping-cart"></span></a>
             </li>
         </ul>

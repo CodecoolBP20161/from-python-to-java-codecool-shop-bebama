@@ -52,6 +52,6 @@ public class ProductController {
    public static void setParams(Request req) {
        params.put("categories", ProductCategoryDaoMem.getInstance().getAll());
        params.put("suppliers", SupplierDaoMem.getInstance().getAll());
-       params.put("total", Order.getOrder(req).getTotalQuantity());
+       params.put("order", Order.getOrder(req));
    }
 }
