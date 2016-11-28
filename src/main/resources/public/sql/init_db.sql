@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS category;
-
-CREATE TABLE category
+CREATE TABLE IF NOT EXISTS category
 (
   id INT PRIMARY KEY,
   name VARCHAR(40),
@@ -8,18 +6,16 @@ CREATE TABLE category
   department VARCHAR(10)
 );
 
-DROP TABLE IF EXISTS supplier;
 
-CREATE TABLE supplier
+CREATE TABLE IF NOT EXISTS supplier
 (
   id INT PRIMARY KEY,
   name VARCHAR(40),
   description VARCHAR(100)
 );
 
-DROP TABLE IF EXISTS product;
 
-CREATE TABLE product
+CREATE TABLE IF NOT EXISTS product
 (
   id INT PRIMARY KEY,
   name VARCHAR(40),
