@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS product
   id SERIAL PRIMARY KEY,
   name TEXT,
   description TEXT,
-  defaultPrice INT,
+  defaultPrice FLOAT,
   defaultCurrency TEXT,
   categoryId INT,
   FOREIGN KEY (categoryId) REFERENCES category(id),

@@ -3,6 +3,7 @@ package com.codecool.shop;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -23,7 +24,7 @@ public class DefaultStock {
 //        implementation based on memory
         if (dataStorage.equals("memory")) {
             this.productDataStore = ProductDaoMem.getInstance();
-            this.productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+            this.productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
             this.supplierDataStore = SupplierDaoMem.getInstance();
         }
 //        implementation based on database
