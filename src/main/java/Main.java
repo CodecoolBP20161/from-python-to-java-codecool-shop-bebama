@@ -1,8 +1,5 @@
 import com.codecool.shop.DefaultStock;
-import com.codecool.shop.controller.CartController;
-import com.codecool.shop.controller.CategoryController;
-import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.controller.SupplierController;
+import com.codecool.shop.controller.*;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
