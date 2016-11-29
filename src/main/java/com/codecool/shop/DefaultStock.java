@@ -1,4 +1,5 @@
 package com.codecool.shop;
+
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
@@ -8,16 +9,16 @@ import com.codecool.shop.model.*;
  */
 public class DefaultStock {
 
-    ProductDao productDataStore;
     ProductCategoryDao productCategoryDataStore;
     SupplierDao supplierDataStore;
+    ProductDao productDataStore;
 
     public DefaultStock(String dataStorage) {
 //        implementation based on memory
         if (dataStorage.equals("memory")) {
-            this.productDataStore = ProductDaoMem.getInstance();
-            this.productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+            this.productCategoryDataStore = ProductCategoryDaoMem.getInstance();
             this.supplierDataStore = SupplierDaoMem.getInstance();
+            this.productDataStore = ProductDaoMem.getInstance();
         }
 //        implementation based on database
         else {
@@ -29,9 +30,9 @@ public class DefaultStock {
 
 
     public void populateData() {
-        ProductDao productDataStore = getProductDataStore();
         ProductCategoryDao productCategoryDataStore = getProductCategoryDataStore();
         SupplierDao supplierDataStore = getSupplierDataStore();
+        ProductDao productDataStore = getProductDataStore();
 
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
