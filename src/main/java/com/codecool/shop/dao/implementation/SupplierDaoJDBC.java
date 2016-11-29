@@ -40,6 +40,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
+
         String query = "SELECT * FROM supplier WHERE id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
@@ -77,6 +78,8 @@ public class SupplierDaoJDBC implements SupplierDao {
                 Supplier supplier = new Supplier(
                         resultSet.getString("name"),
                         resultSet.getString("description"));
+                supplier.setId(resultSet.getInt("id"));
+                supplier.setProducts(ProductDaoJDBC.getInstance().getBy(supplier));
                 resultList.add(supplier);
             }
         } catch (SQLException e) {

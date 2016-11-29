@@ -24,7 +24,7 @@ public class DefaultStock {
         else {
             this.productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
             this.supplierDataStore = SupplierDaoJDBC.getInstance();
-            this.productDataStore = (ProductDao) ProductDaoJDBC.getInstance();
+            this.productDataStore = ProductDaoJDBC.getInstance();
         }
     }
 

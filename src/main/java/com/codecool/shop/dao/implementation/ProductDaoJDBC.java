@@ -1,15 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by makaimark on 2016.11.29..
  */
@@ -17,16 +14,21 @@ public class ProductDaoJDBC implements ProductDao {
     private static final String DBURL = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+    private static int counter;
+
     private static ProductDaoJDBC instance = null;
+
     public static ProductDaoJDBC getInstance() {
         if (instance == null) {
             instance = new ProductDaoJDBC();
         }
         return instance;
     }
+
     @Override
     public void add(Product product) {
-        try(Connection connection = getConnection()) {
+        product.setId(++counter);
+        try (Connection connection = getConnection()) {
             PreparedStatement query = connection.prepareStatement("INSERT INTO product (name, description, defaultPrice, defaultCurrency, categoryId, supplierId) VALUES (?, ?, ?, ?, ?, ?);");
             query.setString(1, product.getName());
             query.setString(2, product.getDescription());
@@ -40,14 +42,15 @@ public class ProductDaoJDBC implements ProductDao {
             e.printStackTrace();
         }
     }
+
     @Override
     public Product find(int id) {
         String query = "SELECT * FROM product WHERE id ='" + id + "';";
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 ProductCategoryDao category = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category1 = category.find(Integer.parseInt(resultSet.getString("categoryId")));
                 SupplierDao supplier = SupplierDaoJDBC.getInstance();
@@ -68,11 +71,13 @@ public class ProductDaoJDBC implements ProductDao {
         }
         return null;
     }
+
     @Override
     public void remove(int id) {
         String query = "DELETE FROM product WHERE id = '" + id + "';";
         executeQuery(query);
     }
+
     @Override
     public List<Product> getAll() {
         String query = "SELECT id FROM product;";
@@ -83,6 +88,7 @@ public class ProductDaoJDBC implements ProductDao {
         ) {
             while (resultSet.next()) {
                 Product product = find(resultSet.getInt("id"));
+                product.setId(resultSet.getInt("id"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
@@ -90,15 +96,16 @@ public class ProductDaoJDBC implements ProductDao {
         }
         return resultList;
     }
+
     @Override
-    public List<Product> getBy(Supplier supplier) {
+    public ArrayList<Product> getBy(Supplier supplier) {
         String query = "SELECT * FROM product WHERE supplierid ='" + supplier.getId() + "';";
-        List<Product> resultList = new ArrayList<>();
+        ArrayList<Product> resultList = new ArrayList<>();
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 ProductCategoryDao category = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category1 = category.find(Integer.parseInt(resultSet.getString("categoryId")));
                 Float defaultPrice = Float.parseFloat(resultSet.getString("defaultPrice").replaceAll(resultSet.getString("defaultCurrency"), ""));
@@ -113,17 +120,18 @@ public class ProductDaoJDBC implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return resultList;
     }
+
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
+    public ArrayList<Product> getBy(ProductCategory productCategory) {
         String query = "SELECT * FROM product WHERE categoryid ='" + productCategory.getId() + "';";
-        List<Product> resultList = new ArrayList<>();
+        ArrayList<Product> resultList = new ArrayList<>();
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
-        ){
-            if (resultSet.next()){
+        ) {
+            if (resultSet.next()) {
                 SupplierDao supplierdao = SupplierDaoJDBC.getInstance();
                 Supplier supplier1 = supplierdao.find(Integer.parseInt(resultSet.getString("supplierId")));
                 Float defaultPrice = Float.parseFloat(resultSet.getString("defaultPrice").replaceAll(resultSet.getString("defaultCurrency"), ""));
@@ -140,16 +148,18 @@ public class ProductDaoJDBC implements ProductDao {
         }
         return resultList;
     }
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DBURL,
                 DB_USER,
                 DB_PASSWORD);
     }
+
     private void executeQuery(String query) {
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
+             Statement statement = connection.createStatement();
+        ) {
             statement.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -80,6 +80,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getString("department"));
+                category.setProducts(ProductDaoJDBC.getInstance().getBy(category));
+                category.setId(resultSet.getInt("id"));
                 resultList.add(category);
             }
         } catch (SQLException e) {
