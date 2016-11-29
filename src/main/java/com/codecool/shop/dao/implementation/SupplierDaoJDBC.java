@@ -50,6 +50,8 @@ public class SupplierDaoJDBC implements SupplierDao {
                 Supplier result = new Supplier(
                         resultSet.getString("name"),
                         resultSet.getString("description"));
+                result.setId(id);
+                result.setProducts(ProductDaoJDBC.getInstance().getBy(result));
                 return result;
             } else {
                 return null;
@@ -57,6 +59,7 @@ public class SupplierDaoJDBC implements SupplierDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 

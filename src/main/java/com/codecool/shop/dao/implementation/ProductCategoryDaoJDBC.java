@@ -41,6 +41,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
+
         String query = "SELECT * FROM category WHERE id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
@@ -49,8 +50,10 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             if (resultSet.next()) {
                 ProductCategory result = new ProductCategory(
                         resultSet.getString("name"),
-                        resultSet.getString("description"),
-                        resultSet.getString("department"));
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
+//                result.setId(id);
+                result.setProducts(ProductDaoJDBC.getInstance().getBy(result));
                 return result;
             } else {
                 return null;
@@ -80,8 +83,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getString("department"));
-                category.setProducts(ProductDaoJDBC.getInstance().getBy(category));
                 category.setId(resultSet.getInt("id"));
+                category.setProducts(ProductDaoJDBC.getInstance().getBy(category));
                 resultList.add(category);
             }
         } catch (SQLException e) {

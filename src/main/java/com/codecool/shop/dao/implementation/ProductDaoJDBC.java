@@ -62,6 +62,7 @@ public class ProductDaoJDBC implements ProductDao {
                         resultSet.getString("defaultCurrency"),
                         resultSet.getString("description"),
                         category1, supplier1);
+                result.setId(id);
                 return result;
             } else {
                 return null;
@@ -105,7 +106,7 @@ public class ProductDaoJDBC implements ProductDao {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ) {
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 ProductCategoryDao category = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory category1 = category.find(Integer.parseInt(resultSet.getString("categoryId")));
                 Float defaultPrice = Float.parseFloat(resultSet.getString("defaultPrice").replaceAll(resultSet.getString("defaultCurrency"), ""));
@@ -115,6 +116,7 @@ public class ProductDaoJDBC implements ProductDao {
                         resultSet.getString("defaultCurrency"),
                         resultSet.getString("description"),
                         category1, supplier);
+                result.setId(resultSet.getInt("id"));
                 resultList.add(result);
             }
         } catch (SQLException e) {
@@ -124,23 +126,24 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     @Override
-    public ArrayList<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM product WHERE categoryid ='" + productCategory.getId() + "';";
+    public ArrayList<Product> getBy(ProductCategory category) {
+        String query = "SELECT * FROM product WHERE categoryid ='" + category.getId() + "';";
         ArrayList<Product> resultList = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ) {
-            if (resultSet.next()) {
-                SupplierDao supplierdao = SupplierDaoJDBC.getInstance();
-                Supplier supplier1 = supplierdao.find(Integer.parseInt(resultSet.getString("supplierId")));
+            while (resultSet.next()) {
+                SupplierDao supplier = SupplierDaoJDBC.getInstance();
+                Supplier supplier1 = supplier.find(Integer.parseInt(resultSet.getString("supplierId")));
                 Float defaultPrice = Float.parseFloat(resultSet.getString("defaultPrice").replaceAll(resultSet.getString("defaultCurrency"), ""));
                 Product result = new Product(
                         resultSet.getString("name"),
                         defaultPrice,
                         resultSet.getString("defaultCurrency"),
                         resultSet.getString("description"),
-                        productCategory, supplier1);
+                        category, supplier1);
+                result.setId(resultSet.getInt("id"));
                 resultList.add(result);
             }
         } catch (SQLException e) {
