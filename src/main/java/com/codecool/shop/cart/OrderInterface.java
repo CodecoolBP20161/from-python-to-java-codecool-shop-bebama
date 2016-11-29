@@ -8,17 +8,25 @@ import java.util.Map;
 
 public interface OrderInterface {
 
+    static Order getOrder(Request req) {
+        return req.session().attribute("Cart");
+    }
+
     void setStatus(String status);
 
     String getStatus();
 
-    void setCheckoutItems(Map<String, String> items);
+    void setCheckoutFields(Request req) throws NoSuchFieldException, IllegalAccessException;
 
-    Map<String, String> getCheckoutItems();
+    String getName();
 
-    static Order getOrder(Request req) {
-        return req.session().attribute("Cart");
-    }
+    String getEmail();
+
+    String getPhone();
+
+    String getBillingAddress();
+
+    String getShippingAddress();
 
     List<LineItem> getListOfSelectedItems();
 
