@@ -1,15 +1,7 @@
 package com.codecool.shop;
-
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoJDBC;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.*;
 
 /**
  * Created by cickib on 2016.11.28..
@@ -29,7 +21,9 @@ public class DefaultStock {
         }
 //        implementation based on database
         else {
-//            this.productCategoryDataStore = new ProductCategoryDaoJDBC();
+            this.productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+            this.supplierDataStore = SupplierDaoJDBC.getInstance();
+            this.productDataStore = (ProductDao) ProductDaoJDBC.getInstance();
         }
     }
 
@@ -52,7 +46,7 @@ public class DefaultStock {
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
-        ProductCategory phone = new ProductCategory("Phone", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        ProductCategory phone = new ProductCategory("Phone", "Hardware", "Smart phones and mobile phones (also known as cell phones) with an advanced mobile operating system.");
         productCategoryDataStore.add(phone);
         ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "Laptop. Just because.");
         productCategoryDataStore.add(laptop);
