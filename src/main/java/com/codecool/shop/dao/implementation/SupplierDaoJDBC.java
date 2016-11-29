@@ -4,7 +4,8 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by cickib on 2016.11.29..
@@ -13,6 +14,7 @@ public class SupplierDaoJDBC implements SupplierDao {
     private static final String DBURL = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+    private static int counter;
 
     private static SupplierDaoJDBC instance = null;
 
@@ -25,6 +27,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
+        supplier.setId(++counter);
         try (Connection connection = getConnection()) {
             PreparedStatement query = connection.prepareStatement("INSERT INTO supplier (name, description) VALUES (?, ?);");
             query.setString(1, supplier.getName());

@@ -21,7 +21,7 @@ public class Main {
         port(8888);
 
         // populate some data for the memory storage
-        DefaultStock stock = new DefaultStock("memory");
+        DefaultStock stock = new DefaultStock("");
         stock.populateData();
 
         // define routes
