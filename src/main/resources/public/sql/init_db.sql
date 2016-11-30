@@ -1,29 +1,26 @@
 CREATE TABLE IF NOT EXISTS category
 (
-  id SERIAL PRIMARY KEY,
-  name TEXT,
+  c_id SERIAL PRIMARY KEY,
+  c_name TEXT,
   department TEXT,
-  description TEXT
+  c_description TEXT
 );
 
 
 CREATE TABLE IF NOT EXISTS supplier
 (
-  id SERIAL PRIMARY KEY,
-  name TEXT,
-  description TEXT
+  s_id SERIAL PRIMARY KEY,
+  s_name TEXT,
+  s_description TEXT
 );
 
 
 CREATE TABLE IF NOT EXISTS product
 (
-  id SERIAL PRIMARY KEY,
-  name TEXT,
-  description TEXT,
-  defaultPrice TEXT,
-  defaultCurrency TEXT,
-  categoryId INT,
-  FOREIGN KEY (categoryId) REFERENCES category(id),
-  supplierId INT,
-  FOREIGN KEY (supplierId) REFERENCES supplier(id)
-);
+  p_id SERIAL PRIMARY KEY,
+  p_name TEXT,
+  P_description TEXT,
+  defaultprice TEXT,
+  defaultcurrency TEXT,
+  categoryid INT,
+  supplierid INT);

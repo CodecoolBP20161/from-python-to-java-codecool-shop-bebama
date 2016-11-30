@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.cart.implementation.Order;
-import com.codecool.shop.dao.implementation.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.jdbc.ProductDaoJDBC;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

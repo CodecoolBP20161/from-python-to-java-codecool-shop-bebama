@@ -4,7 +4,6 @@ import com.codecool.shop.cart.implementation.Order;
 import spark.Request;
 
 import java.util.List;
-import java.util.Map;
 
 public interface OrderInterface {
 

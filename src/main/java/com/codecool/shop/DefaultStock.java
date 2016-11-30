@@ -1,7 +1,8 @@
 package com.codecool.shop;
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.dao.implementation.jdbc.*;
+import com.codecool.shop.dao.implementation.mem.*;
 import com.codecool.shop.model.*;
 
 /**
@@ -41,20 +42,27 @@ public class DefaultStock {
             //setting up a new supplier
             Supplier amazon = new Supplier("Amazon", "Digital content and services");
             supplierDataStore.add(amazon);
+            amazon = supplierDataStore.find(1);
             Supplier lenovo = new Supplier("Lenovo", "Computers");
             supplierDataStore.add(lenovo);
+            lenovo = supplierDataStore.find(2);
             Supplier apple = new Supplier("Apple", "Phones");
             supplierDataStore.add(apple);
+            apple = supplierDataStore.find(3);
             Supplier samsung = new Supplier("Samsung", "Computers");
             supplierDataStore.add(samsung);
+            samsung = supplierDataStore.find(4);
 
             //setting up a new product category
             ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
             productCategoryDataStore.add(tablet);
+            tablet = productCategoryDataStore.find(1);
             ProductCategory phone = new ProductCategory("Phone", "Hardware", "Smart phones and mobile phones (also known as cell phones) with an advanced mobile operating system.");
             productCategoryDataStore.add(phone);
+            phone = productCategoryDataStore.find(2);
             ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "Laptop. Just because.");
             productCategoryDataStore.add(laptop);
+            laptop = productCategoryDataStore.find(3);
             ProductCategory accessories = new ProductCategory("Accessories", "Hardware", "Cell phones have become one of the most crucial personal technology purchases. Buy cell phone, iPhone case, or Bluetooth headset.");
             productCategoryDataStore.add(accessories);
 

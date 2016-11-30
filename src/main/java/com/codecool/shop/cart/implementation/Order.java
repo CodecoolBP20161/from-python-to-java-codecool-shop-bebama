@@ -89,9 +89,9 @@ public class Order implements OrderInterface{
             this.listOfSelectedItems.remove(product);
         }
     }
-    
+
     public LineItem find(LineItem item){
-        return this.listOfSelectedItems.stream().filter(i -> i.getProduct() == item.getProduct()).findFirst().orElse(null);
+        return this.listOfSelectedItems.stream().filter(i -> i.getProduct().getId() == item.getProduct().getId()).findFirst().orElse(null);
     }
 
     public int getTotalQuantity(){
