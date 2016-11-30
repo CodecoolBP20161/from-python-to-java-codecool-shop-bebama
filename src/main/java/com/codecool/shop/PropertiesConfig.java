@@ -13,7 +13,7 @@ public class PropertiesConfig {
 
         try {
 
-            output = new FileOutputStream("config.properties");
+            output = new FileOutputStream("./src/main/resources/connection.properties");
 
             // set the properties value
             prop.setProperty("DBURL", "jdbc:postgresql://localhost:5432/codecoolshop");
