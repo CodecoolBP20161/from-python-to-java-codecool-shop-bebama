@@ -1,8 +1,10 @@
 import com.codecool.shop.DefaultStock;
 import com.codecool.shop.controller.*;
+import com.codecool.shop.dao.implementation.jdbc.AbstractDaoJDBC;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import static spark.Spark.*;
@@ -10,7 +12,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -18,6 +20,7 @@ public class Main {
         port(8888);
 
         // populate some data for the memory storage
+        AbstractDaoJDBC.setConnection();
         DefaultStock stock = new DefaultStock("");
         stock.populateData();
 
