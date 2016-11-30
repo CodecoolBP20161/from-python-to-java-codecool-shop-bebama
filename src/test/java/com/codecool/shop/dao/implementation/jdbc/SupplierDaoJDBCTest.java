@@ -65,7 +65,7 @@ public class SupplierDaoJDBCTest {
 
     @Test
     public void getAll() throws Exception {
-//        we know that at the moment there's only 4 categories in the db
+//        we know that at the moment there's only 4 suppliers in the db
         assertEquals(4, instance.getAll().size());
     }
 
@@ -76,6 +76,6 @@ public class SupplierDaoJDBCTest {
 
     @After
     public void tearDown() throws Exception {
-        instance.getAll().stream().filter(cat -> cat.getId() >= 5).forEach(cat -> instance.remove(cat.getId()));
+        instance.getAll().stream().filter(sup -> sup.getId() >= 5).forEach(sup -> instance.remove(sup.getId()));
     }
 }
