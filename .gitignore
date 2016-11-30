@@ -10,6 +10,8 @@ target/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+/src/main/resources/connection.properties
+
 # Package Files #
 *.jar
 *.war
