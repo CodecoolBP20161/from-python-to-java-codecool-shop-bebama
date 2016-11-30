@@ -51,7 +51,7 @@ public class ProductCategoryDaoTest {
     @Test
     public void remove() throws Exception {
         int before = instance.getAll().size();
-        instance.remove(1);
+        instance.remove(before);
         int after = instance.getAll().size();
         assert (after < before);
     }
