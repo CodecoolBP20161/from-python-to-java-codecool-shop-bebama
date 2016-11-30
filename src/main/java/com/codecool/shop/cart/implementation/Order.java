@@ -4,22 +4,33 @@ import com.codecool.shop.cart.LineItem;
 import com.codecool.shop.cart.OrderInterface;
 import spark.Request;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by makaimark on 2016.11.15..
  */
 public class Order implements OrderInterface{
 
+    private static String[] fields = new String[]{"name", "email", "phone", "billingAddress", "shippingAddress"};
     private String status;
-    private Map<String, String> checkoutItems = new HashMap<>();
+    private String name;
+    private String email;
+    private String phone;
+    private String billingAddress;
+    private String shippingAddress;
     private List<LineItem> listOfSelectedItems;
 
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
+    }
+
+    public static Order getOrder(Request req) {
+        if (req.session().attribute("Cart") == null) {
+            req.session().attribute("Cart", new Order());
+        }
+        return req.session().attribute("Cart");
     }
 
     public void setStatus(String status){
@@ -30,19 +41,31 @@ public class Order implements OrderInterface{
         return this.status;
     }
 
-    public void setCheckoutItems(Map<String, String> items){
-        this.checkoutItems = items;
-    }
-
-    public Map<String, String> getCheckoutItems(){
-        return this.checkoutItems;
-    }
-
-    public static Order getOrder(Request req) {
-        if (req.session().attribute("Cart") == null) {
-            req.session().attribute("Cart", new Order());
+    public void setCheckoutFields(Request req) throws NoSuchFieldException, IllegalAccessException {
+        for (String field : fields){
+            Field f = this.getClass().getDeclaredField(field);
+            f.set(this, req.queryParams(field));
         }
-        return req.session().attribute("Cart");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 
     public List<LineItem> getListOfSelectedItems(){
@@ -66,8 +89,9 @@ public class Order implements OrderInterface{
             this.listOfSelectedItems.remove(product);
         }
     }
+
     public LineItem find(LineItem item){
-        return this.listOfSelectedItems.stream().filter(i -> i.getProduct() == item.getProduct()).findFirst().orElse(null);
+        return this.listOfSelectedItems.stream().filter(i -> i.getProduct().getId() == item.getProduct().getId()).findFirst().orElse(null);
     }
 
     public int getTotalQuantity(){
