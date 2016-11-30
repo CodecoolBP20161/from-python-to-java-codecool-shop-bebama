@@ -1,17 +1,12 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by cickib on 2016.11.30..
@@ -38,12 +33,11 @@ public class SupplierDaoTest {
 
     @Test
     public void add() throws Exception {
-
         int before = instance.getAll().size();
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         instance.add(lenovo);
         int after = instance.getAll().size();
-        assert( after > before );
+        assert (after > before);
     }
 
     @Test
@@ -56,7 +50,7 @@ public class SupplierDaoTest {
         int before = instance.getAll().size();
         instance.remove(1);
         int after = instance.getAll().size();
-        assert( before > after );
+        assert (before > after);
     }
 
     @Test
@@ -66,10 +60,7 @@ public class SupplierDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        instance.remove(1);
-        instance.remove(2);
-        instance.remove(3);
-        DATA.remove(1);
-        DATA.remove(0);
+        instance.getAll().clear();
+        DATA.clear();
     }
 }

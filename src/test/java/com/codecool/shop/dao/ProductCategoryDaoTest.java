@@ -4,7 +4,8 @@ import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.*;
 import java.util.*;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by cickib on 2016.11.30..
@@ -39,7 +40,7 @@ public class ProductCategoryDaoTest {
                 "A telefon");
         instance.add(telefon);
         int after = instance.getAll().size();
-        assert(after > before);
+        assert (after > before);
     }
 
     @Test
@@ -52,7 +53,7 @@ public class ProductCategoryDaoTest {
         int before = instance.getAll().size();
         instance.remove(1);
         int after = instance.getAll().size();
-        assert(after < before);
+        assert (after < before);
     }
 
     @Test
@@ -62,10 +63,7 @@ public class ProductCategoryDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        instance.remove(1);
-        instance.remove(2);
-        instance.remove(3);
-        DATA.remove(1);
-        DATA.remove(0);
+        instance.getAll().clear();
+        DATA.clear();
     }
 }
