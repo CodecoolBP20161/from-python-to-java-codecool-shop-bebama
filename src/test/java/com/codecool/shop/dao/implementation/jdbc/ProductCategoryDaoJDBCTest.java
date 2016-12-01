@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
+import com.codecool.shop.DefaultStock;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.*;
 import org.postgresql.jdbc.PgConnection;
@@ -18,6 +19,11 @@ public class ProductCategoryDaoJDBCTest {
 
     @Before
     public void setUp() throws Exception {
+//        tests use the test db
+        AbstractDaoJDBC.setConnection("testConnection.properties");
+        DefaultStock stock = new DefaultStock("");
+        stock.populateData();
+
         instance = ProductCategoryDaoJDBC.getInstance();
         category = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         category.setId(1);
