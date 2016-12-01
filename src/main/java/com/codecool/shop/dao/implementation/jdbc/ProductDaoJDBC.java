@@ -65,7 +65,7 @@ public class ProductDaoJDBC extends AbstractDaoJDBC implements ProductDao {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
         ) {
-            statement.execute("DELETE FROM product WHERE id = '" + id + "';");
+            statement.execute("DELETE FROM product WHERE p_id = '" + id + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
