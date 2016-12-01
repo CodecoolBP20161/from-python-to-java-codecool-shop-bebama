@@ -8,17 +8,17 @@ import java.util.Properties;
 public class PropertiesConfig {
 
 
-    public static void config(String db, String file_name) {
+    public static void config() {
 
         Properties prop = new Properties();
         OutputStream output = null;
 
         try {
 
-            output = new FileOutputStream("./src/main/resources/" + file_name);
+            output = new FileOutputStream("./src/main/resources/connection.properties");
 
             // set the properties value
-            prop.setProperty("DBURL", "jdbc:postgresql://localhost:5432/" + db);
+            prop.setProperty("DBURL", "jdbc:postgresql://localhost:5432/codecoolshop");
             prop.setProperty("DB_USER", "postgres");
             prop.setProperty("DB_PASSWORD", "postgres");
 

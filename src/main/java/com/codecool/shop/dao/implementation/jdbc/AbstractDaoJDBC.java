@@ -18,9 +18,9 @@ public class AbstractDaoJDBC {
         return DriverManager.getConnection(DBURL, DB_USER, DB_PASSWORD);
     }
 
-    public static void setConnection(String fileName) throws IOException {
+    public static void setConnection(String config) throws IOException {
         Properties pro = new Properties();
-        FileInputStream in = new FileInputStream("./src/main/resources/" + fileName);
+        FileInputStream in = new FileInputStream("./src/main/resources/" + config);
         pro.load(in);
 
         // getting values from property file
