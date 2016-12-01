@@ -1,4 +1,5 @@
 import com.codecool.shop.DefaultStock;
+import com.codecool.shop.PropertiesConfig;
 import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.implementation.jdbc.AbstractDaoJDBC;
 import spark.ModelAndView;
@@ -20,6 +21,7 @@ public class Main {
         port(8888);
 
         // populate some data for the memory storage
+        PropertiesConfig.config("codecoolshop", "connection.properties");
         AbstractDaoJDBC.setConnection();
         DefaultStock stock = new DefaultStock("");
         stock.populateData();

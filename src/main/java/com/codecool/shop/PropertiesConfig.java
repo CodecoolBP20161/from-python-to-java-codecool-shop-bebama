@@ -6,17 +6,19 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 public class PropertiesConfig {
-    public static void main(String[] args) {
+
+
+    public static void config(String db, String file_name) {
 
         Properties prop = new Properties();
         OutputStream output = null;
 
         try {
 
-            output = new FileOutputStream("./src/main/resources/connection.properties");
+            output = new FileOutputStream("./src/main/resources/" + file_name);
 
             // set the properties value
-            prop.setProperty("DBURL", "jdbc:postgresql://localhost:5432/codecoolshop");
+            prop.setProperty("DBURL", "jdbc:postgresql://localhost:5432/" + db);
             prop.setProperty("DB_USER", "postgres");
             prop.setProperty("DB_PASSWORD", "postgres");
 
