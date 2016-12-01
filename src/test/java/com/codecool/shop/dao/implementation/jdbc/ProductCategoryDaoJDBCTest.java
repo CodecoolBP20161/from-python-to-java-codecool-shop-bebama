@@ -47,15 +47,11 @@ public class ProductCategoryDaoJDBCTest {
         instance.add(category);
 //        The id of the last element is needed, but it's different with every run of of the test, hence a query to get the current last id
         int result = 0;
-        try (Connection connection = instance.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT c_id FROM category ORDER BY c_id DESC LIMIT 1");
-        ) {
-            if (rs.next()) {
-                result = rs.getInt("c_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection connection = instance.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT c_id FROM category ORDER BY c_id DESC LIMIT 1");
+        if (rs.next()) {
+            result = rs.getInt("c_id");
         }
         int before = instance.getAll().size();
         instance.remove(result);
