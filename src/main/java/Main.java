@@ -22,7 +22,7 @@ public class Main {
 
         // populate some data for the memory storage
         PropertiesConfig.config("codecoolshop", "connection.properties");
-        AbstractDaoJDBC.setConnection();
+        AbstractDaoJDBC.setConnection("connection.properties");
         DefaultStock stock = new DefaultStock("");
         stock.populateData();
 
