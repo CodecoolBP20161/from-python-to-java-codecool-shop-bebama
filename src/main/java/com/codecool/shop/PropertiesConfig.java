@@ -6,7 +6,9 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 public class PropertiesConfig {
-    public static void main(String[] args) {
+
+
+    public static void config() {
 
         Properties prop = new Properties();
         OutputStream output = null;

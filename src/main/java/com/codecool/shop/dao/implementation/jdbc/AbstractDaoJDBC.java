@@ -1,11 +1,7 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.Properties;
 
 public class AbstractDaoJDBC {
@@ -18,9 +14,9 @@ public class AbstractDaoJDBC {
         return DriverManager.getConnection(DBURL, DB_USER, DB_PASSWORD);
     }
 
-    public static void setConnection() throws IOException {
+    public static void setConnection(String config) throws IOException {
         Properties pro = new Properties();
-        FileInputStream in = new FileInputStream("./src/main/resources/connection.properties");
+        FileInputStream in = new FileInputStream("./src/main/resources/" + config);
         pro.load(in);
 
         // getting values from property file

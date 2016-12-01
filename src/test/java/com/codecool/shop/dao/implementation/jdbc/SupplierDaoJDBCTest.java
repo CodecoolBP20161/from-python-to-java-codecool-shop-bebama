@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
+import com.codecool.shop.DefaultStock;
 import com.codecool.shop.model.Supplier;
 import org.junit.*;
 import org.postgresql.jdbc.PgConnection;
@@ -18,6 +19,11 @@ public class SupplierDaoJDBCTest {
 
     @Before
     public void setUp() throws Exception {
+//        tests use the test db
+        AbstractDaoJDBC.setConnection("testConnection.properties");
+        DefaultStock stock = new DefaultStock("");
+        stock.populateData();
+
         instance = SupplierDaoJDBC.getInstance();
         supplier = new Supplier("Amazon", "Digital content and services");
         supplier.setId(1);

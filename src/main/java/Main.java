@@ -1,6 +1,6 @@
-import com.codecool.shop.DefaultStock;
+import com.codecool.shop.*;
 import com.codecool.shop.controller.*;
-import com.codecool.shop.dao.implementation.jdbc.AbstractDaoJDBC;
+import com.codecool.shop.dao.implementation.jdbc.*;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -19,8 +19,9 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
-        // populate some data for the memory storage
-        AbstractDaoJDBC.setConnection();
+        // populate some data for the chosen storage
+        //PropertiesConfig.config();
+        AbstractDaoJDBC.setConnection("connection.properties");
         DefaultStock stock = new DefaultStock("");
         stock.populateData();
 
