@@ -1,18 +1,18 @@
 # Codecool Online Shop
 
-From Python To Java, 2nd TW week, Project skeleton
+## From Python To Java, 2nd TW week, Project skeleton
 
-# install
+### TODO
+* Import this project to IntelliJ as a Maven project.
+* IntelliJ can auto-install the dependencies from the pom.xml
 
-Import this project to IntelliJ as a Maven project.
-IntelliJ can auto-install the dependencies from the pom.xml
+### Set up the shop
+* first you need to make the codecoolshop db
+* run the init_db.sql file to create the tables
+* run the main function to upload the datas to the db
 
-1 - first you need to make the codecoolshop db
-2 - run the init_db.sql file to create the tables
-3 - run the main function to upload the datas to the db
+### Test
 
-Test
-
-1 - first you need to make the codecoolshopTest db
-2 - Just run the tests and enjoy, it works ^^
-3 - If you would like to use the origin db, run the main function again
+* first you need to make the codecoolshopTest db
+* just run the tests and enjoy, it works ^^
+* if you would like to use the origin db, run the main function again
