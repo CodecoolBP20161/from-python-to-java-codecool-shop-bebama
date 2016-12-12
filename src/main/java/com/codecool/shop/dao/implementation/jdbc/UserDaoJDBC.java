@@ -1,13 +1,12 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
+import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.dao.UserDao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.codecool.shop.HashClass.hasher;
 
 public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
     private static UserDaoJDBC instance = null;
@@ -25,7 +24,7 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
             PreparedStatement query = connection.prepareStatement("INSERT INTO category (name, email, password, welcomeEmail) VALUES (?, ?, ?, ?);");
             query.setString(1, user.getName());
             query.setString(2, user.getEmail());
-            query.setString(3, hasher(user.getPassword()));
+            query.setString(3, HashClass.hasher(user.getPassword()));
             query.setBoolean(4, user.getWelcomeEmail());
             query.executeUpdate();
         } catch (SQLException e) {
