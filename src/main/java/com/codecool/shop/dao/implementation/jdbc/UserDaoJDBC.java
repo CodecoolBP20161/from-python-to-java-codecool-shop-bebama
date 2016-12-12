@@ -10,11 +10,11 @@ import java.util.List;
 import static com.codecool.shop.HashClass.hasher;
 
 public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
-    private static ProductCategoryDaoJDBC instance = null;
+    private static UserDaoJDBC instance = null;
 
-    public static ProductCategoryDaoJDBC getInstance() {
+    public static UserDaoJDBC getInstance() {
         if (instance == null) {
-            instance = new ProductCategoryDaoJDBC();
+            instance = new UserDaoJDBC();
         }
         return instance;
     }
@@ -43,6 +43,23 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
             if (rs.next()) {
                 result = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getBoolean("welcomeEmail"));
                 result.setId(id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public User find(String name) {
+        User result = null;
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT * FROM user WHERE NAME ='" + name + "';");
+        ) {
+            if (rs.next()) {
+                result = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getBoolean("welcomeEmail"));
+                result.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

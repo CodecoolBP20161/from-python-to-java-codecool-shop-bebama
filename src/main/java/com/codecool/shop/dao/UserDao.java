@@ -8,6 +8,7 @@ public interface UserDao {
 
     void add(User user) throws Exception;
     User find(int id);
+    User find(String name);
     void remove(int id);
 
     List<User> getAll();
