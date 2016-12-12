@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    void add(User user);
+    void add(User user) throws Exception;
     User find(int id);
     void remove(int id);
 

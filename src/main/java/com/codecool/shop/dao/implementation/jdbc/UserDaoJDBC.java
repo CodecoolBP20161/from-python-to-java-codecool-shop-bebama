@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codecool.shop.HashClass.hasher;
+
 public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
     private static ProductCategoryDaoJDBC instance = null;
 
@@ -18,12 +20,12 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
     }
 
     @Override
-    public void add(User user) {
+    public void add(User user) throws Exception {
         try (Connection connection = getConnection()) {
             PreparedStatement query = connection.prepareStatement("INSERT INTO category (name, email, password, welcomeEmail) VALUES (?, ?, ?, ?);");
             query.setString(1, user.getName());
             query.setString(2, user.getEmail());
-            query.setString(3, user.getPassword());
+            query.setString(3, hasher(user.getPassword()));
             query.setBoolean(4, user.getWelcomeEmail());
             query.executeUpdate();
         } catch (SQLException e) {
