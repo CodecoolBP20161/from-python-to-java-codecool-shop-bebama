@@ -176,3 +176,19 @@ tr:nth-child(even) {
 .jumbotron > h1 {
     font-size: 80px;
 }
+
+hr {
+    display: block;
+    margin: 0.5em auto;
+    border-style: inset;
+    border-width: 1px;
+    color: #9a9a9a;
+}
+
+#signup-form {
+    margin-bottom: 10px;
+}
+
+#btns {
+    margin: 10px;
+}
