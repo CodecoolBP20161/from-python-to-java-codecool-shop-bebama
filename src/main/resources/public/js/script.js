@@ -33,3 +33,16 @@ function filter(filterby) {
         }
     }
 }
+
+$(function() {
+    $("#pwd2").keyup(function() {
+        var password = $("#pwd").val();
+        if(password == $(this).val()){
+            $("#signup-btn").removeAttr("disabled");
+        }
+        else {
+            $("#signup-btn").attr("disabled", "disabled");
+        }
+    });
+});
+// qwQW12*.
