@@ -13,6 +13,9 @@
 </head>
 
 <body>
+
+<div th:replace="navbar :: copy"></div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron text-center">
@@ -27,15 +30,16 @@
                 <br></br>
                 <h4>Name:</h4>
                 <div class="input-group">
-                    <input type="text" name='name' class="form-control" placeholder="Name"
-                           aria-describedby="basic-addon1" required="required"></input>
+                    <input type="text" id ="nameField" name='name' class="form-control" placeholder="Name"
+                           aria-describedby="basic-addon1" required="required" th:value="${name}"></input>
                 </div>
 
                 <h4>Email address:</h4>
-                <div class="input-group">
+                <div class="input-group" id="emailDiv">
                     <input type="email" name='email' class="form-control"
-                           placeholder="Email address" required="required"></input>
+                           placeholder="Email address" required="required" id ="emailField" th:value="${email}"></input>
                 </div>
+                <div th:if="${existingEmail}" id="existingEmail"></div>
 
                 <h4>Enter password:</h4>
                 <div class="input-group">
@@ -55,7 +59,7 @@ Include lower and capital letters, numbers and special characters!"></input>
                 <button type="button" class="btn btn-warning btn-md" id="back"><a id="back-btn" href="/">Back</a></button>
                 <span id="correct-data">
                         <input type="checkbox" required="required"> My details are correct. Sign me up!</input></span>
-                <button type="submit" class="btn btn-success btn-md" id="signup-btn" disabled="disabled">Submit</button>
+                <button type="submit" class="btn btn-success btn-md" id="signup-btn" disabled="disabled" label="Enter the same password!">Submit</button>
 
                 </div>
             </form>
