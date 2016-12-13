@@ -73,11 +73,11 @@ public class Email {
             Message message = new MimeMessage(session);
 
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(sender));
+//            message.setFrom(new InternetAddress(sender));
 
             // Set To: header field of the header.
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(recipient));
+            message.setRecipient(Message.RecipientType.TO,
+                    new InternetAddress(recipient));
 
             // Set Subject: header field
             message.setSubject(subject);
@@ -96,7 +96,8 @@ public class Email {
     }
 
     public static void main(String[] args) {
-        Email email = new Email("makaimark@gmail.com", "bebamashop@gmail.com", "test", "test");
+        Email email = new Email("bebamashop@gmail.com", "makaimark@gmail.com",
+                "Welcome to out fantastic webshop", "test");
         email.emailSender();
     }
 }
