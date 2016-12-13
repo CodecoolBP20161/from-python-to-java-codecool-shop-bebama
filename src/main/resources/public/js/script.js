@@ -34,10 +34,10 @@ function filter(filterby) {
     }
 }
 
-$(function() {
-    $("#pwd2").keyup(function() {
+$(function () {
+    $("#pwd2").keyup(function () {
         var password = $("#pwd").val();
-        if(password == $(this).val()){
+        if (password == $(this).val()) {
             $("#signup-btn").removeAttr("disabled");
         }
         else {
@@ -45,4 +45,11 @@ $(function() {
         }
     });
 });
-// qwQW12*.
+
+$(function () {
+    $("#emailDiv").removeClass("has-error");
+    if ($("#existingEmail").val() != null) {
+        $("#emailDiv").addClass("has-error");
+        $("#existingEmail").append('<p style="color: red">Email already exists.</p>');
+    }
+});
