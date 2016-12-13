@@ -35,7 +35,9 @@ public class Main {
         post("/checkout", CartController::checkOut);
         get("/payment", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/payment")));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-
+        get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
+        post("/signup", UserController::getFormData);
+        get("/successful_registration", UserController::success, new ThymeleafTemplateEngine());
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
