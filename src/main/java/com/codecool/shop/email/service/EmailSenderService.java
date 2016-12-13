@@ -1,9 +1,9 @@
 package com.codecool.shop.email.service;
 
+import com.codecool.shop.dao.implementation.jdbc.UserDaoJDBC;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.text.*;
 import java.util.*;
 
 /**
@@ -21,11 +21,8 @@ public class EmailSenderService {
     }
 
     private static String formatWelcomeEmail(String name) {
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        Date date = new Date();
-        return String.format("You are receiving this email, because you have successfully registered at %s to our webshop, " +
-                "the BeBaMa Codecool Shop with the username '%s'", dateFormat.format(date), name);
+        return String.format("You are receiving this email, because you have successfully registered to our webshop, " +
+                "the BeBaMa Codecool Shop with the username '%s'.", name);
     }
 
     private String formatText(String recipientName, String body) {
@@ -72,6 +69,9 @@ public class EmailSenderService {
             Transport.send(message);
 
             System.out.println("Message sent successfully....");
+
+            UserDaoJDBC.getInstance().updateWelcomeEmailStatus(recipient);
+
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
