@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
+import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.dao.UserDao;
 

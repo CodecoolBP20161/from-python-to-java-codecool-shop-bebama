@@ -1,16 +1,38 @@
-package com.codecool.shop.cart;
+package com.codecool.shop;
 
 public class Email {
+
+    private static Integer port = 60000;
     private String sender;
     private String recipient;
     private String subject;
     private String text;
+    private String recipientName;
+    private String userName;
 
-    public Email(String sender, String recipient, String subject, String text){
+    public static Integer getPort() {
+        return port;
+    }
+
+    public static void setPort(Integer port) {
+        Email.port = port;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public Email(String sender, String recipient, String subject, String text, String recipientName, String userName){
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
         this.text = text;
+        this.recipientName = recipientName;
+        this.userName = userName;
     }
 
     public String getSender() {
