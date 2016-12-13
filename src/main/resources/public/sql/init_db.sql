@@ -24,3 +24,11 @@ CREATE TABLE IF NOT EXISTS product
   defaultcurrency TEXT,
   categoryid INT,
   supplierid INT);
+
+CREATE TABLE IF NOT EXISTS userTable
+(
+u_id SERIAL PRIMARY KEY,
+u_name TEXT,
+email TEXT,
+password TEXT,
+welcomeEmail INT);

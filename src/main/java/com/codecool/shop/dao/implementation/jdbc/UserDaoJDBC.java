@@ -22,11 +22,12 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
     @Override
     public void add(User user) throws Exception {
         try (Connection connection = getConnection()) {
-            PreparedStatement query = connection.prepareStatement("INSERT INTO category (name, email, password, welcomeEmail) VALUES (?, ?, ?, ?);");
+            PreparedStatement query = connection.prepareStatement("INSERT INTO usertable (u_name, email, password, welcomeEmail) VALUES (?, ?, ?, ?);");
             query.setString(1, user.getName());
             query.setString(2, user.getEmail());
             query.setString(3, hasher(user.getPassword()));
-            query.setBoolean(4, user.getWelcomeEmail());
+            int emailStatus = (user.getWelcomeEmail()) ? 1 : 0;
+            query.setInt(4, emailStatus);
             query.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,10 +39,11 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
         User result = null;
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT * FROM user WHERE id ='" + id + "';");
+             ResultSet rs = statement.executeQuery("SELECT * FROM usertable WHERE u_id ='" + id + "';");
         ) {
             if (rs.next()) {
-                result = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getBoolean("welcomeEmail"));
+                boolean emailStatus = rs.getInt("welcomeEmail") == 1;
+                result = new User(rs.getString("u_name"), rs.getString("email"), rs.getString("password"), emailStatus);
                 result.setId(id);
             }
         } catch (SQLException e) {
@@ -55,11 +57,12 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
         User result = null;
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT * FROM user WHERE NAME ='" + name + "';");
+             ResultSet rs = statement.executeQuery("SELECT * FROM usertable WHERE u_name ='" + name + "';");
         ) {
             if (rs.next()) {
-                result = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getBoolean("welcomeEmail"));
-                result.setId(rs.getInt("id"));
+                boolean emailStatus = rs.getInt("welcomeEmail") == 1;
+                result = new User(rs.getString("u_name"), rs.getString("email"), rs.getString("password"), emailStatus);
+                result.setId(rs.getInt("u_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +75,7 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
         ) {
-            statement.execute("DELETE FROM user WHERE id = '" + id + "';");
+            statement.execute("DELETE FROM usertable WHERE u_id = '" + id + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,11 +86,12 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
         List<User> resultList = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT * FROM user;");
+             ResultSet rs = statement.executeQuery("SELECT * FROM usertable;");
         ) {
             while (rs.next()) {
-                User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getBoolean("welcomeEmail"));
-                user.setId(rs.getInt("id"));
+                boolean emailStatus = rs.getInt("welcomeEmail") == 1;
+                User user = new User(rs.getString("u_name"), rs.getString("email"), rs.getString("password"), emailStatus);
+                user.setId(rs.getInt("u_id"));
                 resultList.add(user);
             }
         } catch (SQLException e) {
