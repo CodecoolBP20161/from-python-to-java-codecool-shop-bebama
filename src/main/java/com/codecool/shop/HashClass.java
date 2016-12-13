@@ -21,7 +21,7 @@ public class HashClass {
         return passwordHashingSalt;
     }
 
-    public String hasher(String password) throws Exception {
+    public static String hasher(String password) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update((password + passwordHashingSalt).getBytes("UTF-8"));
         byte[] digest = md.digest();
