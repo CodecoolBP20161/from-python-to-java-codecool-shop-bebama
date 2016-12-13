@@ -10,12 +10,24 @@ public class Email {
     private String recipient;
     private String subject;
     private String text;
+    private String recipientName;
+    private String userName;
 
-    public Email(String sender, String recipient, String subject, String text){
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public Email(String sender, String recipient, String subject, String text, String recipientName, String userName){
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
         this.text = text;
+        this.recipientName = recipientName;
+        this.userName = userName;
     }
 
     public String getSender() {
@@ -50,6 +62,12 @@ public class Email {
         this.text = text;
     }
 
+    private void formatText(){
+        this.text = "Dear " + this.recipientName + "!"
+                + "\n \n" + this.text + this.userName + "\n \n"
+                + "Happy browsing and shopping :)";
+    }
+
     public void emailSender(){
         // Get system properties
         Properties properties = System.getProperties();
@@ -82,6 +100,9 @@ public class Email {
             // Set Subject: header field
             message.setSubject(subject);
 
+            // Final email form
+            formatText();
+
             // Now set the actual message
             message.setText(text);
 
@@ -96,8 +117,13 @@ public class Email {
     }
 
     public static void main(String[] args) {
-        Email email = new Email("bebamashop@gmail.com", "makaimark@gmail.com",
-                "Welcome to out fantastic webshop", "test");
+        Email email = new Email(
+                "bebamashop@gmail.com",
+                "makaimark@gmail.com",
+                "Confirmation email about your registration",
+                "Now you are registered to our fantastic webshop, BeBaMa.\nYour username is: ",
+                "Mark",
+                "márki_márk");
         email.emailSender();
     }
 }
