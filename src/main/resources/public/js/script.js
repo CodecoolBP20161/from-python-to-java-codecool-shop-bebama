@@ -48,8 +48,9 @@ $(function () {
 
 $(function () {
     $("#emailDiv").removeClass("has-error");
+    $("#errMsg").remove();
     if ($("#existingEmail").val() != null) {
         $("#emailDiv").addClass("has-error");
-        $("#existingEmail").append('<p style="color: red">Email already exists.</p>');
+        $("#existingEmail").append('<p style="color: red" id="errMsg">Email already exists.</p>');
     }
 });
