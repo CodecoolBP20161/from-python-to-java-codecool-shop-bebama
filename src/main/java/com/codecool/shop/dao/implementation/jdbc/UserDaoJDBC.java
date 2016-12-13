@@ -1,16 +1,14 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
-import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.dao.UserDao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.codecool.shop.HashClass.hasher;
 
-public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
+public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
     private static UserDaoJDBC instance = null;
 
     public static UserDaoJDBC getInstance() {
@@ -116,5 +114,16 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
             e.printStackTrace();
         }
         return resultList;
+    }
+
+    public void updateWelcomeEmailStatus(String email) {
+        try (Connection connection = getConnection()) {
+            PreparedStatement query = connection.prepareStatement("UPDATE usertable SET welcomeemail = ? WHERE email = ? ;");
+            query.setInt(1, 1);
+            query.setString(2, email);
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
