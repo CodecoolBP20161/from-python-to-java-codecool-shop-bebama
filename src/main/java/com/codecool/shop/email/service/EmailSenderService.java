@@ -65,7 +65,7 @@ public class EmailSenderService {
             // Send message
             Transport.send(message);
 
-            System.out.println("Sent message successfully....");
+            System.out.println("Message sent successfully....");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

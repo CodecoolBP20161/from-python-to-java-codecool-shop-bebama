@@ -4,14 +4,13 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.*;
 
 /**
  * Created by makaimark on 2016.12.13..
  */
-public class EmailController {
 
+public class EmailController {
     private static final String URL = "http://localhost:60009";
 
     public static void builder(String sender, String recipient, String subject, String recipientName) throws URISyntaxException, IOException {
@@ -20,12 +19,10 @@ public class EmailController {
         builder.addParameter("recipient", recipient);
         builder.addParameter("subject", subject);
         builder.addParameter("recipientName", recipientName);
-        System.out.println(builder);
         execute(builder.build());
     }
 
     private static void execute(URI uri) throws IOException, URISyntaxException {
-        System.out.println(uri);
         Request.Get(uri).execute();
     }
 }
