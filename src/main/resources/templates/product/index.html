@@ -59,7 +59,7 @@
 </div>
 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand active" href="/"><span
@@ -97,15 +97,18 @@
                 </ul>
             </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li id="signup"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign up</a>
+            </li>
+        </ul>
         <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
             <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
                     th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
-                                                                   class="glyphicon glyphicon-shopping-cart"></span></a>
+                                                                                      class="glyphicon glyphicon-shopping-cart"></span></a>
             </li>
         </ul>
     </div>
 </nav>
-
 <div class="container-fluid">
     <div id="products" class="row list-group">
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">

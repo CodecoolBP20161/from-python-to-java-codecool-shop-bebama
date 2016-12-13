@@ -5,11 +5,10 @@
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Codecool Shop - Payment</title>
+    <title>Codecool Shop - Success</title>
 
+    <link rel="stylesheet" type="text/css" href="/css/form.css"/>
     <div th:replace="styles :: copy"></div>
-
-    <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
 
 </head>
 
@@ -25,14 +24,19 @@
     </div>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h2>The payment function is under construction</h2>
-            <img src="img/under-construction.jpg"/>
-        </div>
+        <div class="col-md-8" id="successReg">
+            <h2>You signed up! Yay!</h2>
+            <br></br>
+            <h3>A confirmation email is on its way.</h3>
+            <br></br>
+            <a href="/" class="btn btn-success btn-md">I wanna browse the webshop</a></div>
+        <br></br>
         <div class="col-md-2"></div>
     </div>
 </div>
 
 <div th:replace="footer :: copy"></div>
+<script src="/js/script.js"></script>
+
 </body>
 </html>
