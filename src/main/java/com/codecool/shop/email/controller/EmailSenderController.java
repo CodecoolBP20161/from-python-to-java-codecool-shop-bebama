@@ -19,10 +19,8 @@ public class EmailSenderController {
         String sender = request.queryParams("sender");
         String recipient = request.queryParams("recipient");
         String subject = request.queryParams("subject");
-        String text = request.queryParams("text");
         String recipientName = request.queryParams("recipientName");
-        String userName = request.queryParams("userName");
-        service.emailSender(sender, recipient, subject, text, recipientName, userName);
+        service.emailSender(sender, recipient, subject, recipientName);
         return  "ok";
     }
 }
