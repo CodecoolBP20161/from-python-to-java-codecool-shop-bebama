@@ -2,13 +2,12 @@ package com.codecool.shop;
 
 public class Email {
 
-    private static Integer port = 60000;
+    private static Integer port = 60009;
     private String sender;
     private String recipient;
     private String subject;
     private String text;
     private String recipientName;
-    private String userName;
 
     public static Integer getPort() {
         return port;
@@ -26,13 +25,12 @@ public class Email {
         this.recipientName = recipientName;
     }
 
-    public Email(String sender, String recipient, String subject, String text, String recipientName, String userName){
+    public Email(String sender, String recipient, String subject, String text, String recipientName){
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
         this.text = text;
         this.recipientName = recipientName;
-        this.userName = userName;
     }
 
     public String getSender() {

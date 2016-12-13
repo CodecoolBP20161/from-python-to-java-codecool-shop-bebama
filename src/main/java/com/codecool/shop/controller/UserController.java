@@ -27,6 +27,9 @@ public class UserController extends AbstractController {
             params.remove("name");
             params.remove("email");
             users.add(newUser);
+            String recipient = req.queryParams("email");
+            String recipientName = req.queryParams("name");
+            EmailController.builder("bebamashop@gmail.com", recipient, "Welcome email", recipientName);
             res.redirect("/successful_registration");
         } else {
             params.put("name", req.queryParams("name"));
