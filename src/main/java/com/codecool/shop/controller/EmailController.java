@@ -12,16 +12,20 @@ import java.net.URISyntaxException;
  */
 public class EmailController {
 
+    private static final String URL = "http://localhost:60009";
+
     public static void builder(String sender, String recipient, String subject, String recipientName) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder("/sendemail");
+        URIBuilder builder = new URIBuilder(URL + "/sendemail");
         builder.addParameter("sender", sender);
         builder.addParameter("recipient", recipient);
         builder.addParameter("subject", subject);
         builder.addParameter("recipientName", recipientName);
+        System.out.println(builder);
         execute(builder.build());
     }
 
     private static void execute(URI uri) throws IOException, URISyntaxException {
+        System.out.println(uri);
         Request.Get(uri).execute();
     }
 }
