@@ -52,6 +52,23 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao{
         return result;
     }
 
+    public User findEmail(String email) {
+        User result = null;
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT * FROM usertable WHERE email ='" + email + "';");
+        ) {
+            if (rs.next()) {
+                boolean emailStatus = rs.getInt("welcomeEmail") == 1;
+                result = new User(rs.getString("u_name"), rs.getString("email"), rs.getString("password"), emailStatus);
+                result.setId(rs.getInt("u_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     @Override
     public User find(String name) {
         User result = null;

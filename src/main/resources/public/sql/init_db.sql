@@ -29,6 +29,6 @@ CREATE TABLE IF NOT EXISTS userTable
 (
 u_id SERIAL PRIMARY KEY,
 u_name TEXT,
-email TEXT,
+email TEXT UNIQUE,
 password TEXT,
 welcomeEmail INT);
