@@ -11,8 +11,13 @@ import java.util.*;
 public class CheckoutController {
 
     public static ModelAndView renderCheckout(Request req, Response res) {
-        Map params = new HashMap<>();
-        params.put("order", Order.getOrder(req));
-        return new ModelAndView(params, "product/checkout_form");
+        if (req.session().attribute("isLoggedIn")) {
+            Map params = new HashMap<>();
+            params.put("order", Order.getOrder(req));
+            return new ModelAndView(params, "product/checkout_form");
+        } else {
+            Map params = new HashMap<>();
+            return new ModelAndView(params, "log_in_page");
+        }
     }
 }
