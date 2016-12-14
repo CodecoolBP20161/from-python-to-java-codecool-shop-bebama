@@ -15,8 +15,17 @@
 
 <body>
 
-<div th:replace="navbar :: copy"></div>
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="/"><span
+                    class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span>Logout comes here</span></a></li>
+        </ul>
+    </div>
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron text-center">
