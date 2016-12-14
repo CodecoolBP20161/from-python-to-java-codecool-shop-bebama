@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.jdbc.*;
+import com.codecool.shop.model.Product;
 import spark.ModelAndView;
 import spark.*;
 
@@ -54,5 +55,9 @@ public class UserController extends AbstractController {
 
     public static ModelAndView success(Request req, Response res) {
         return new ModelAndView(params, "successful_registration");
+    }
+
+    public static ModelAndView login(Request req, Response res) {
+        return ProductController.renderProducts(req, res);
     }
 }
