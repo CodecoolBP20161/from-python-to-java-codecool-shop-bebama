@@ -18,7 +18,7 @@ public class CheckoutController {
             return new ModelAndView(params, "product/checkout_form");
         } else {
             Map params = new HashMap<>();
-            return new ModelAndView(params, "log_in_page");
+            return new ModelAndView(params, "not_logged_in");
         }
     }
 }
