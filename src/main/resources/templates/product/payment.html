@@ -52,17 +52,17 @@
     <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
         <td th:text="${item.getProduct().getName()}">Product Name</td>
         <td th:text="${item.getQuantity()}"></td>
-        <td th:text="${item.getProduct().getDefaultPrice()}+ USD">1.0 USD</td>
-        <td th:text="${item.getTotalPrice()}+ USD">1.0 USD</td>
+        <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
+        <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
     </tr>
         <tr>
             <td colspan="3">Total price:</td>
-            <td id="totalprice" th:text="${order.getTotalPrice()}+ USD">1.0 USD</td>
+            <td id="totalprice" th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
         </tr>
     </table>
+    <br></br>
 
-    <div id="form_paypal">
-        <form>
+        <form id="form_paypal">
             <div class="form-group">
                 <label for="paypal_username">Username:</label>
             <input id="paypal_username" placeholder="Enter username" required="required" />
@@ -73,10 +73,8 @@
             </div>
             <button type="submit" class="btn btn-info" id="submit_paypal">Submit</button>
         </form>
-    </div>
 
-    <div id="form_card">
-        <form>
+        <form id="form_card">
             <div class="form-group">
                 <label for="card_number">Card number:</label>
             <input id="card_number" placeholder="Enter card number" required="required" />
@@ -95,10 +93,11 @@
             </div>
             <button type="submit" class="btn btn-info" id="submit_card">Submit</button>
         </form>
-    </div>
 
 </div>
 
 <div th:replace="footer :: copy"></div>
+<script src="/js/payments.js"></script>
+
 </body>
 </html>
