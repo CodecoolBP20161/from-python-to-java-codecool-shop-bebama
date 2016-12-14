@@ -1,7 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.cart.User;
-import com.codecool.shop.dao.implementation.jdbc.UserDaoJDBC;
+import com.codecool.shop.cart.implementation.Order;
+import com.codecool.shop.dao.implementation.jdbc.*;
 import spark.ModelAndView;
 import spark.*;
 
@@ -17,6 +18,10 @@ public class UserController extends AbstractController {
     private static UserDaoJDBC users = UserDaoJDBC.getInstance();
 
     public static ModelAndView renderForm(Request req, Response res) {
+        params.put("categories", ProductCategoryDaoJDBC.getInstance().getAll());
+        params.put("suppliers", SupplierDaoJDBC.getInstance().getAll());
+        params.put("order", Order.getOrder(req));
+        params.put("products", ProductDaoJDBC.getInstance().getAll());
         return new ModelAndView(params, "signup_form");
     }
 
