@@ -22,6 +22,7 @@ public class UserController extends AbstractController {
         if(request.session().attribute("isLoggedIn") == null){
             request.session().attribute("isLoggedIn", false);
             params.put("isLoggedIn", false);
+            params.put("failedLogin", false);
         }
         return request.session().attribute("isLoggedIn");
     }
@@ -64,13 +65,14 @@ public class UserController extends AbstractController {
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
             res.redirect("/");
-        }
+            params.put("failedLogin", false);
         return ProductController.renderProducts(req, res);
     }
 
     public static ModelAndView logout(Request req, Response res) throws Exception {
         req.session().attribute("isLoggedIn", false);
         params.put("isLoggedIn", false);
+        Order.dropOrder(req);
         return ProductController.renderProducts(req, res);
     }
 }
