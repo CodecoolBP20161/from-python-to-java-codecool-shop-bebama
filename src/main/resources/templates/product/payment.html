@@ -10,6 +10,7 @@
     <div th:replace="fragments/styles :: copy"></div>
 
     <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+    <script src="https://use.fontawesome.com/a4a23da0b3.js"></script>
 
 </head>
 
@@ -42,10 +43,12 @@
             <br></br>
             <form class="form" id="payment">
                 <label class="radio-inline">
-                    <input id="paypal" type="radio" name="optradio">Paypal</input>
+                    <input id="paypal" type="radio" name="optradio">Paypal </input>
+                    <i class="fa fa-paypal" aria-hidden="true"></i>
                 </label>
                 <label class="radio-inline">
-                    <input id="card" type="radio" name="optradio">Card</input>
+                    <input id="card" type="radio" name="optradio">Card </input>
+                    <i class="fa fa-credit-card" aria-hidden="true"></i>
                 </label>
             </form>
             <br></br>
