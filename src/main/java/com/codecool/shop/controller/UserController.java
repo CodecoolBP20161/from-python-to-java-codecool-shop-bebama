@@ -1,9 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.jdbc.*;
-import com.codecool.shop.model.Product;
 import spark.ModelAndView;
 import spark.*;
 
@@ -19,10 +19,10 @@ public class UserController extends AbstractController {
     private static UserDaoJDBC users = UserDaoJDBC.getInstance();
 
     public static boolean isLoggedIn(Request request){
-        if(request.session().attribute("loggedIn") == null){
-            request.session().attribute("loggedIn", false);
+        if(request.session().attribute("isLoggedIn") == null){
+            request.session().attribute("isLoggedIn", false);
         }
-        return request.session().attribute("loggedIn");
+        return request.session().attribute("isLoggedIn");
     }
 
     public static ModelAndView renderForm(Request req, Response res) {
@@ -57,7 +57,11 @@ public class UserController extends AbstractController {
         return new ModelAndView(params, "successful_registration");
     }
 
-    public static ModelAndView login(Request req, Response res) {
+    public static ModelAndView login(Request req, Response res) throws Exception {
+        boolean pwdMatch = HashClass.checkPassword(req.queryParams("login-name"), req.queryParams("login-pwd"));
+        if(pwdMatch){
+            req.session().attribute("isLoggedIn", true);
+        }
         return ProductController.renderProducts(req, res);
     }
 }

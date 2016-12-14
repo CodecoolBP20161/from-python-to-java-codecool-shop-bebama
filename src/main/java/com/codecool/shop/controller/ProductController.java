@@ -10,6 +10,7 @@ import spark.Response;
 public class ProductController extends AbstractController{
 
     public static ModelAndView renderProducts(Request req, Response res) {
+        UserController.isLoggedIn(req);
         return setParams(Order.getOrder(req), "/", ProductDaoJDBC.getInstance().getAll());
     }
 }
