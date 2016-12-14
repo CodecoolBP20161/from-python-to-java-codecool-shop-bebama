@@ -41,12 +41,12 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" th:switch="${user}">
-                <li th:case="${notloggedin}" id="login"><a href="/login" data-dismiss="modal" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${!isLoggedIn}" id="login"><a href="/login" data-dismiss="modal" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
                 </li>
-                <li id="signup"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign up</a>
+                <li th:if="${!isLoggedIn}" id="signup"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign up</a>
                 </li>
-                <li th:case="${loggedin}" id="login"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
+                <li th:if="${isLoggedIn}" id="logout"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
                 </li>
             </ul>
             <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
