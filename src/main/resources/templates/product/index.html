@@ -7,26 +7,8 @@
 
     <title>Codecool Shop</title>
 
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <div th:replace="styles :: copy"></div>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
-    <!-- Custom font from google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet"></link>
-    <link rel="icon" type="image/png" href="img/logo.png" sizes="32x32"></link>
 </head>
 
 <body>
@@ -35,94 +17,11 @@
     <h1>Codecool Shop</h1>
 </div>
 
-<div class="modal fade" id="productsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="/editcart" method="post">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Products in your cart</h4>
-                </div>
-                <div class="modal-body">
-                    <table id="productsTable">
-                        <tr id="productHeader">
-                            <td>Product</td>
-                            <td>Quantity</td>
-                            <td>Unit price</td>
-                            <td>Total price</td>
-                        </tr>
-                        <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
-                            <td th:text="${item.getProduct().getName()}">Product Name</td>
-                            <td><input type="number" th:name="quantity_+${item.getProduct().getId()}" min="0" max="100" th:value="${item.getQuantity()}"/></td>
-                            <td th:text="${item.getProduct().getDefaultPrice()}+ USD">1.0 USD</td>
-                            <td th:text="${item.getTotalPrice()}+ USD">1.0 USD</td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="ok-btn-div">
-                    <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
-                    <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <form id="checkout-btn-form" action="/checkout" method="GET">
-                    <button class="btn btn-success" id="checkout-btn" href="/checkout">
-                        Checkout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+<div th:replace="productsmodal :: copy"></div>
 
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand active" href="/"><span
-                    class="glyphicon glyphicon-home"></span> Home</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="dropdown"><a id="href-cat" class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
-                <span
-                        class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
-                    <div id="search-cat">
-                        <li>
-                            <div th:each="category,iterStat : ${categories}">
-                                <a th:text="${category.name}" th:href="'/category/'+${category.id}">Category</a>
-                            </div>
-                        </li>
-                    </div>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav">
-            <li class="dropdown" id="dropdown-sup"><a id="href-sup" class="dropdown-toggle" data-toggle="dropdown"
-                                                      href="#">Suppliers <span
-                    class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
-                    <div id="search-sup">
-                        <li>
-                            <div th:each="supplier,iterStat : ${suppliers}">
-                                <a th:text="${supplier.name}" th:href="'/supplier/'+${supplier.id}">Supplier</a>
-                            </div>
-                        </li>
-                    </div>
-                </ul>
-            </li>
-        </ul>
-        <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
-            <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
-                    th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
-                                                                   class="glyphicon glyphicon-shopping-cart"></span></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="navbar :: copy"></div>
 
 <div class="container-fluid">
     <div id="products" class="row list-group">

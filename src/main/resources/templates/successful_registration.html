@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop - Success</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/form.css"/>
+    <div th:replace="styles :: copy"></div>
+
+</head>
+
+<body>
+
+<div th:replace="navbar :: copy"></div>
+
+<div th:replace="productsmodal :: copy"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron text-center">
+            <h1>Codecool Shop</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id="successReg">
+            <h2>You signed up! Yay!</h2>
+            <br></br>
+            <h3>A confirmation email is on its way.</h3>
+            <br></br>
+            <a href="/" class="btn btn-success btn-md">I wanna browse the webshop</a></div>
+        <br></br>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<div th:replace="footer :: copy"></div>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

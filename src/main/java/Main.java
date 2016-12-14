@@ -1,11 +1,9 @@
 import com.codecool.shop.*;
 import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.implementation.jdbc.*;
-import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -31,11 +29,13 @@ public class Main {
         get("/supplier/:id", SupplierController::renderProducts, new ThymeleafTemplateEngine());
         post("/additemtocart", CartController::addItemToCart);
         post("/editcart", CartController::editCart);
-        get("/checkout", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/form")));
+        get("/checkout", CheckoutController::renderCheckout, new ThymeleafTemplateEngine());
         post("/checkout", CartController::checkOut);
-        get("/payment", (req, res) -> new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap<>(), "product/payment")));
+        get("/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-
+        get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
+        post("/signup", UserController::getFormData);
+        get("/successful_registration", UserController::success, new ThymeleafTemplateEngine());
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
