@@ -54,3 +54,8 @@ $(function () {
         $("#existingEmail").append('<p style="color: red" id="errMsg">Email already exists.</p>');
     }
 });
+
+$('#loginModal').on('hidden.bs.modal', function () {
+    $("#login-name").val("");
+    $("#login-pwd").val("");
+});
