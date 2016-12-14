@@ -11,6 +11,7 @@ import java.util.*;
 public class PaymentController {
 
     public static ModelAndView renderPayment(Request req, Response res) {
+        UserController.isLoggedIn(req);
         if (req.session().attribute("isLoggedIn")) {
             Map params = new HashMap<>();
             params.put("order", Order.getOrder(req));

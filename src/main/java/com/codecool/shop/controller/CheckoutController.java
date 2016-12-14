@@ -11,6 +11,7 @@ import java.util.*;
 public class CheckoutController {
 
     public static ModelAndView renderCheckout(Request req, Response res) {
+        UserController.isLoggedIn(req);
         if (req.session().attribute("isLoggedIn")) {
             Map params = new HashMap<>();
             params.put("order", Order.getOrder(req));
