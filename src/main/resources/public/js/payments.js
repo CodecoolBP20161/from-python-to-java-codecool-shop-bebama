@@ -4,23 +4,23 @@
 
 $(document).ready(function () {
     $("#form_paypal").hide();
-    $("#form_card").hide();
+    $("#panel_card").hide();
 })
 
 
 $('#payment input').on('change', function () {
     var target = $('input[type=radio][name=optradio]:checked').attr('id');
     if (target === "paypal") {
-        $("#form_card").hide();
+        $("#panel_card").hide();
         $("#form_paypal").show();
     }
     else if (target === "card") {
         $("#form_paypal").hide();
-        $("#form_card").show();
+        $("#panel_card").show();
     }
     else {
         $("#form_paypal").hide();
-        $("#form_card").hide();
+        $("#panel_card").hide();
     }
 });
 

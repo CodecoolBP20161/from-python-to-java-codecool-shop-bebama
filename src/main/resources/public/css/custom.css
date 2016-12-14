@@ -229,3 +229,7 @@ hr {
 #total-modal, #totalprice-modal {
     font-weight: bold;
 }
+
+#input-cat, #input-sup {
+    color: #000;
+}
