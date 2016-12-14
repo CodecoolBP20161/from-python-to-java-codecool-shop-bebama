@@ -5,6 +5,9 @@
 $(document).ready(function () {
     $("#panel_paypal").hide();
     $("#panel_card").hide();
+    $("#form_card").find(":input, textarea").val("");
+    $("#form_paypal").find(":input, textarea").val("");
+
 })
 
 
@@ -12,15 +15,19 @@ $('#payment input').on('change', function () {
     var target = $('input[type=radio][name=optradio]:checked').attr('id');
     if (target === "paypal") {
         $("#panel_card").hide();
+        $("#form_card").find(":input, textarea").val("");
         $("#panel_paypal").show();
     }
     else if (target === "card") {
         $("#panel_paypal").hide();
+        $("#form_paypal").find(":input, textarea").val("");
         $("#panel_card").show();
     }
     else {
         $("#panel_paypal").hide();
         $("#panel_card").hide();
+        $("#form_card").find(":input, textarea").val("");
+        $("#form_paypal").find(":input, textarea").val("");
     }
 });
 
