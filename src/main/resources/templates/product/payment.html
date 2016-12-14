@@ -7,7 +7,7 @@
 
     <title>Codecool Shop - Payment</title>
 
-    <div th:replace="styles :: copy"></div>
+    <div th:replace="fragments/styles :: copy"></div>
 
     <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
 
@@ -15,7 +15,7 @@
 
 <body>
 
-<div th:replace="loginmodal :: copy"></div>
+<div th:replace="fragments/loginmodal :: copy"></div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -24,7 +24,7 @@
                     class="glyphicon glyphicon-home"></span> Home</a>
         </div>
 
-        <div th:replace="user_status :: copy"></div>
+        <div th:replace="fragments/user_status :: copy"></div>
 
     </div>
 </nav>
@@ -62,14 +62,14 @@
                 </tr>
             </table>
             <br></br>
-            <div th:replace="paypal_form :: copy"></div>
-            <div th:replace="card_form :: copy"></div>
+            <div th:replace="fragments/paypal_form :: copy"></div>
+            <div th:replace="fragments/card_form :: copy"></div>
         </div>
         <div class="col-md-2"></div>
     </div>
 </div>
 <br></br>
-<div th:replace="footer :: copy"></div>
+<div th:replace="fragments/footer :: copy"></div>
 <script src="/js/payments.js"></script>
 </body>
 </html>

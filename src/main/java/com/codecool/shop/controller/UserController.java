@@ -32,7 +32,7 @@ public class UserController extends AbstractController {
         params.put("suppliers", SupplierDaoJDBC.getInstance().getAll());
         params.put("order", Order.getOrder(req));
         params.put("products", ProductDaoJDBC.getInstance().getAll());
-        return new ModelAndView(params, "signup_form");
+        return new ModelAndView(params, "user/signup_form");
     }
 
     public static ModelAndView getFormData(Request req, Response res) throws Exception {
@@ -56,7 +56,7 @@ public class UserController extends AbstractController {
     }
 
     public static ModelAndView success(Request req, Response res) {
-        return new ModelAndView(params, "successful_registration");
+        return new ModelAndView(params, "user/successful_registration");
     }
 
     public static ModelAndView login(Request req, Response res) throws Exception {

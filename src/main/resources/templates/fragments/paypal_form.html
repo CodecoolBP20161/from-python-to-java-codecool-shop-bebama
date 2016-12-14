@@ -6,12 +6,12 @@
 
 <div th:fragment="copy">
     <form id="form_paypal" class="form">
+        <label for="paypal_username">Username:</label>
         <div class="input-group">
-            <label for="paypal_username">Username:</label>
             <input id="paypal_username" class="form-control" placeholder="Enter username" required="required" />
         </div>
+        <label for="paypal_password">Password:</label>
         <div class="input-group">
-            <label for="paypal_password">Password:</label>
             <input id="paypal_password" class="form-control" placeholder="Enter password" required="required" />
         </div>
         <button type="submit" class="btn btn-info" id="submit_paypal">Submit</button>

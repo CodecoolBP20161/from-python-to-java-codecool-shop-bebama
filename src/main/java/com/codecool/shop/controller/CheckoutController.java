@@ -18,7 +18,7 @@ public class CheckoutController {
             params.put("order", Order.getOrder(req));
             return new ModelAndView(params, "product/checkout_form");
         } else {
-            return new ModelAndView(params, "not_logged_in");
+            return new ModelAndView(params, "user/not_logged_in");
         }
     }
 }
