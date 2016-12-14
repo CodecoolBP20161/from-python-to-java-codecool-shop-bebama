@@ -5,3 +5,23 @@
 #ccv-tooltip {
     margin-left: 10px;
 }
+
+div.input-group {
+    width: 700px;
+}
+
+div > label, .form {
+    text-align: left;
+}
+
+div > label {
+    padding-top: 15px;
+}
+
+#submit_card, #submit_paypal {
+    margin: 15px 0px;
+}
+
+#form_card>button, #form_paypal>button {
+    text-align: right;
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/form.css"/>
+<link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+<body>
+
+<div th:fragment="copy">
+    <form id="form_card" class="form">
+        <div class="input-group">
+            <label for="card_number">Card number:</label>
+            <input id="card_number" class="form-control" placeholder="Enter card number" required="required" maxlength="19" pattern="^(\d{4}[-]){3}\d{4}|\d{16}$"
+                   title="Enter a valid card number!
+&#13;
+Numbers only, please!"/>
+        </div>
+        <div class="input-group">
+            <label for="card_holder">Card holder:</label>
+            <input id="card_holder" class="form-control" placeholder="Enter card holder" required="required" />
+        </div>
+        <div class="input-group">
+            <label for="card_expiry_date">Expiry date:</label>
+            <input id="card_expiry_date" class="form-control" placeholder="Enter expiry date" required="required" maxlength="5" pattern="^(\d{1,2}[\/])\d{2}|\d{4}$"
+                   title="Enter a valid date!
+&#13;
+Numbers only, please!"/>
+        </div>
+        <div class="input-group">
+            <label for="card_code">CCV code:</label>
+            <input id="card_code" class="form-control" placeholder="Enter code" required="required" maxlength="3" pattern="^([1-9]{3})$"
+                   title="Numbers only, please!"/><a href="#" data-toggle="tooltip" id="ccv-tooltip" title="Enter the 3 digit number on the back of your card."><span class="glyphicon glyphicon-question-sign"></span></a>
+        </div>
+        <button type="submit" class="btn btn-info" id="submit_card">Submit</button>
+        <br></br>
+    </form>
+</div>
+
+</body>
+</html>

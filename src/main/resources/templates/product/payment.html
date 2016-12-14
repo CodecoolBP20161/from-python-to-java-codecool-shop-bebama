@@ -35,78 +35,41 @@
             <h1>Codecool Shop</h1>
         </div>
     </div>
-    <div class="container">
-        <h2>Please choose a payment option</h2>
-        <br></br>
-        <form id="payment">
-            <label class="radio-inline">
-                <input id="paypal" type="radio" name="optradio">Paypal</input>
-            </label>
-            <label class="radio-inline">
-                <input id="card" type="radio" name="optradio">Card</input>
-            </label>
-        </form>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2>Please choose a payment option</h2>
+            <br></br>
+            <form class="form" id="payment">
+                <label class="radio-inline">
+                    <input id="paypal" type="radio" name="optradio">Paypal</input>
+                </label>
+                <label class="radio-inline">
+                    <input id="card" type="radio" name="optradio">Card</input>
+                </label>
+            </form>
+            <br></br>
+            <table>
+                <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
+                    <td th:text="${item.getProduct().getName()}">Product Name</td>
+                    <td th:text="${item.getQuantity()}"></td>
+                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
+                    <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Total price:</td>
+                    <td id="totalprice" th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+            </table>
+            <br></br>
+            <div th:replace="paypal_form :: copy"></div>
+            <div th:replace="card_form :: copy"></div>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <br></br>
-    <table>
-    <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
-        <td th:text="${item.getProduct().getName()}">Product Name</td>
-        <td th:text="${item.getQuantity()}"></td>
-        <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
-        <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
-    </tr>
-        <tr>
-            <td colspan="3">Total price:</td>
-            <td id="totalprice" th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
-        </tr>
-    </table>
-    <br></br>
-
-        <form id="form_paypal">
-            <div class="form-group">
-                <label for="paypal_username">Username:</label>
-            <input id="paypal_username" placeholder="Enter username" required="required" />
-            </div>
-            <div class="form-group">
-                <label for="paypal_password">Password:</label>
-            <input id="paypal_password" placeholder="Enter password" required="required" />
-            </div>
-            <button type="submit" class="btn btn-info" id="submit_paypal">Submit</button>
-            <br></br>
-        </form>
-
-        <form id="form_card">
-            <div class="form-group">
-                <label for="card_number">Card number:</label>
-            <input id="card_number" placeholder="Enter card number" required="required" maxlength="19" pattern="^(\d{4}[-]){3}\d{4}|\d{16}$"
-                   title="Enter a valid card number!
-&#13;
-Numbers only, please!"/>
-            </div>
-            <div class="form-group">
-                <label for="card_holder">Card holder:</label>
-            <input id="card_holder" placeholder="Enter card holder" required="required" />
-            </div>
-            <div class="form-group">
-                <label for="card_expiry_date">Expiry date:</label>
-            <input id="card_expiry_date" placeholder="Enter expiry date" required="required" maxlength="5" pattern="^(\d{1,2}[\/])\d{2}|\d{4}$"
-                   title="Enter a valid date!
-&#13;
-Numbers only, please!"/>
-            </div>
-            <div class="form-group">
-                <label for="card_code">CCV code:</label>
-            <input id="card_code" placeholder="Enter code" required="required" maxlength="3" pattern="^([1-9]{3})$"
-                   title="Numbers only, please!"/><a href="#" data-toggle="tooltip" id="ccv-tooltip" title="Enter the 3 digit number on the back of your card."><span class="glyphicon glyphicon-question-sign"></span></a>
-            </div>
-            <button type="submit" class="btn btn-info" id="submit_card">Submit</button>
-            <br></br>
-        </form>
-
 </div>
 <br></br>
 <div th:replace="footer :: copy"></div>
 <script src="/js/payments.js"></script>
-
 </body>
 </html>
