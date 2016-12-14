@@ -148,6 +148,11 @@ tr:nth-child(even) {
 }
 
 #cart {
+    margin-right: 10px;
+}
+
+
+#cart {
     background-color: #9a9a9a;
 }
 

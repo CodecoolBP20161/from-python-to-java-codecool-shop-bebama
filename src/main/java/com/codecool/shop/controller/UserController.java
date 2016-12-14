@@ -64,8 +64,13 @@ public class UserController extends AbstractController {
         if(pwdMatch){
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
-            res.redirect("/");
             params.put("failedLogin", false);
+            res.redirect("/");
+        }
+        else {
+            params.put("failedLogin", true);
+        }
+        res.redirect("/");
         return ProductController.renderProducts(req, res);
     }
 
