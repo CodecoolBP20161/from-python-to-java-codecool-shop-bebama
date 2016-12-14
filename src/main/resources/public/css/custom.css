@@ -221,3 +221,11 @@ hr {
 #login-btn {
     margin-left: 14px;
 }
+
+#totalprice-modal {
+    padding-right: 30px;
+}
+
+#total-modal, #totalprice-modal {
+    font-weight: bold;
+}
