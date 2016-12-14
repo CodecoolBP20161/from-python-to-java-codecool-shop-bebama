@@ -12,12 +12,12 @@ public class PaymentController {
 
     public static ModelAndView renderPayment(Request req, Response res) {
         UserController.isLoggedIn(req);
+        Map params = new HashMap<>();
         if (req.session().attribute("isLoggedIn")) {
-            Map params = new HashMap<>();
+            params.put("isLoggedIn", UserController.isLoggedIn(req));
             params.put("order", Order.getOrder(req));
             return new ModelAndView(params, "product/payment");
         } else {
-            Map params = new HashMap<>();
             return new ModelAndView(params, "log_in_page");
         }
     }
