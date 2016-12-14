@@ -11,8 +11,13 @@ import java.util.*;
 public class PaymentController {
 
     public static ModelAndView renderPayment(Request req, Response res) {
-        Map params = new HashMap<>();
-        params.put("order", Order.getOrder(req));
-        return new ModelAndView(params, "product/payment");
+        if (req.session().attribute("isLoggedIn")) {
+            Map params = new HashMap<>();
+            params.put("order", Order.getOrder(req));
+            return new ModelAndView(params, "product/payment");
+        } else {
+            Map params = new HashMap<>();
+            return new ModelAndView(params, "log_in_page");
+        }
     }
 }
