@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function () {
-    $("#form_paypal").hide();
+    $("#panel_paypal").hide();
     $("#panel_card").hide();
 })
 
@@ -12,14 +12,14 @@ $('#payment input').on('change', function () {
     var target = $('input[type=radio][name=optradio]:checked').attr('id');
     if (target === "paypal") {
         $("#panel_card").hide();
-        $("#form_paypal").show();
+        $("#panel_paypal").show();
     }
     else if (target === "card") {
-        $("#form_paypal").hide();
+        $("#panel_paypal").hide();
         $("#panel_card").show();
     }
     else {
-        $("#form_paypal").hide();
+        $("#panel_paypal").hide();
         $("#panel_card").hide();
     }
 });
