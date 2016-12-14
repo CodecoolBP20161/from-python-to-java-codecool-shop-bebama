@@ -72,12 +72,16 @@
             <input id="paypal_password" placeholder="Enter password" required="required" />
             </div>
             <button type="submit" class="btn btn-info" id="submit_paypal">Submit</button>
+            <br></br>
         </form>
 
         <form id="form_card">
             <div class="form-group">
                 <label for="card_number">Card number:</label>
-            <input id="card_number" placeholder="Enter card number" required="required" maxlength="19" pattern="^(\d{4}[-]){3}\d{4}|\d{16}$"/>
+            <input id="card_number" placeholder="Enter card number" required="required" maxlength="19" pattern="^(\d{4}[-]){3}\d{4}|\d{16}$"
+                   title="Enter a valid card number!
+&#13;
+Numbers only, please!"/>
             </div>
             <div class="form-group">
                 <label for="card_holder">Card holder:</label>
@@ -85,17 +89,22 @@
             </div>
             <div class="form-group">
                 <label for="card_expiry_date">Expiry date:</label>
-            <input id="card_expiry_date" placeholder="Enter expiry date" required="required" />
+            <input id="card_expiry_date" placeholder="Enter expiry date" required="required" maxlength="5" pattern="^(\d{1,2}[\/])\d{2}|\d{4}$"
+                   title="Enter a valid date!
+&#13;
+Numbers only, please!"/>
             </div>
             <div class="form-group">
-                <label for="card_code">Card code:</label>
-            <input id="card_code" placeholder="Enter code" required="required" />
+                <label for="card_code">CCV code:</label>
+            <input id="card_code" placeholder="Enter code" required="required" maxlength="3" pattern="^([1-9]{3})$"
+                   title="Numbers only, please!"/><a href="#" data-toggle="tooltip" id="ccv-tooltip" title="Enter the 3 digit number on the back of your card."><span class="glyphicon glyphicon-question-sign"></span></a>
             </div>
             <button type="submit" class="btn btn-info" id="submit_card">Submit</button>
+            <br></br>
         </form>
 
 </div>
-
+<br></br>
 <div th:replace="footer :: copy"></div>
 <script src="/js/payments.js"></script>
 

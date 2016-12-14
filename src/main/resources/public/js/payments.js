@@ -31,3 +31,15 @@ $("#card_number").keyup(function() {
     }
     $(this).val(cardNum);
 });
+
+$("#card_expiry_date").keyup(function() {
+    var exp = $(this).val().split("/").join("");
+    if (exp.length > 0) {
+        exp = exp.match(new RegExp('.{1,2}', 'g')).join("/");
+    }
+    $(this).val(exp);
+});
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
