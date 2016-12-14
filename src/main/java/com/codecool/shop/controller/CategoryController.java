@@ -13,6 +13,7 @@ public class CategoryController extends AbstractController{
 
     public static ModelAndView renderProducts(Request req, Response res) {
         UserController.isLoggedIn(req);
+        params.put("isLoggedIn", UserController.isLoggedIn(req));
         int categoryId = Integer.parseInt(req.params(":id"));
         List<Product> products = ProductCategoryDaoJDBC.getInstance().find(categoryId).getProducts();
         return setParams(Order.getOrder(req), "/category/" + categoryId, products);

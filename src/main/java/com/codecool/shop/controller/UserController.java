@@ -21,6 +21,7 @@ public class UserController extends AbstractController {
     public static boolean isLoggedIn(Request request){
         if(request.session().attribute("isLoggedIn") == null){
             request.session().attribute("isLoggedIn", false);
+            params.put("isLoggedIn", false);
         }
         return request.session().attribute("isLoggedIn");
     }
@@ -61,6 +62,7 @@ public class UserController extends AbstractController {
         boolean pwdMatch = HashClass.checkPassword(req.queryParams("login-name"), req.queryParams("login-pwd"));
         if(pwdMatch){
             req.session().attribute("isLoggedIn", true);
+            params.put("isLoggedIn", isLoggedIn(req));
         }
         return ProductController.renderProducts(req, res);
     }
