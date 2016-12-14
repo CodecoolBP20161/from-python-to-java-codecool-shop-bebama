@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand active" href="/"><span
+                        class="glyphicon glyphicon-home"></span> Home</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown"><a id="href-cat" class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                    <span
+                            class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
+                        <div id="search-cat">
+                            <li>
+                                <div th:each="category,iterStat : ${categories}">
+                                    <a th:text="${category.name}" th:href="'/category/'+${category.id}">Category</a>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="dropdown" id="dropdown-sup"><a id="href-sup" class="dropdown-toggle" data-toggle="dropdown"
+                                                          href="#">Suppliers <span
+                        class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
+                        <div id="search-sup">
+                            <li>
+                                <div th:each="supplier,iterStat : ${suppliers}">
+                                    <a th:text="${supplier.name}" th:href="'/supplier/'+${supplier.id}">Supplier</a>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+
+            <div th:replace="user_status :: copy"></div>
+
+            <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
+                <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
+                        th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
+                                                                                          class="glyphicon glyphicon-shopping-cart"></span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</div>
+
+</body>
+</html>

@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS product, category, supplier;
+DROP TABLE IF EXISTS product, category, supplier, userTable;

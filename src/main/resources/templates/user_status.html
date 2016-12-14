@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/user_status.css"/>
+<body>
+
+<div th:fragment="copy">
+
+    <ul class="nav navbar-nav navbar-right">
+        <li th:if="${!isLoggedIn}" id="login"><a href="#" data-dismiss="modal" data-toggle="modal"
+                                                 data-target="#loginModal"><span
+                class="glyphicon glyphicon-log-in"></span> Log in</a>
+        </li>
+        <li th:if="${!isLoggedIn}" id="signup"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign up</a>
+        </li>
+        <li th:if="${isLoggedIn}" id="logout"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log
+            out</a>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
