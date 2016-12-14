@@ -37,6 +37,7 @@ public class Main {
         post("/signup", UserController::getFormData);
         get("/successful_registration", UserController::success, new ThymeleafTemplateEngine());
         post("/login", UserController::login, new ThymeleafTemplateEngine());
+        get("/logout", UserController::logout, new ThymeleafTemplateEngine());
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }

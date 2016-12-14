@@ -63,7 +63,14 @@ public class UserController extends AbstractController {
         if(pwdMatch){
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
+            res.redirect("/");
         }
+        return ProductController.renderProducts(req, res);
+    }
+
+    public static ModelAndView logout(Request req, Response res) throws Exception {
+        req.session().attribute("isLoggedIn", false);
+        params.put("isLoggedIn", false);
         return ProductController.renderProducts(req, res);
     }
 }
