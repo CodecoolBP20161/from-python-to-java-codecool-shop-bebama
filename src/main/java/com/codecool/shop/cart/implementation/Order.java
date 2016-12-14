@@ -33,6 +33,10 @@ public class Order implements OrderInterface{
         return req.session().attribute("Cart");
     }
 
+    public static void dropOrder(Request request) {
+        request.session().attribute("Cart", null);
+    }
+
     public void setStatus(String status){
         this.status = status;
     }
