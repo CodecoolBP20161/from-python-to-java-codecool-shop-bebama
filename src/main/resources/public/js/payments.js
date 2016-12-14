@@ -23,3 +23,11 @@ $('#payment input').on('change', function () {
         $("#form_card").hide();
     }
 });
+
+$("#card_number").keyup(function() {
+    var cardNum = $(this).val().split("-").join("");
+    if (cardNum.length > 0) {
+        cardNum = cardNum.match(new RegExp('.{1,4}', 'g')).join("-");
+    }
+    $(this).val(cardNum);
+});
