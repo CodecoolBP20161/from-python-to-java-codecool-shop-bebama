@@ -59,3 +59,10 @@ $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
     $("#login-pwd").val("");
 });
+
+$('#loginModal').keypress(function (e) {
+    if (e.which == 13) {
+        $('#login-form').submit();
+        return false;
+    }
+});
