@@ -61,7 +61,7 @@ public class UserController extends AbstractController {
 
     public static ModelAndView login(Request req, Response res) throws Exception {
         boolean pwdMatch = HashClass.checkPassword(req.queryParams("login-name"), req.queryParams("login-pwd"));
-        if(pwdMatch){
+        if(pwdMatch) {
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
             params.put("failedLogin", false);
