@@ -18,7 +18,7 @@ public class PaymentController {
             params.put("order", Order.getOrder(req));
             return new ModelAndView(params, "product/payment");
         } else {
-            return new ModelAndView(params, "log_in_page");
+            return new ModelAndView(params, "not_logged_in");
         }
     }
 }
