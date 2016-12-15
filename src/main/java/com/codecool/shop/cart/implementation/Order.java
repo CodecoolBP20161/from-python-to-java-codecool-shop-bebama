@@ -22,6 +22,16 @@ public class Order implements OrderInterface{
     private String shippingAddress;
     private List<LineItem> listOfSelectedItems;
 
+    public Integer getPaymentCode() {
+        return paymentCode;
+    }
+
+    public void setPaymentCode(Integer paymentCode) {
+        this.paymentCode = paymentCode;
+    }
+
+    private Integer paymentCode;
+
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
     }
