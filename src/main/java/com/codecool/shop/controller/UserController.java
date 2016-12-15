@@ -8,6 +8,8 @@ import com.codecool.shop.email.service.EmailSenderService;
 import spark.ModelAndView;
 import spark.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 
@@ -35,21 +37,43 @@ public class UserController extends AbstractController {
         return new ModelAndView(params, "user/signup_form");
     }
 
-    public static ModelAndView getFormData(Request req, Response res) throws Exception {
-        if (users.findEmail(req.queryParams("email")) == null) {
-            User newUser = new User(req.queryParams("name"), req.queryParams("email"), req.queryParams("pwd"), false);
-            params.put("existingEmail", false);
-            params.remove("name");
-            params.remove("email");
+    private static void signUpLogic(Request req, Response res){
+        User newUser = new User(req.queryParams("name"), req.queryParams("email"), req.queryParams("pwd"), false);
+        params.put("existingEmail", false);
+        params.remove("name");
+        params.remove("email");
+        try {
             users.add(newUser);
-            String recipient = req.queryParams("email");
-            String recipientName = req.queryParams("name");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String recipient = req.queryParams("email");
+        String recipientName = req.queryParams("name");
+        try {
             EmailController.builder("bebamashop@gmail.com", recipient, "Welcome email", recipientName, EmailSenderService.formatWelcomeEmail(recipientName));
-            res.redirect("/successful_registration");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        res.redirect("/successful_registration");
+    }
+
+    public static ModelAndView getFormData(Request req, Response res) throws Exception {
+        if (users.find(req.queryParams("name")) == null) {
+            signUpLogic(req, res);
+            if (users.findEmail(req.queryParams("email")) == null) {
+                signUpLogic(req, res);
+            } else {
+                params.put("name", req.queryParams("name"));
+                params.put("email", req.queryParams("email"));
+                params.put("existingEmail", true);
+                res.redirect("/signup");
+            }
         } else {
             params.put("name", req.queryParams("name"));
             params.put("email", req.queryParams("email"));
-            params.put("existingEmail", true);
+            params.put("existingName", true);
             res.redirect("/signup");
         }
         return new ModelAndView(params, "product/index");
