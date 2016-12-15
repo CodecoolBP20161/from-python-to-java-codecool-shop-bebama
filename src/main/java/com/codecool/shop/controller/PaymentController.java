@@ -74,8 +74,11 @@ public class PaymentController {
     public static ModelAndView checkPaymentCode(Request request, Response response) {
         String code = request.queryParams("payment-code");
         if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)){
-            return new ModelAndView(params, "thanks_for_shopping");
+            params.put("checked", true);
+            response.redirect("/paymentservice");
         }
+        params.put("checked", false);
+        response.redirect("/paymentservice");
         return new ModelAndView(params, "invalid_code");
     }
 }
