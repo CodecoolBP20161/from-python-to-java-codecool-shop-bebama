@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop - Sign Up</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/form.css"/>
+    <div th:replace="styles :: copy"></div>
+
+</head>
+
+<body>
+
+<div th:replace="navbar :: copy"></div>
+
+<div th:replace="productsmodal :: copy"></div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron text-center">
+            <h1>Codecool Shop</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2>Sign up</h2>
+            <form class="form" action="/signup" method="post" id="signup-form">
+                <br></br>
+                <h4>Name:</h4>
+                <div class="input-group">
+                    <input type="text" id ="nameField" name='name' class="form-control" placeholder="Name"
+                           aria-describedby="basic-addon1" required="required" th:value="${name}"></input>
+                </div>
+
+                <h4>Email address:</h4>
+                <div class="input-group" id="emailDiv">
+                    <input type="email" name='email' class="form-control"
+                           placeholder="Email address" required="required" id ="emailField" th:value="${email}"></input>
+                </div>
+                <div th:if="${existingEmail}" id="existingEmail"></div>
+
+                <h4>Enter password:</h4>
+                <div class="input-group">
+                    <input type="password" name='pwd' id='pwd' class="form-control"
+                           placeholder="Password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*_=+-]).{8,12}$" title="Your password must be between 8 and 12 characters long.
+&#13;
+Include lower and capital letters, numbers and special characters!"></input>
+                </div>
+
+                <h4>Enter password again:</h4>
+                <div class="input-group">
+                    <input type="password" name='pwd2' id="pwd2" class="form-control"
+                           placeholder="Password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*_=+-]).{8,12}$" title="Type in the same password again!"></input>
+                </div>
+                <div id="btns">
+
+                <button type="button" class="btn btn-warning btn-md" id="back"><a id="back-btn" href="/">Back</a></button>
+                <span id="correct-data">
+                        <input type="checkbox" required="required"> My details are correct. Sign me up!</input></span>
+                <button type="submit" class="btn btn-success btn-md" id="signup-btn" disabled="disabled" label="Enter the same password!">Submit</button>
+
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<div th:replace="footer :: copy"></div>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

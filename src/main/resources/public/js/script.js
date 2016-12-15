@@ -33,3 +33,24 @@ function filter(filterby) {
         }
     }
 }
+
+$(function () {
+    $("#pwd2").keyup(function () {
+        var password = $("#pwd").val();
+        if (password == $(this).val()) {
+            $("#signup-btn").removeAttr("disabled");
+        }
+        else {
+            $("#signup-btn").attr("disabled", "disabled");
+        }
+    });
+});
+
+$(function () {
+    $("#emailDiv").removeClass("has-error");
+    $("#errMsg").remove();
+    if ($("#existingEmail").val() != null) {
+        $("#emailDiv").addClass("has-error");
+        $("#existingEmail").append('<p style="color: red" id="errMsg">Email already exists.</p>');
+    }
+});
