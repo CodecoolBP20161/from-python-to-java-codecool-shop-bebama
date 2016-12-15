@@ -66,3 +66,10 @@ $('#loginModal').keypress(function (e) {
         return false;
     }
 });
+
+
+if($("#failedLogin").val()!= null){
+
+    $('#failed-login').appendTo("body").modal('show');
+
+}

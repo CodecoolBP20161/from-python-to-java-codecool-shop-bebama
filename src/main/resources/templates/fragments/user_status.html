@@ -6,6 +6,9 @@
 <div th:fragment="copy">
 
     <ul class="nav navbar-nav navbar-right">
+        <div th:if="${failedLogin}!=null">
+            <p id="failedLogin" hidden="hidden"><button type="button" data-toggle="modal" data-target="#failed-login" hidden="hidden"></button></p>
+        </div>
         <li th:if="${!isLoggedIn}" id="login"><a href="#" data-dismiss="modal" data-toggle="modal"
                                                  data-target="#loginModal"><span
                 class="glyphicon glyphicon-log-in"></span> Log in</a>
