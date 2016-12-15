@@ -64,4 +64,13 @@ public class PaymentController {
     private static void execute(URI uri) throws IOException, URISyntaxException {
         org.apache.http.client.fluent.Request.Post(uri).execute();
     }
+
+    public static ModelAndView checkPaymentCode(Request request, Response response) {
+        String code = request.queryParams("payment-code");
+        Map params = new HashMap<>();
+        if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)){
+            return new ModelAndView(params, "thanks_for_shopping");
+        }
+        return new ModelAndView(params, "invalid_code");
+    }
 }
