@@ -14,7 +14,6 @@ public class EmailController {
     private static final String URL = "http://localhost:60009";
 
     public static void builder(String sender, String recipient, String subject, String recipientName, String body) throws URISyntaxException, IOException {
-        System.out.println("In email builder");
         URIBuilder builder = new URIBuilder(URL + "/sendemail");
         builder.addParameter("sender", sender);
         builder.addParameter("recipient", recipient);
