@@ -28,13 +28,19 @@ public class PaymentController {
     public static ModelAndView renderPayment(Request req, Response res) {
         UserController.isLoggedIn(req);
         Map params = new HashMap<>();
-        if (req.session().attribute("isLoggedIn")) {
+        if (req.session().attribute("isLoggedIn").equals(true)) {
             params.put("isLoggedIn", UserController.isLoggedIn(req));
             params.put("order", Order.getOrder(req));
-            return new ModelAndView(params, "product/payment");
+            if(Order.getOrder(req).getTotalQuantity() > 0){
+                return new ModelAndView(params, "product/payment");
+            }
+            else {
+                res.redirect("/");
+            }
         } else {
             return new ModelAndView(params, "user/not_logged_in");
         }
+        return new ModelAndView(params, "product/index");
     }
 
     public static String paymentService(Request request, Response response) throws URISyntaxException {
