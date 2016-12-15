@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool Payment Service"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Payment Service</title>
+
+    <div th:replace="fragments/styles :: copy"></div>
+
+    <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+    <script src="https://use.fontawesome.com/a4a23da0b3.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top"></nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron text-center">
+            <h1>Codecool Payment Service</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading display-table">
+                    <div class="row display-tr">
+                        <h2 class="panel-title">Payment Process</h2>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" action="/checkpaymentcode" method="post" id="payment-form">
+                        <div class="form-group">
+                            <label for="payment-code">Enter code:</label>
+                            <input type="text" class="form-control" id="payment-code" name="payment-code" placeholder="Payment code" required="required"
+                                   maxlength="5" pattern="^([1-9]{4,5})$" title="Numbers only, please!"/>
+                        </div>
+                        <div id="payment-btn-div"><button type="submit" class="btn btn-info" id="pay-btn">Let's pay!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<br></br>
+<div th:replace="fragments/footer :: copy"></div>
+<script src="/js/script.js"></script>
+<script src="/js/payments.js"></script>
+</body>
+</html>

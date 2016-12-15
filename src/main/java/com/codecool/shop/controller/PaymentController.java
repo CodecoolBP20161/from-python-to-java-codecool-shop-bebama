@@ -16,6 +16,7 @@ import java.util.*;
  * Created by cickib on 2016.12.14..
  */
 public class PaymentController {
+    private static Map params = new HashMap<>();
 
     private static String recipient;
 
@@ -27,7 +28,6 @@ public class PaymentController {
 
     public static ModelAndView renderPayment(Request req, Response res) {
         UserController.isLoggedIn(req);
-        Map params = new HashMap<>();
         if (req.session().attribute("isLoggedIn").equals(true)) {
             params.put("isLoggedIn", UserController.isLoggedIn(req));
             params.put("order", Order.getOrder(req));
@@ -43,7 +43,7 @@ public class PaymentController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static ModelAndView paymentService(Request request, Response response) throws URISyntaxException {
+    public static Response paymentService(Request request, Response response) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(URL + "/paymentservice");
         builder.addParameter("recipient", Order.getOrder(request).getEmail());
         builder.addParameter("recipientName", Order.getOrder(request).getName());
@@ -57,10 +57,15 @@ public class PaymentController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        response.redirect("/paymentservice");
+        return response;
+    }
 
-        Map params = new HashMap<>();
+
+    public static ModelAndView renderChecker(Request req, Response res) {
         return new ModelAndView(params, "product/payment_check");
     }
+
 
     private static void execute(URI uri) throws IOException, URISyntaxException {
         org.apache.http.client.fluent.Request.Post(uri).execute();
@@ -68,7 +73,6 @@ public class PaymentController {
 
     public static ModelAndView checkPaymentCode(Request request, Response response) {
         String code = request.queryParams("payment-code");
-        Map params = new HashMap<>();
         if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)){
             return new ModelAndView(params, "thanks_for_shopping");
         }

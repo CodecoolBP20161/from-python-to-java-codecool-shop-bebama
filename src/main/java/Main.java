@@ -33,6 +33,7 @@ public class Main {
         post("/checkout", CartController::checkOut);
         get("/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
         post("/paymentservice", PaymentController::paymentService);
+        get("/paymentservice", PaymentController::renderChecker, new ThymeleafTemplateEngine());
         post("/checkpaymentcode", PaymentController::checkPaymentCode);
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
