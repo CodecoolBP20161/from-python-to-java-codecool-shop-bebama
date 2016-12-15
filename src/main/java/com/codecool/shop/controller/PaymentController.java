@@ -43,7 +43,7 @@ public class PaymentController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static String paymentService(Request request, Response response) throws URISyntaxException {
+    public static ModelAndView paymentService(Request request, Response response) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(URL + "/paymentservice");
         builder.addParameter("recipient", Order.getOrder(request).getEmail());
         builder.addParameter("recipientName", Order.getOrder(request).getName());
@@ -58,7 +58,8 @@ public class PaymentController {
             e.printStackTrace();
         }
 
-        return "";
+        Map params = new HashMap<>();
+        return new ModelAndView(params, "product/payment_check");
     }
 
     private static void execute(URI uri) throws IOException, URISyntaxException {
