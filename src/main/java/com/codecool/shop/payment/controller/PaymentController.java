@@ -13,8 +13,6 @@ import java.net.URISyntaxException;
 public class PaymentController {
 
     public static String payment(Request request, Response response) {
-        System.out.println("in payment");
-        System.out.println(request.queryParams("recipient"));
         try {
             EmailController.builder("bebamashop@gmail.com", request.queryParams("recipient"),
                     "Payment confirmation", request.queryParams("recipientName"), request.queryParams("body"));
