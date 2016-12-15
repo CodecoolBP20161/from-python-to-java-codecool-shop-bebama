@@ -46,3 +46,8 @@ $("#card_expiry_date").keyup(function() {
     }
     $(this).val(exp);
 });
+
+
+if($("#ok-code").length !=0 || $("#wrong-code").length !=0){
+    $("#payment-code-panel").remove();
+}

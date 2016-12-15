@@ -40,10 +40,12 @@
                     <form class="form-inline" action="/checkpaymentcode" method="post" id="payment-form">
                         <div class="form-group">
                             <label for="payment-code">Enter code:</label>
-                            <input type="text" class="form-control" id="payment-code" name="payment-code" placeholder="Payment code" required="required"
-                                   maxlength="5" pattern="^([1-9]{4,5})$" title="Numbers only, please!"/>
+                            <input type="text" class="form-control" id="payment-code" name="payment-code"
+                                   placeholder="Payment code" required="required"
+                                   maxlength="5" pattern="^([0-9]{4,5})$" title="Numbers only, please!"/>
                         </div>
-                        <div id="payment-btn-div"><button type="submit" class="btn btn-success" id="pay-btn">Let's pay!</button>
+                        <div id="payment-btn-div">
+                            <button type="submit" class="btn btn-success" id="pay-btn">Let's pay!</button>
                         </div>
                     </form>
                 </div>
@@ -51,6 +53,19 @@
 
         </div>
         <div class="col-md-2"></div>
+        <div th:switch="${checked}" id="checked-code">
+            <div th:case="${null}" class="hidden"></div>
+            <div th:case="${true}" id="ok-code">
+                <div class="alert alert-success">
+                    <strong>SUCCESS</strong> You successfully payed for your order. A confirmation email is on its way!
+                </div>
+            </div>
+            <div th:case="${false}" id="wrong-code">
+                <div class="alert alert-danger">
+                    <strong>ERROR</strong> Invalid payment code!
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br></br>
