@@ -71,3 +71,15 @@ input[type=radio] {
     width: 85px;
     height: auto;
 }
+
+#totalprice {
+    background-color: #91cf91;
+}
+
+caption {
+    font-size: 20px;
+}
+
+#payment-title {
+    text-align: left;
+}

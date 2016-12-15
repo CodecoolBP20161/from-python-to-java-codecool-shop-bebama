@@ -39,7 +39,29 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h2>Please choose a payment option</h2>
+            <h2 id="payment-title">Please choose a payment option</h2>
+            <br></br>
+            <table class="table table-sm table-bordered">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Products in your cart</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                    <th>Total price</th>
+                </tr>
+                </thead>
+                <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
+                    <td th:text="${item.getProduct().getName()}">Product Name</td>
+                    <td th:text="${item.getQuantity()}"></td>
+                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
+                    <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+                <tr id="totalprice" class="table-success">
+                    <td colspan="3">Total price to pay:</td>
+                    <td th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+            </table>
+            <br></br>
             <br></br>
             <form class="form" id="payment">
                 <label class="radio-inline">
@@ -51,19 +73,6 @@
                     <i class="fa fa-credit-card" aria-hidden="true"></i>
                 </label>
             </form>
-            <br></br>
-            <table>
-                <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
-                    <td th:text="${item.getProduct().getName()}">Product Name</td>
-                    <td th:text="${item.getQuantity()}"></td>
-                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
-                    <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
-                </tr>
-                <tr>
-                    <td colspan="3">Total price:</td>
-                    <td id="totalprice" th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
-                </tr>
-            </table>
             <br></br>
             <div th:replace="fragments/paypal_form :: copy"></div>
             <div th:replace="fragments/card_form :: copy"></div>
