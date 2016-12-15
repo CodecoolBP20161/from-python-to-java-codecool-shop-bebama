@@ -83,3 +83,19 @@ caption {
 #payment-title {
     text-align: left;
 }
+
+
+#payment-code-panel {
+    width: 400px;
+    text-align: center;
+    margin: auto;
+
+}
+
+#payment-code-body>form {
+    width: inherit;
+}
+
+#pay-btn {
+    margin-top: 15px;
+}
