@@ -3,12 +3,9 @@ package com.codecool.shop.controller;
 import com.codecool.shop.cart.implementation.Order;
 import org.apache.http.client.utils.URIBuilder;
 import spark.*;
-import spark.Request;
-import spark.Response;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.*;
 import java.util.*;
 
 
@@ -17,6 +14,8 @@ import java.util.*;
  */
 public class PaymentController {
     private static Map params = new HashMap<>();
+
+    private static boolean validPaymentCode;
 
     private static String recipient;
 
@@ -31,10 +30,9 @@ public class PaymentController {
         if (req.session().attribute("isLoggedIn").equals(true)) {
             params.put("isLoggedIn", UserController.isLoggedIn(req));
             params.put("order", Order.getOrder(req));
-            if(Order.getOrder(req).getTotalQuantity() > 0){
+            if (Order.getOrder(req).getTotalQuantity() > 0) {
                 return new ModelAndView(params, "product/payment");
-            }
-            else {
+            } else {
                 res.redirect("/");
             }
         } else {
@@ -48,10 +46,9 @@ public class PaymentController {
         builder.addParameter("recipient", Order.getOrder(request).getEmail());
         builder.addParameter("recipientName", Order.getOrder(request).getName());
         Random rand = new Random();
-
         int randomCode = rand.nextInt(9999) + 1000;
         Order.getOrder(request).setPaymentCode(randomCode);
-        builder.addParameter("body" , "Type this number to the required field please: " + Integer.toString(randomCode));
+        builder.addParameter("body", "Type this number to the required field please: " + Integer.toString(randomCode));
         try {
             execute(builder.build());
         } catch (IOException e) {
@@ -63,6 +60,11 @@ public class PaymentController {
 
 
     public static ModelAndView renderChecker(Request req, Response res) {
+        if (params.get("checked") == null) {
+            params.put("checked", null);
+        } else {
+            params.put("checked", validPaymentCode);
+        }
         return new ModelAndView(params, "product/payment_check");
     }
 
@@ -71,14 +73,17 @@ public class PaymentController {
         org.apache.http.client.fluent.Request.Post(uri).execute();
     }
 
+
     public static ModelAndView checkPaymentCode(Request request, Response response) {
         String code = request.queryParams("payment-code");
-        if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)){
+        if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)) {
             params.put("checked", true);
-            response.redirect("/paymentservice");
+            validPaymentCode = true;
+            return new ModelAndView(params, "product/payment_check");
+        } else {
+            params.put("checked", false);
+            validPaymentCode = false;
+            return new ModelAndView(params, "product/payment_check");
         }
-        params.put("checked", false);
-        response.redirect("/paymentservice");
-        return new ModelAndView(params, "invalid_code");
     }
 }
