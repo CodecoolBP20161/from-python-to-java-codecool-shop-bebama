@@ -20,7 +20,8 @@ public class EmailSenderController {
         String recipient = request.queryParams("recipient");
         String subject = request.queryParams("subject");
         String recipientName = request.queryParams("recipientName");
-        service.emailSender(sender, recipient, subject, recipientName);
+        String body = request.queryParams("body");
+        service.emailSender(sender, recipient, subject, recipientName, body);
         return  "ok";
     }
 }

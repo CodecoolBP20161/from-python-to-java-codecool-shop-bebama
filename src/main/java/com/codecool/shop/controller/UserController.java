@@ -4,6 +4,7 @@ import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.jdbc.*;
+import com.codecool.shop.email.service.EmailSenderService;
 import spark.ModelAndView;
 import spark.*;
 
@@ -44,7 +45,7 @@ public class UserController extends AbstractController {
             users.add(newUser);
             String recipient = req.queryParams("email");
             String recipientName = req.queryParams("name");
-            EmailController.builder("bebamashop@gmail.com", recipient, "Welcome email", recipientName);
+            EmailController.builder("bebamashop@gmail.com", recipient, "Welcome email", recipientName, EmailSenderService.formatWelcomeEmail(recipientName));
             res.redirect("/successful_registration");
         } else {
             params.put("name", req.queryParams("name"));
