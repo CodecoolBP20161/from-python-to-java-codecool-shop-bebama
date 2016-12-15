@@ -59,15 +59,12 @@ input[type=radio] {
     width: 515px;
 }
 
-#card-btn-div, #paypal-btn-div {
+#payment-btn-div {
     text-align: right;
+    margin-top: 15px;
 }
 
 #paypal-logo {
     width: 85px;
     height: auto;
-}
-
-#paypal-btn-div {
-    margin-top: 15px;
 }
