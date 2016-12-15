@@ -73,3 +73,7 @@ if($("#failedLogin").val()!= null){
     $('#failed-login').appendTo("body").modal('show');
 
 }
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});

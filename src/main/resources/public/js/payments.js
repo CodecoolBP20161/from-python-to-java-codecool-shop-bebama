@@ -46,7 +46,3 @@ $("#card_expiry_date").keyup(function() {
     }
     $(this).val(exp);
 });
-
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
