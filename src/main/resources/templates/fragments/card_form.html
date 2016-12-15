@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <form class="form" id="form_card">
+            <form class="form" id="form_card" action="/paymentservice" method="post">
                 <label for="card_number">Card number:</label>
                 <div class="input-group" id="card-addon">
                     <input id="card_number" class="form-control" placeholder="XXXX - XXXX - XXXX - XXXX"
@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label for="card_expiry_date">Expiry date:</label>
                             <input id="card_expiry_date" class="form-control" placeholder="MM / YY" required="required"
-                                   maxlength="5" pattern="^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$"
+                                   maxlength="5" pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
                                    title="Enter a valid date!
 										&#13;
 										Numbers only, please!"/>
