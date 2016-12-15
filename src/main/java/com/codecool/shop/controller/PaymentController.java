@@ -40,7 +40,7 @@ public class PaymentController {
     public static String paymentService(Request request, Response response) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(URL + "/paymentservice");
         builder.addParameter("recipient", Order.getOrder(request).getEmail());
-        builder.addParameter("recipientName", request.queryParams("recipientName"));
+        builder.addParameter("recipientName", Order.getOrder(request).getName());
         Random rand = new Random();
 
         int randomCode = rand.nextInt(9999) + 1000;
