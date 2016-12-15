@@ -238,3 +238,7 @@ hr {
     text-align: center;
     font-weight: bold;
 }
+
+#totalprice {
+    font-weight: bold;
+}

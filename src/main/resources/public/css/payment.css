@@ -59,7 +59,7 @@ input[type=radio] {
     width: 515px;
 }
 
-#card-btn-div, #paypal-btn-div {
+#card-btn-div, #paypal-btn-div, #payment-btn-div {
     text-align: right;
 }
 
