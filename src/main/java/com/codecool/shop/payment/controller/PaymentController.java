@@ -17,7 +17,7 @@ public class PaymentController {
         System.out.println(request.queryParams("recipient"));
         try {
             EmailController.builder("bebamashop@gmail.com", request.queryParams("recipient"),
-                    "Welcome email", request.queryParams("recipientName"), request.queryParams("body"));
+                    "Payment confirmation", request.queryParams("recipientName"), request.queryParams("body"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {
