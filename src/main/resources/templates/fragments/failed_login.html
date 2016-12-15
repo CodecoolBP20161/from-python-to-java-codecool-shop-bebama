@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+
+    <div class="modal fade" id="failed-login" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content panel-warning">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">You failed to log in</h4>
+                </div>
+                <div class="modal-body" id="invalid">
+                    <p>Invalid password or username!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

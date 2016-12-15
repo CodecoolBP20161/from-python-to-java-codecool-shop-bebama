@@ -23,7 +23,6 @@ public class UserController extends AbstractController {
         if(request.session().attribute("isLoggedIn") == null){
             request.session().attribute("isLoggedIn", false);
             params.put("isLoggedIn", false);
-            params.put("failedLogin", false);
         }
         return request.session().attribute("isLoggedIn");
     }
@@ -65,11 +64,13 @@ public class UserController extends AbstractController {
         if(pwdMatch) {
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
-            params.put("failedLogin", false);
+            req.session().removeAttribute("failedLogin");
+            params.remove("failedLogin");
             res.redirect("/");
         }
         else {
             params.put("failedLogin", true);
+            req.session().attribute("failedLogin", true);
         }
         res.redirect("/");
         return ProductController.renderProducts(req, res);

@@ -233,3 +233,8 @@ hr {
 #input-cat, #input-sup {
     color: #000;
 }
+
+#invalid {
+    text-align: center;
+    font-weight: bold;
+}
