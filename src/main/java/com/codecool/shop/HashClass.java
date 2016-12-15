@@ -28,14 +28,15 @@ public class HashClass {
         return DatatypeConverter.printHexBinary(digest);
     }
 
-//    public static void main(String[] args) throws Exception {
-//        String result = hasher("string");
-//        System.out.println(result);
-//    }
 
-    private boolean checkPassword( String name, String password) throws Exception {
-        String saltedHash = hasher(password);
-        User user = UserDaoJDBC.getInstance().find(name);
-        return user.getPassword().equals(saltedHash);
+    public static boolean checkPassword(String name, String password) throws Exception {
+        try {
+            String saltedHash = hasher(password);
+            User user = UserDaoJDBC.getInstance().find(name);
+            return user.getPassword().equals(saltedHash);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

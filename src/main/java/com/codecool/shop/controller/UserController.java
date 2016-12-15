@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.jdbc.*;
@@ -16,6 +17,15 @@ import java.util.*;
 public class UserController extends AbstractController {
     private static Map params = new HashMap<>();
     private static UserDaoJDBC users = UserDaoJDBC.getInstance();
+
+    public static boolean isLoggedIn(Request request){
+        if(request.session().attribute("isLoggedIn") == null){
+            request.session().attribute("isLoggedIn", false);
+            params.put("isLoggedIn", false);
+            params.put("failedLogin", false);
+        }
+        return request.session().attribute("isLoggedIn");
+    }
 
     public static ModelAndView renderForm(Request req, Response res) {
         params.put("categories", ProductCategoryDaoJDBC.getInstance().getAll());
@@ -47,5 +57,27 @@ public class UserController extends AbstractController {
 
     public static ModelAndView success(Request req, Response res) {
         return new ModelAndView(params, "successful_registration");
+    }
+
+    public static ModelAndView login(Request req, Response res) throws Exception {
+        boolean pwdMatch = HashClass.checkPassword(req.queryParams("login-name"), req.queryParams("login-pwd"));
+        if(pwdMatch){
+            req.session().attribute("isLoggedIn", true);
+            params.put("isLoggedIn", isLoggedIn(req));
+            params.put("failedLogin", false);
+            res.redirect("/");
+        }
+        else {
+            params.put("failedLogin", true);
+        }
+        res.redirect("/");
+        return ProductController.renderProducts(req, res);
+    }
+
+    public static ModelAndView logout(Request req, Response res) throws Exception {
+        req.session().attribute("isLoggedIn", false);
+        params.put("isLoggedIn", false);
+        Order.dropOrder(req);
+        return ProductController.renderProducts(req, res);
     }
 }

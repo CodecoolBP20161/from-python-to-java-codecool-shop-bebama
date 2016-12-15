@@ -148,6 +148,11 @@ tr:nth-child(even) {
 }
 
 #cart {
+    margin-right: 10px;
+}
+
+
+#cart {
     background-color: #9a9a9a;
 }
 
@@ -198,4 +203,16 @@ hr {
 #successReg {
     text-align: center;
     margin-bottom: 10px;
+}
+
+.modal-md {
+    width: 700px;
+}
+
+.form-inline {
+    width: 600px;
+}
+
+#login-btn {
+    margin-left: 14px;
 }

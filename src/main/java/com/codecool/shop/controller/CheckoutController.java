@@ -11,8 +11,14 @@ import java.util.*;
 public class CheckoutController {
 
     public static ModelAndView renderCheckout(Request req, Response res) {
+        UserController.isLoggedIn(req);
         Map params = new HashMap<>();
-        params.put("order", Order.getOrder(req));
-        return new ModelAndView(params, "product/form");
+        if (req.session().attribute("isLoggedIn")) {
+            params.put("isLoggedIn", UserController.isLoggedIn(req));
+            params.put("order", Order.getOrder(req));
+            return new ModelAndView(params, "product/checkout_form");
+        } else {
+            return new ModelAndView(params, "not_logged_in");
+        }
     }
 }
