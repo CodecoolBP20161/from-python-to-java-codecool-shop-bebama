@@ -61,7 +61,7 @@ public class UserController extends AbstractController {
 
     public static ModelAndView getFormData(Request req, Response res) throws Exception {
         if (users.find(req.queryParams("name")) == null) {
-            signUpLogic(req, res);
+            params.remove("existingName");
             if (users.findEmail(req.queryParams("email")) == null) {
                 signUpLogic(req, res);
             } else {

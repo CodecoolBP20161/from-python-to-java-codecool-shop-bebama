@@ -48,21 +48,27 @@ $(function () {
 
 $(function () {
     $("#emailDiv").removeClass("has-error");
-    $("#errMsg").remove();
+    $("#emailDiv").removeClass("has-feedback");
+    $("#errMsgEmail").remove();
     if ($("#existingEmail").val() != null) {
         $("#emailDiv").addClass("has-error");
-        $("#existingEmail").append('<p style="color: red" id="errMsg">Email already exists.</p>');
-    }
-});
+        $("#email-div").addClass("has-feedback");
+        $("#existingEmail").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsgEmail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Email already exists!</strong></div>');
+        $("#emailField").after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>')
+
+    }});
 
 $(function () {
-    $("#nameField").removeClass("has-error");
+    $("#nameDiv").removeClass("has-error");
+    $("#nameDiv").removeClass("has-feedback");
     $("#errMsg").remove();
-    if ($("#existingName").val() != null) {
-        $("#nameField").addClass("has-error");
-        $("#existingName").append('<p style="color: red" id="errMsg">Name already exists.</p>');
-    }
-});
+        if ($("#existingName").val() != null) {
+            $("#nameDiv").addClass("has-error");
+            $("#nameDiv").addClass("has-feedback");
+            $("#existingName").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Name already exists!</strong></div>');
+            $("#nameField").after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>')
+        }
+    });
 
 $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
