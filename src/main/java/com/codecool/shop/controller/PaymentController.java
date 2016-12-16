@@ -79,6 +79,7 @@ public class PaymentController {
         if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)) {
             params.put("checked", true);
             validPaymentCode = true;
+            Order.dropOrder(request);
             return new ModelAndView(params, "product/payment_check");
         } else {
             params.put("checked", false);

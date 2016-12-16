@@ -54,3 +54,12 @@ if($("#ok-code").length !=0){
         window.location.href = "http://0.0.0.0:8888/";
     }, 4000);
 }
+
+if($("#wrong-code").length !=0){
+    $("#payment-code-panel").hide();
+    $("#wrong-code").show();
+    setTimeout(function() {
+        $("#payment-code-panel").show();
+        $("#wrong-code").hide();
+    }, 4000);
+}

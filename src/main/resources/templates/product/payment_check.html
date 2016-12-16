@@ -18,7 +18,6 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top"></nav>
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron text-center">
@@ -43,12 +42,11 @@
                                    maxlength="5" pattern="^([0-9]{4,5})$" title="Numbers only, please!"/>
                         </div>
                         <div id="payment-btn-div">
-                            <button type="submit" class="btn btn-success" id="pay-btn">Let's pay!</button>
+                            <button type="submit" class="btn btn-info" id="pay-btn">Let's pay!</button>
                         </div>
                     </form>
                 </div>
             </div>
-
         </div>
         <div class="col-md-2"></div>
         <div th:switch="${checked}" id="checked-code">
@@ -61,14 +59,21 @@
             </div>
             <div th:case="${false}" id="wrong-code">
                 <div class="alert alert-danger">
-                    <strong>ERROR</strong> Invalid payment code!
+                    <p><strong>ERROR</strong> Invalid payment code!</p>
+                    <p>Please enter the number from the email we sent you!</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <br></br>
-<div th:replace="fragments/footer :: copy"></div>
+<div class="footer navbar-fixed-bottom">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            BeBaMa &copy; 2016 Codecool Budapest
+        </div>
+    </div>
+</div>
 <script src="/js/script.js"></script>
 <script src="/js/payments.js"></script>
 </body>
