@@ -28,9 +28,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-
-
-            <div class="panel panel-success" id="payment-code-panel">
+            <div class="panel panel-info" id="payment-code-panel">
                 <div class="panel-heading display-table">
                     <div class="row display-tr">
                         <h2 class="panel-title">Payment Process</h2>
@@ -57,7 +55,8 @@
             <div th:case="${null}" class="hidden"></div>
             <div th:case="${true}" id="ok-code">
                 <div class="alert alert-success">
-                    <strong>SUCCESS</strong> You successfully payed for your order. A confirmation email is on its way!
+                    <p><strong>SUCCESS</strong> You successfully payed for your order. A confirmation email is on its way!</p>
+                    <p>We are redirecting you to the main page.</p>
                 </div>
             </div>
             <div th:case="${false}" id="wrong-code">
