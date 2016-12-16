@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.cart.LineItem;
 import com.codecool.shop.cart.implementation.Order;
 import org.apache.http.client.utils.URIBuilder;
 import spark.*;
@@ -79,6 +80,24 @@ public class PaymentController {
         if (Order.getOrder(request).getPaymentCode() == Integer.parseInt(code)) {
             params.put("checked", true);
             validPaymentCode = true;
+            String listOfItems = "You payed for the following products: \n\n";
+            List<LineItem> items = Order.getOrder(request).getListOfSelectedItems();
+            for (LineItem item:items){
+                listOfItems += item.getProduct().getName() + "\n";
+                listOfItems += "Quantity: " + Integer.toString(item.getQuantity()) + "\n";
+                listOfItems += "Price: " + Integer.toString(Math.round(item.getTotalPrice())) + " USD \n\n";
+            }
+            listOfItems += "Total price: " + Integer.toString(Math.round(Order.getOrder(request).getTotalPrice()))+ " USD";
+            try {
+                EmailController.builder("bebamashop@gmail.com",
+                        Order.getOrder(request).getEmail(),
+                        "Your order", Order.getOrder(request).getName(),
+                        listOfItems);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Order.dropOrder(request);
             return new ModelAndView(params, "product/payment_check");
         } else {
