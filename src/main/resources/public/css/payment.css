@@ -1,20 +1,109 @@
-.jumbotron {
-    background: url("/img/header.png");
-    background-size: 1300px 360px;
-    color: #9a9a9a;
-    font-variant: small-caps;
-    font-weight: 600;
-    font-family: 'Bungee Inline', cursive;
-}
-
-.jumbotron > h1 {
-    font-size: 80px;
-}
-
-h2 {
-    font-family: 'Bungee Inline', cursive;
-}
-
 .col-md-8 {
     text-align: center;
+}
+
+#ccv-tooltip {
+    margin-left: 10px;
+}
+
+div > label, .form {
+    text-align: left;
+}
+
+div > label {
+    padding-top: 15px;
+}
+
+#panel_card, #panel_paypal {
+    width: 550px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.panel-body {
+    width: auto;
+}
+
+form {
+    text-align: center;
+    width: auto;
+}
+
+#card-title, #paypal-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#payment, label.radio-inline {
+    font-size: 20px;
+}
+
+label.radio-inline {
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 30px;
+}
+
+input[type=radio] {
+    display: inline;
+    vertical-align: middle;
+    margin:0px;
+}
+
+#payment {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-group, #card-addon {
+    width: 515px;
+}
+
+#card-btn-div, #paypal-btn-div, #payment-btn-div {
+    text-align: right;
+}
+
+#paypal-btn-div {
+    margin-top: 15px;
+}
+
+#paypal-logo {
+    width: 85px;
+    height: auto;
+}
+
+#totalprice {
+    background-color: #91cf91;
+}
+
+caption {
+    font-size: 20px;
+}
+
+#payment-title {
+    text-align: left;
+}
+
+
+#payment-code-panel {
+    width: 400px;
+    text-align: center;
+    margin: auto;
+
+}
+
+#payment-code-body>form {
+    width: inherit;
+}
+
+#pay-btn {
+    margin-top: 15px;
+}
+
+#checked-code {
+    width: 300px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
 }

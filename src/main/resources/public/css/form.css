@@ -1,16 +1,3 @@
-.jumbotron {
-    background: url("/img/header.png");
-    background-size: 1300px 360px;
-    color: #9a9a9a;
-    font-variant: small-caps;
-    font-weight: 600;
-    font-family: 'Bungee Inline', cursive;
-}
-
-.jumbotron > h1 {
-    font-size: 80px;
-}
-
 .col-md-8 form {
     text-align:center;
 
@@ -33,7 +20,7 @@ h4 {
     margin-left: 200px;
 }
 
-#back-btn{
+#back-btn, #back-btn-payment, #success-btn-payment{
     text-decoration: none;
     color:white;
 }

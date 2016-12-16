@@ -22,6 +22,16 @@ public class Order implements OrderInterface{
     private String shippingAddress;
     private List<LineItem> listOfSelectedItems;
 
+    public Integer getPaymentCode() {
+        return paymentCode;
+    }
+
+    public void setPaymentCode(Integer paymentCode) {
+        this.paymentCode = paymentCode;
+    }
+
+    private Integer paymentCode;
+
     private Order(){
         this.listOfSelectedItems = new ArrayList<>();
     }
@@ -31,6 +41,10 @@ public class Order implements OrderInterface{
             req.session().attribute("Cart", new Order());
         }
         return req.session().attribute("Cart");
+    }
+
+    public static void dropOrder(Request request) {
+        request.session().attribute("Cart", null);
     }
 
     public void setStatus(String status){
