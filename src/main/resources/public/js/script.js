@@ -55,7 +55,34 @@ $(function () {
     }
 });
 
+$(function () {
+    $("#nameField").removeClass("has-error");
+    $("#errMsg").remove();
+    if ($("#existingName").val() != null) {
+        $("#nameField").addClass("has-error");
+        $("#existingName").append('<p style="color: red" id="errMsg">Name already exists.</p>');
+    }
+});
+
 $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
     $("#login-pwd").val("");
+});
+
+$('#loginModal').keypress(function (e) {
+    if (e.which == 13) {
+        $('#login-form').submit();
+        return false;
+    }
+});
+
+
+if($("#failedLogin").val()!= null){
+
+    $('#failed-login').appendTo("body").modal('show');
+
+}
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
 });

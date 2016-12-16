@@ -7,15 +7,16 @@
 
     <title>Codecool Shop - Payment</title>
 
-    <div th:replace="styles :: copy"></div>
+    <div th:replace="fragments/styles :: copy"></div>
 
     <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+    <script src="https://use.fontawesome.com/a4a23da0b3.js"></script>
 
 </head>
 
 <body>
 
-<div th:replace="loginmodal :: copy"></div>
+<div th:replace="fragments/loginmodal :: copy"></div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -24,10 +25,11 @@
                     class="glyphicon glyphicon-home"></span> Home</a>
         </div>
 
-        <div th:replace="user_status :: copy"></div>
+        <div th:replace="fragments/user_status :: copy"></div>
 
     </div>
 </nav>
+
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron text-center">
@@ -37,13 +39,50 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h2>The payment function is under construction</h2>
-            <img src="img/under-construction.jpg"/>
+            <h2 id="payment-title">Please choose a payment option</h2>
+            <br></br>
+            <table class="table table-sm table-bordered">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Products in your cart</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                    <th>Total price</th>
+                </tr>
+                </thead>
+                <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
+                    <td th:text="${item.getProduct().getName()}">Product Name</td>
+                    <td th:text="${item.getQuantity()}"></td>
+                    <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
+                    <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+                <tr id="totalprice" class="table-success">
+                    <td colspan="3">Total price to pay:</td>
+                    <td th:text="${order.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+            </table>
+            <br></br>
+            <br></br>
+            <form class="form" id="payment">
+                <label class="radio-inline">
+                    <input id="paypal" type="radio" name="optradio">Paypal </input>
+                    <i class="fa fa-paypal" aria-hidden="true"></i>
+                </label>
+                <label class="radio-inline">
+                    <input id="card" type="radio" name="optradio">Card </input>
+                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                </label>
+            </form>
+            <br></br>
+            <div th:replace="fragments/paypal_form :: copy"></div>
+            <div th:replace="fragments/card_form :: copy"></div>
         </div>
         <div class="col-md-2"></div>
     </div>
 </div>
-
-<div th:replace="footer :: copy"></div>
+<br></br>
+<div th:replace="fragments/footer :: copy"></div>
+<script src="/js/script.js"></script>
+<script src="/js/payments.js"></script>
 </body>
 </html>

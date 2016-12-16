@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+
+    <div class="modal fade" id="productsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/editcart" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Products in your cart</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="productsTable">
+                            <tr id="productHeader">
+                                <td>Product</td>
+                                <td>Quantity</td>
+                                <td>Unit price</td>
+                                <td>Total price</td>
+                            </tr>
+                            <tr class="product" th:each="item, iterStat : ${order.getListOfSelectedItems()}">
+                                <td th:text="${item.getProduct().getName()}">Product Name</td>
+                                <td><input type="number" th:name="quantity_+${item.getProduct().getId()}" min="0"
+                                           max="100" th:value="${item.getQuantity()}"/></td>
+                                <td th:text="${item.getProduct().getDefaultPrice()}+' '+USD">1.0 USD</td>
+                                <td th:text="${item.getTotalPrice()}+' '+USD">1.0 USD</td>
+                            </tr>
+                            <tr>
+                                <td id="total-modal" colspan="3">
+                                    Total price:
+                                </td>
+                                <td id="totalprice-modal" th:text="${order.getTotalPrice()}+' '+USD">1.0 USD</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="ok-btn-div">
+                        <input hidden="hidden" name="redirect" th:value="${redirect}"></input>
+                        <button type="submit" class="btn btn-info" id="ok-btn">Save changes</button>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <form id="checkout-btn-form" action="/checkout" method="GET">
+                        <button class="btn btn-success" id="checkout-btn" href="/checkout">
+                            Checkout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

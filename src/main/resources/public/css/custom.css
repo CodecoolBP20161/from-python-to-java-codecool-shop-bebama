@@ -14,6 +14,11 @@
     margin-top: 10px;
 }
 
+#totalprice {
+    text-align: left;
+    padding-right: 30px;
+}
+
 .item.list-group-item {
     float: none;
     width: 100%;
@@ -215,4 +220,25 @@ hr {
 
 #login-btn {
     margin-left: 14px;
+}
+
+#totalprice-modal {
+    padding-right: 30px;
+}
+
+#total-modal, #totalprice-modal {
+    font-weight: bold;
+}
+
+#input-cat, #input-sup {
+    color: #000;
+}
+
+#invalid {
+    text-align: center;
+    font-weight: bold;
+}
+
+#totalprice {
+    font-weight: bold;
 }

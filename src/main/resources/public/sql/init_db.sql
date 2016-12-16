@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS product
 CREATE TABLE IF NOT EXISTS userTable
 (
 u_id SERIAL PRIMARY KEY,
-u_name TEXT,
+u_name TEXT UNIQUE,
 email TEXT UNIQUE,
 password TEXT,
 welcomeEmail INT);

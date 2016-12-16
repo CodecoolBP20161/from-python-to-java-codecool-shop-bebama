@@ -7,7 +7,7 @@
 
     <title>Codecool Shop</title>
 
-    <div th:replace="styles :: copy"></div>
+    <div th:replace="fragments/styles :: copy"></div>
 
 </head>
 
@@ -18,12 +18,12 @@
 </div>
 
 
-<div th:replace="productsmodal :: copy"></div>
+<div th:replace="fragments/productsmodal :: copy"></div>
 
 
-<div th:replace="navbar :: copy"></div>
+<div th:replace="fragments/navbar :: copy"></div>
 
-<div th:replace="loginmodal :: copy"></div>
+<div th:replace="fragments/loginmodal :: copy"></div>
 
 
 <div class="container-fluid">
@@ -57,7 +57,7 @@
         </div>
     </div>
 </div>
-<div th:replace="footer :: copy"></div>
+<div th:replace="fragments/footer :: copy"></div>
 <script src="/js/script.js"></script>
 
 </body>

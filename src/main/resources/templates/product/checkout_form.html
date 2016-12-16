@@ -7,14 +7,14 @@
 
     <title>Codecool Shop - Checkout</title>
 
-    <div th:replace="styles :: copy"></div>
+    <div th:replace="fragments/styles :: copy"></div>
 
     <link rel="stylesheet" type="text/css" href="/css/form.css"/>
 </head>
 
 <body>
 
-<div th:replace="loginmodal :: copy"></div>
+<div th:replace="fragments/loginmodal :: copy"></div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -23,7 +23,7 @@
                     class="glyphicon glyphicon-home"></span> Home</a>
         </div>
 
-        <div th:replace="user_status :: copy"></div>
+        <div th:replace="fragments/user_status :: copy"></div>
 
     </div>
 </nav>
@@ -78,6 +78,6 @@
     </div>
 </div>
 
-<div th:replace="footer :: copy"></div>
+<div th:replace="fragments/footer :: copy"></div>
 </body>
 </html>

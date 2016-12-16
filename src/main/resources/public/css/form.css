@@ -20,7 +20,7 @@ h4 {
     margin-left: 200px;
 }
 
-#back-btn{
+#back-btn, #back-btn-payment, #success-btn-payment{
     text-decoration: none;
     color:white;
 }

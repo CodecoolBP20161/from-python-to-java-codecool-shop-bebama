@@ -20,7 +20,7 @@ public class EmailSenderService {
         return INSTANCE;
     }
 
-    private static String formatWelcomeEmail(String name) {
+    public static String formatWelcomeEmail(String name) {
         return String.format("You are receiving this email, because you have successfully registered to our webshop, " +
                 "the BeBaMa Codecool Shop with the username '%s'.", name);
     }
@@ -32,7 +32,7 @@ public class EmailSenderService {
         return text;
     }
 
-    public void emailSender(String sender, String recipient, String subject, String recipientName) {
+    public void emailSender(String sender, String recipient, String subject, String recipientName, String body) {
 
         // Setup mail server
         Properties props = new Properties();
@@ -63,7 +63,7 @@ public class EmailSenderService {
             message.setSubject(subject);
 
             // Final email form and the actual message
-            message.setText(formatText(recipientName, formatWelcomeEmail(recipientName)));
+            message.setText(formatText(recipientName, body ));
 
             // Send message
             Transport.send(message);

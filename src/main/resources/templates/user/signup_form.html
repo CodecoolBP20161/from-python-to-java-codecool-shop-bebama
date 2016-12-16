@@ -8,17 +8,18 @@
     <title>Codecool Shop - Sign Up</title>
 
     <link rel="stylesheet" type="text/css" href="/css/form.css"/>
-    <div th:replace="styles :: copy"></div>
+    <script src="https://use.fontawesome.com/a4a23da0b3.js"></script>
+    <div th:replace="fragments/styles :: copy"></div>
 
 </head>
 
 <body>
 
-<div th:replace="navbar :: copy"></div>
+<div th:replace="fragments/navbar :: copy"></div>
 
-<div th:replace="productsmodal :: copy"></div>
+<div th:replace="fragments/productsmodal :: copy"></div>
 
-<div th:replace="loginmodal :: copy"></div>
+<div th:replace="fragments/loginmodal :: copy"></div>
 
 <div class="container-fluid">
     <div class="row">
@@ -37,6 +38,7 @@
                     <input type="text" id ="nameField" name='name' class="form-control" placeholder="Name"
                            aria-describedby="basic-addon1" required="required" th:value="${name}"></input>
                 </div>
+                <div th:if="${existingName}" id="existingName"></div>
 
                 <h4>Email address:</h4>
                 <div class="input-group" id="emailDiv">
@@ -45,7 +47,13 @@
                 </div>
                 <div th:if="${existingEmail}" id="existingEmail"></div>
 
-                <h4>Enter password:</h4>
+                <h4>Enter password: <span><a href="#" data-toggle="tooltip"
+                                             id="pwd-tooltip"
+                                             title="Your password must be between 8 and 12 characters long.
+                         &#13;
+Include lower and capital letters, numbers and special characters!"><i
+                        class="fa fa-question-circle" aria-hidden="true"></i>
+									</a></span></h4>
                 <div class="input-group">
                     <input type="password" name='pwd' id='pwd' class="form-control"
                            placeholder="Password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*_=+-]).{8,12}$" title="Your password must be between 8 and 12 characters long.
@@ -72,7 +80,7 @@ Include lower and capital letters, numbers and special characters!"></input>
     </div>
 </div>
 
-<div th:replace="footer :: copy"></div>
+<div th:replace="fragments/footer :: copy"></div>
 <script src="/js/script.js"></script>
 
 </body>
