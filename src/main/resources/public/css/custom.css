@@ -177,6 +177,7 @@ tr:nth-child(even) {
 
 .jumbotron {
     margin-top: 50px;
+    margin-bottom: 0px;
     background-size: 1300px 360px;
     /*color: #9a9a9a;*/
     color: #3b3b3b;
@@ -241,4 +242,8 @@ hr {
 
 #totalprice {
     font-weight: bold;
+}
+
+#banner {
+    margin: 5px;
 }
