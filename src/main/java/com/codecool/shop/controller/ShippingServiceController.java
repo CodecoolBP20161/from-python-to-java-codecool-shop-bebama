@@ -42,7 +42,12 @@ public class ShippingServiceController {
                 details.getInt("distanceInKm"));
     }
 
-    public Boolean checkCity(String city){
-        return getShippingCost(city).size() != 0;
+    public String checkCity(String city){
+        List<ShippingOption> shippingOptions = getShippingCost(city);
+        if(shippingOptions.size() == 0) {
+            return "invalid";
+        } else if (shippingOptions.get(0).getDistance() > 300) {
+            return "too_far";
+        } else return "valid";
     }
 }
