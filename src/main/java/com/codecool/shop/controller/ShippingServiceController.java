@@ -41,4 +41,13 @@ public class ShippingServiceController {
                 details.getInt("timeInHours"),
                 details.getInt("distanceInKm"));
     }
+
+    public String checkCity(String city){
+        List<ShippingOption> shippingOptions = getShippingCost(city);
+        if(shippingOptions.size() == 0) {
+            return "invalid";
+        } else if (shippingOptions.get(0).getDistance() > 300) {
+            return "too_far";
+        } else return "valid";
+    }
 }
