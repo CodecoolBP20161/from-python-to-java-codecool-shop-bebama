@@ -31,7 +31,7 @@
         <div class="col-md-8">
             <h2 id="payment-title">Please choose a delivery option</h2>
             <br></br>
-            <form class="form" id="deliveryForm" action="delivery" method="post">
+            <form class="form" id="deliveryForm" action="/delivery" method="post">
                 <table class="table table-sm table-bordered" id="deliveryTable">
                     <thead class="thead-inverse">
                     <tr>
@@ -42,7 +42,7 @@
                         <th>Distance (km)</th>
                     </tr></thead>
                     <tr th:each="option, iterStat : ${deliveryOptions}">
-                        <td><input th:text="' '+${option.name}" type="radio" name="optradio">Name</input>
+                        <td><input th:text="' '+${option.name}" type="radio" name="optradio" th:value="${option.name}">Name</input>
                             <i th:class="${option.iconClass}" aria-hidden="true"></i>
                         </td>
                         <td th:text="${option.description}">Description</td>
