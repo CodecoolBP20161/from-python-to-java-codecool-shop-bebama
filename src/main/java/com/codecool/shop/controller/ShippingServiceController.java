@@ -21,18 +21,19 @@ public class ShippingServiceController {
                     .addParameter("origin", ORIGIN)
                     .addParameter("destination", destination).build();
             JSONObject shippingDetails = new JSONObject(Request.Get(uri).execute().returnContent().asString());
-            options.add(getDetails(shippingDetails.getJSONObject("expressCourier")));
-            options.add(getDetails(shippingDetails.getJSONObject("truck")));
-            options.add(getDetails(shippingDetails.getJSONObject("truckViaHighway")));
-            options.add(getDetails(shippingDetails.getJSONObject("timeMachine")));
+            options.add(getDetails(shippingDetails.getJSONObject("expressCourier"), "Express Courier", "fa fa-globe"));
+            options.add(getDetails(shippingDetails.getJSONObject("truck"), "Truck", "fa fa-truck"));
+            options.add(getDetails(shippingDetails.getJSONObject("truckViaHighway"), "Truck via highway", "fa fa-road"));
+            options.add(getDetails(shippingDetails.getJSONObject("timeMachine"), "Time Machine", "fa fa-magic"));
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
         return options;
     }
 
-    public ShippingOption getDetails(JSONObject details){
+    public ShippingOption getDetails(JSONObject details, String name, String iconClass){
         return new ShippingOption(
+                name, iconClass,
                 details.getString("destinationFound"),
                 details.getInt("cost"),
                 details.getString("originFound"),

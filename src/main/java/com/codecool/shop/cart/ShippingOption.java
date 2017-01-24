@@ -2,6 +2,8 @@ package com.codecool.shop.cart;
 
 public class ShippingOption {
 
+    private String name;
+    private String iconClass;
     private String destination;
     private Integer cost;
     private String origin;
@@ -9,13 +11,31 @@ public class ShippingOption {
     private Integer time;
     private Integer distance;
 
-    public ShippingOption(String destination, Integer cost, String origin, String description, Integer time, Integer distance) {
+    public ShippingOption(String name, String iconClass, String destination, Integer cost, String origin, String description, Integer time, Integer distance) {
+        this.name = name;
+        this.iconClass = iconClass;
         this.destination = destination.split(",")[0];
         this.cost = cost;
         this.origin = origin.split(",")[0];
         this.description = description;
         this.time = time;
         this.distance = distance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIconClass() {
+        return iconClass;
+    }
+
+    public void setIconClass(String iconClass) {
+        this.iconClass = iconClass;
     }
 
     public String getDestination() {
