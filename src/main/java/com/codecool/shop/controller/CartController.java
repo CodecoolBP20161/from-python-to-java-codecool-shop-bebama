@@ -34,9 +34,7 @@ public class CartController {
 
     public static Response checkOut(Request req, Response res) throws NoSuchFieldException, IllegalAccessException {
         Order.getOrder(req).setCheckoutFields(req);
-        if(new ShippingServiceController().getShippingCost(Order.getOrder(req).getShippingCity()).size() == 0){
-            res.redirect("/checkout");
-        } else res.redirect("/delivery");
+        res.redirect("/delivery");
         return res;
     }
 }

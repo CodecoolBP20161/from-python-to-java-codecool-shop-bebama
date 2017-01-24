@@ -41,4 +41,8 @@ public class ShippingServiceController {
                 details.getInt("timeInHours"),
                 details.getInt("distanceInKm"));
     }
+
+    public Boolean checkCity(String city){
+        return getShippingCost(city).size() != 0;
+    }
 }
