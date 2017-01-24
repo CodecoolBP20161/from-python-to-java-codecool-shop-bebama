@@ -6,12 +6,13 @@ import spark.Request;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by makaimark on 2016.11.15..
  */
-public class Order implements OrderInterface{
+public class Order implements OrderInterface {
 
     private static String[] fields = new String[]{"name", "email", "phone", "billingAddress", "shippingAddress"};
     private String status;
@@ -19,7 +20,17 @@ public class Order implements OrderInterface{
     private String email;
     private String phone;
     private String billingAddress;
+    private String billingAddressLine1;
+    private String billingAddressLine2;
+    private String billingCity;
+    private String billingCountry;
+    private String billingPostalCode;
     private String shippingAddress;
+    private String shippingAddressLine1;
+    private String shippingAddressLine2;
+    private String shippingCity;
+    private String shippingCountry;
+    private String shippingPostalCode;
     private List<LineItem> listOfSelectedItems;
 
     public Integer getPaymentCode() {
@@ -32,7 +43,7 @@ public class Order implements OrderInterface{
 
     private Integer paymentCode;
 
-    private Order(){
+    private Order() {
         this.listOfSelectedItems = new ArrayList<>();
     }
 
@@ -47,16 +58,16 @@ public class Order implements OrderInterface{
         request.session().attribute("Cart", null);
     }
 
-    public void setStatus(String status){
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return this.status;
     }
 
     public void setCheckoutFields(Request req) throws NoSuchFieldException, IllegalAccessException {
-        for (String field : fields){
+        for (String field : fields) {
             Field f = this.getClass().getDeclaredField(field);
             f.set(this, req.queryParams(field));
         }
@@ -74,15 +85,15 @@ public class Order implements OrderInterface{
         return phone;
     }
 
-    public String getBillingAddress() {
-        return billingAddress;
+    public String getBillingCity() {
+        return billingCity;
     }
 
-    public String getShippingAddress() {
-        return shippingAddress;
+    public String getShippingCity() {
+        return shippingCity;
     }
 
-    public List<LineItem> getListOfSelectedItems(){
+    public List<LineItem> getListOfSelectedItems() {
         return this.listOfSelectedItems;
     }
 
@@ -97,22 +108,22 @@ public class Order implements OrderInterface{
 
     public void edit(LineItem item) {
         LineItem product = this.find(item);
-        if (item.getQuantity() != 0){
+        if (item.getQuantity() != 0) {
             product.setQuantity(item.getQuantity());
         } else {
             this.listOfSelectedItems.remove(product);
         }
     }
 
-    public LineItem find(LineItem item){
+    public LineItem find(LineItem item) {
         return this.listOfSelectedItems.stream().filter(i -> i.getProduct().getId() == item.getProduct().getId()).findFirst().orElse(null);
     }
 
-    public int getTotalQuantity(){
+    public int getTotalQuantity() {
         return this.listOfSelectedItems.stream().mapToInt(o -> o.getQuantity()).sum();
     }
 
-    public Float getTotalPrice(){
-        return (float)this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
+    public Float getTotalPrice() {
+        return (float) this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
     }
 }

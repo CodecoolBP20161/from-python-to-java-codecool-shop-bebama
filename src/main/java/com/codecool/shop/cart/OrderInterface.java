@@ -23,9 +23,9 @@ public interface OrderInterface {
 
     String getPhone();
 
-    String getBillingAddress();
+    String getBillingCity();
 
-    String getShippingAddress();
+    String getShippingCity();
 
     List<LineItem> getListOfSelectedItems();
 

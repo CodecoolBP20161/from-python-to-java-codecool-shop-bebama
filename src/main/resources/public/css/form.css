@@ -24,3 +24,7 @@ h4 {
     text-decoration: none;
     color:white;
 }
+
+#checkout-form {
+    text-align: left;
+}
