@@ -16,6 +16,6 @@ public class DeliveryController {
         Map params = new HashMap<String, Object>();
         List<ShippingOption> deliveryOptions = new ShippingServiceController().getShippingCost(Order.getOrder(req).getShippingCity());
         params.put("deliveryOptions", deliveryOptions);
-        return new ModelAndView(params, "delivery_options");
+        return new ModelAndView(params, "product/delivery_options");
     }
 }

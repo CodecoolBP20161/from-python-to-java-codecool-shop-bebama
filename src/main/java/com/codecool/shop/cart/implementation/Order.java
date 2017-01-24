@@ -6,7 +6,6 @@ import spark.Request;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public class Order implements OrderInterface {
 
-    private static String[] fields = new String[]{"name", "email", "phone", "billingAddress", "shippingAddress"};
+    private static String[] fields = new String[]{"name", "email", "phone", "billingCity", "shippingCity"};
     private String status;
     private String name;
     private String email;

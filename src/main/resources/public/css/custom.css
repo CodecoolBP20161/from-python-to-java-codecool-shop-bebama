@@ -169,7 +169,7 @@ tr:nth-child(even) {
     color: white;
 }
 
-#ok-btn, #ok-btn-div {
+#ok-btn, #ok-btn-div, #delivery-btn-div {
     text-align: right;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -246,4 +246,5 @@ hr {
 
 #banner {
     margin: 5px;
+    text-align: center;
 }
