@@ -133,6 +133,7 @@ public class Order implements OrderInterface {
     }
 
     public Float getTotalPrice() {
-        return (float) this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
+        Float sum = (float) this.listOfSelectedItems.stream().mapToDouble(o -> o.getTotalPrice()).sum();
+        return (shipping == null) ? sum : sum + shipping.getCost();
     }
 }

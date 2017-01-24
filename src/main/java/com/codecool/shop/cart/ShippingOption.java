@@ -5,7 +5,7 @@ public class ShippingOption {
     private String name;
     private String iconClass;
     private String destination;
-    private Integer cost;
+    private Float cost;
     private String origin;
     private String description;
     private Integer time;
@@ -15,7 +15,7 @@ public class ShippingOption {
         this.name = name;
         this.iconClass = iconClass;
         this.destination = destination.split(",")[0];
-        this.cost = cost;
+        this.cost = cost.floatValue();
         this.origin = origin.split(",")[0];
         this.description = description;
         this.time = time;
@@ -46,11 +46,11 @@ public class ShippingOption {
         this.destination = destination;
     }
 
-    public Integer getCost() {
+    public Float getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Float cost) {
         this.cost = cost;
     }
 

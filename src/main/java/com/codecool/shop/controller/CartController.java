@@ -41,7 +41,7 @@ public class CartController {
 
     public static Response deliverySelect(Request req, Response res) {
         for (ShippingOption option : (List<ShippingOption>) req.session().attribute("Shipping")) {
-            if (option.getName() == req.queryParams("optradio")) {
+            if (option.getName().equals(req.queryParams("optradio"))) {
                 Order.getOrder(req).setShipping(option);
             }
         }
