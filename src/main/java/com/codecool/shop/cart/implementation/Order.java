@@ -2,6 +2,7 @@ package com.codecool.shop.cart.implementation;
 
 import com.codecool.shop.cart.LineItem;
 import com.codecool.shop.cart.OrderInterface;
+import com.codecool.shop.cart.ShippingOption;
 import spark.Request;
 
 import java.lang.reflect.Field;
@@ -30,6 +31,7 @@ public class Order implements OrderInterface {
     private String shippingCity;
     private String shippingCountry;
     private String shippingPostalCode;
+    private ShippingOption shipping;
     private List<LineItem> listOfSelectedItems;
 
     public Integer getPaymentCode() {
@@ -90,6 +92,14 @@ public class Order implements OrderInterface {
 
     public String getShippingCity() {
         return shippingCity;
+    }
+
+    public ShippingOption getShipping() {
+        return shipping;
+    }
+
+    public void setShipping(ShippingOption shipping) {
+        this.shipping = shipping;
     }
 
     public List<LineItem> getListOfSelectedItems() {
