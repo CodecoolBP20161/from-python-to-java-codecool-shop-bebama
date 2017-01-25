@@ -37,6 +37,7 @@ public class Main {
         post("/paymentservice", PaymentController::paymentService);
         get("/paymentservice", PaymentController::renderChecker, new ThymeleafTemplateEngine());
         post("/checkpaymentcode", PaymentController::checkPaymentCode, new ThymeleafTemplateEngine());
+        get("/checkcity", (request, response) -> new ShippingServiceController().checkCity(request, response));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
         post("/signup", UserController::getFormData);
