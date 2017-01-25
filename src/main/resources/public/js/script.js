@@ -10,6 +10,8 @@ $(".dropdown-toggle").click(function () {
 
 function filter(filterby) {
     var input, filter, a, div;
+    var counter = 0;
+    $(".noMatch").remove();
 
     if (filterby === "cat") {
         input = document.getElementById("input-cat");
@@ -30,7 +32,15 @@ function filter(filterby) {
             a[i].style.display = "";
         } else {
             a[i].style.display = "none";
+            counter++;
         }
+    }
+    if (counter > 3) {
+        var node = document.createElement("a");
+        node.setAttribute("class", "noMatch disabled");
+        var textnode = document.createTextNode("No match found.");
+        node.appendChild(textnode);
+        div.appendChild(node);
     }
 }
 
@@ -56,19 +66,20 @@ $(function () {
         $("#existingEmail").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsgEmail"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Email already exists!</strong></div>');
         $("#emailField").after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>')
 
-    }});
+    }
+});
 
 $(function () {
     $("#nameDiv").removeClass("has-error");
     $("#nameDiv").removeClass("has-feedback");
     $("#errMsg").remove();
-        if ($("#existingName").val() != null) {
-            $("#nameDiv").addClass("has-error");
-            $("#nameDiv").addClass("has-feedback");
-            $("#existingName").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Name already exists!</strong></div>');
-            $("#nameField").after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>')
-        }
-    });
+    if ($("#existingName").val() != null) {
+        $("#nameDiv").addClass("has-error");
+        $("#nameDiv").addClass("has-feedback");
+        $("#existingName").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Name already exists!</strong></div>');
+        $("#nameField").after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>')
+    }
+});
 
 $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
@@ -83,12 +94,12 @@ $('#loginModal').keypress(function (e) {
 });
 
 
-if($("#failedLogin").val()!= null){
+if ($("#failedLogin").val() != null) {
 
     $('#failed-login').appendTo("body").modal('show');
 
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });

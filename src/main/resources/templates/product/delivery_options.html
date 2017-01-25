@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Codecool Shop - Delivery</title>
+    <div th:replace="fragments/styles :: copy"></div>
+    <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+    <script src="https://use.fontawesome.com/a4a23da0b3.js"></script>
+</head>
+<body>
+<div th:replace="fragments/loginmodal :: copy"></div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="/"><span
+                    class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <div th:replace="fragments/user_status :: copy"></div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron text-center">
+            <h1>Codecool Shop</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2 id="payment-title">Please choose a delivery option</h2>
+            <br></br>
+            <form class="form" id="deliveryForm" action="/delivery" method="post">
+                <table class="table table-sm table-bordered" id="deliveryTable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>Type of delivery</th>
+                        <th>Description</th>
+                        <th>Cost</th>
+                        <th>Time (hours)</th>
+                        <th>Distance (km)</th>
+                    </tr></thead>
+                    <tr th:each="option, iterStat : ${deliveryOptions}">
+                        <td><input th:text="' '+${option.name}" type="radio" name="optradio" th:value="${option.name}">Name</input>
+                            <i th:class="${option.iconClass}" aria-hidden="true"></i>
+                        </td>
+                        <td th:text="${option.description}">Description</td>
+                        <td th:text="${option.cost}+ ' ' +USD">Cost</td>
+                        <td th:text="${option.time}">Time</td>
+                        <td th:text="${option.distance}">Distance</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+                <div id="delivery-btn-div">
+                    <button type="submit" class="btn btn-success" id="submit_delivery">Submit</button>
+                </div>
+            </form>
+            <br></br>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<br></br>
+<div th:replace="fragments/footer :: copy"></div>
+<script src="/js/script.js"></script>
+</body>
+</html>

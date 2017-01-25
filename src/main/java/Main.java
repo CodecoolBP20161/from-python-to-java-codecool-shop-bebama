@@ -31,10 +31,13 @@ public class Main {
         post("/editcart", CartController::editCart);
         get("/checkout", CheckoutController::renderCheckout, new ThymeleafTemplateEngine());
         post("/checkout", CartController::checkOut);
+        get("/delivery", DeliveryController::renderDelivery, new ThymeleafTemplateEngine());
+        post("/delivery", CartController::deliverySelect);
         get("/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
         post("/paymentservice", PaymentController::paymentService);
         get("/paymentservice", PaymentController::renderChecker, new ThymeleafTemplateEngine());
         post("/checkpaymentcode", PaymentController::checkPaymentCode, new ThymeleafTemplateEngine());
+        get("/checkcity", (request, response) -> new ShippingServiceController().checkCity(request, response));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
         post("/signup", UserController::getFormData);

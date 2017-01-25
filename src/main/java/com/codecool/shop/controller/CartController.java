@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.cart.LineItem;
+import com.codecool.shop.cart.ShippingOption;
 import com.codecool.shop.cart.implementation.Order;
 import com.codecool.shop.dao.implementation.jdbc.ProductDaoJDBC;
 import com.codecool.shop.model.Product;
@@ -34,6 +35,17 @@ public class CartController {
 
     public static Response checkOut(Request req, Response res) throws NoSuchFieldException, IllegalAccessException {
         Order.getOrder(req).setCheckoutFields(req);
+        res.redirect("/delivery");
+        return res;
+    }
+
+    public static Response deliverySelect(Request req, Response res) {
+        for (ShippingOption option : (List<ShippingOption>) req.session().attribute("Shipping")) {
+            if (option.getName().equals(req.queryParams("optradio"))) {
+                Order.getOrder(req).setShipping(option);
+            }
+        }
+        req.session().attribute("Shipping", null);
         res.redirect("/payment");
         return res;
     }
