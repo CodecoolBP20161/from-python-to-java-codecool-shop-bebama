@@ -43,12 +43,12 @@ public class ShippingServiceController {
                 details.getInt("distanceInKm"));
     }
 
-    public String checkCity(Request req, Response res){
+    public JSONObject checkCity(Request req, Response res){
         List<ShippingOption> shippingOptions = getShippingCost(req.queryParams("city"));
         if(shippingOptions.size() == 0) {
-            return "invalid";
+            return new JSONObject("{\"result\": \"invalid\"}");
         } else if (shippingOptions.get(0).getDistance() > 300) {
-            return "too_far";
-        } else return "valid";
+            return new JSONObject("{\"result\": \"too_far\"}");
+        } else return new JSONObject("{\"result\": \"valid\"}");
     }
 }
