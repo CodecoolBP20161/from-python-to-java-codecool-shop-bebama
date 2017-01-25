@@ -2,45 +2,22 @@
  * Created by cickib on 2016.11.14..
  */
 
-$(".dropdown-toggle").click(function () {
-    $("#input-cat").val("");
-    $("#input-sup").val("");
-});
-
-
-function filter(filterby) {
-    var input, filter, a, div;
-    var counter = 0;
-    $(".noMatch").remove();
-
-    if (filterby === "cat") {
-        input = document.getElementById("input-cat");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("search-cat");
-        a = div.getElementsByTagName("a");
-
-    }
-    else if (filterby === "sup") {
-        input = document.getElementById("input-sup");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("search-sup");
-        a = div.getElementsByTagName("a");
-
-    }
-    for (var i = 0; i < a.length; i++) {
-        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-            counter++;
-        }
-    }
-    if (counter > 3) {
-        var node = document.createElement("a");
-        node.setAttribute("class", "noMatch disabled");
-        var textnode = document.createTextNode("No match found.");
-        node.appendChild(textnode);
-        div.appendChild(node);
+window.onclick = function (event) {
+    if (event.target.matches('#catBtn') || event.target.matches('#input-cat')) {
+        $("#supDropdown").removeClass("show");
+        $("#supDropdown").addClass("hide");
+        $("#input-sup").blur();
+    } else if (event.target.matches('#supBtn') || event.target.matches('#input-sup')) {
+        $("#catDropdown").removeClass("show");
+        $("#catDropdown").addClass("hide");
+        $("#input-cat").blur();
+    } else {
+        $("#catDropdown").removeClass("show");
+        $("#supDropdown").removeClass("show");
+        $("#catDropdown").addClass("hide");
+        $("#supDropdown").addClass("hide");
+        $("#input-sup").blur();
+        $("#input-cat").blur();
     }
 }
 
@@ -95,9 +72,7 @@ $('#loginModal').keypress(function (e) {
 
 
 if ($("#failedLogin").val() != null) {
-
     $('#failed-login').appendTo("body").modal('show');
-
 }
 
 $(document).ready(function () {
