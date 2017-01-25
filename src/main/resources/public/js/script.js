@@ -61,7 +61,13 @@ $(function () {
 $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
     $("#login-pwd").val("");
+    $("#login-name").blur();
 });
+
+$('#loginModal').on('shown.bs.modal', function () {
+    $("#login-name").focus();
+});
+
 
 $('#loginModal').keypress(function (e) {
     if (e.which == 13) {
