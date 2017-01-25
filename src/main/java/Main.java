@@ -35,15 +35,15 @@ public class Main {
         post("/delivery", CartController::deliverySelect);
         get("/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
         post("/paymentservice", PaymentController::paymentService);
-        get("/paymentservice", PaymentController::renderChecker, new ThymeleafTemplateEngine());
+        get("/paymentservice", PaymentController::renderPaymentChecker, new ThymeleafTemplateEngine());
         post("/checkpaymentcode", PaymentController::checkPaymentCode, new ThymeleafTemplateEngine());
         get("/checkcity", (request, response) -> new ShippingServiceController().checkCity(request, response));
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/signup", UserController::renderForm, new ThymeleafTemplateEngine());
         post("/signup", UserController::getFormData);
-        get("/successful_registration", UserController::success, new ThymeleafTemplateEngine());
-        post("/login", UserController::login, new ThymeleafTemplateEngine());
-        get("/logout", UserController::logout, new ThymeleafTemplateEngine());
+        get("/successful_registration", UserController::successfulRegistration, new ThymeleafTemplateEngine());
+        post("/login", UserController::login);
+        get("/logout", UserController::logout);
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
