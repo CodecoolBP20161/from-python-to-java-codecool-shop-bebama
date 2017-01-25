@@ -52,6 +52,17 @@ public class UserController extends AbstractController {
         return new ModelAndView(params, "product/index");
     }
 
+    static void sendSignUpEmail(Request req) {
+        String recipient = req.queryParams("email");
+        String recipientName = req.queryParams("name");
+        try {
+            EmailController.builder("bebamashop@gmail.com", recipient, "Welcome email", recipientName, EmailSenderService.formatWelcomeEmail(recipientName));
+        } catch (Exception e) {
+            System.out.println("An error occurred while trying to send the welcome email.\nDetails: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private static void signUpUser(Request req, Response res) {
         User newUser = new User(req.queryParams("name"), req.queryParams("email"), req.queryParams("pwd"), false);
         try {
@@ -60,7 +71,7 @@ public class UserController extends AbstractController {
             System.out.println("Failed to add new user.\n" + e.getMessage());
             e.printStackTrace();
         }
-        PaymentController.sendSignUpEmail(req);
+        sendSignUpEmail(req);
         res.redirect("/successful_registration");
     }
 
