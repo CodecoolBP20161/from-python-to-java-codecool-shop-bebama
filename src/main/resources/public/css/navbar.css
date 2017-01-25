@@ -112,6 +112,6 @@ a.disabled {
     border: none;
     color: #000;
     margin: 5px;
-    padding: 2.5px;
+    padding: 2.5px 10px;
     height: 35px;
 }
