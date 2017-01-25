@@ -39,7 +39,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h2>Checkout page</h2>
-            <form class="form-horizontal" action="/checkout" method="post" id="checkout-form">
+            <form class="form-horizontal" id="checkout-form" action="/checkout" method="post">
                 <fieldset>
                     <h2>Personal details</h2>
                     <div class="control-group">
@@ -381,7 +381,7 @@
                     </div>
                     <div class="control-group">
                         <label class="control-label">City / Town</label>
-                        <div class="controls">
+                        <div class="controls" id ="shippingCityDiv">
                             <input id="shippingCity" name="shippingCity" type="text" placeholder="City"
                                    class="form-control"
                                    required="required"/>
@@ -651,7 +651,8 @@
                     <span id="correct-data">
                         <input type="checkbox"
                                required="required"> My details are correct. Proceed to payment page.</input></span>
-                    <button type="submit" class="btn btn-success btn-md" id="checkout">Submit</button>
+                    <button type="button" class="btn btn-success btn-md" id="checkout">Submit</button>
+                    <button type="submit" class="hidden" id="checkoutVerified">Submit</button>
                 </div>
             </form>
         </div>
@@ -661,5 +662,6 @@
 <div th:replace="fragments/footer :: copy"></div>
 <script src="/js/script.js"></script>
 <script src="/js/checkout.js"></script>
+<script src="/js/check_city.js"></script>
 </body>
 </html>
