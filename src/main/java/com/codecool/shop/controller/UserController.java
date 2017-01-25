@@ -3,14 +3,17 @@ package com.codecool.shop.controller;
 import com.codecool.shop.HashClass;
 import com.codecool.shop.cart.User;
 import com.codecool.shop.cart.implementation.Order;
-import com.codecool.shop.dao.implementation.jdbc.*;
+import com.codecool.shop.dao.implementation.jdbc.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.jdbc.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.jdbc.SupplierDaoJDBC;
+import com.codecool.shop.dao.implementation.jdbc.UserDaoJDBC;
 import com.codecool.shop.email.service.EmailSenderService;
 import spark.ModelAndView;
-import spark.*;
+import spark.Request;
+import spark.Response;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
 
 
 /**
@@ -18,11 +21,10 @@ import java.util.*;
  */
 
 public class UserController extends AbstractController {
-    private static Map params = new HashMap<>();
     private static UserDaoJDBC users = UserDaoJDBC.getInstance();
 
-    public static boolean isLoggedIn(Request request){
-        if(request.session().attribute("isLoggedIn") == null){
+    public static boolean isLoggedIn(Request request) {
+        if (request.session().attribute("isLoggedIn") == null) {
             request.session().attribute("isLoggedIn", false);
             params.put("isLoggedIn", false);
         }
@@ -37,7 +39,7 @@ public class UserController extends AbstractController {
         return new ModelAndView(params, "user/signup_form");
     }
 
-    private static void signUpLogic(Request req, Response res){
+    private static void signUpLogic(Request req, Response res) {
         User newUser = new User(req.queryParams("name"), req.queryParams("email"), req.queryParams("pwd"), false);
         params.put("existingEmail", false);
         params.remove("name");
@@ -85,14 +87,13 @@ public class UserController extends AbstractController {
 
     public static ModelAndView login(Request req, Response res) throws Exception {
         boolean pwdMatch = HashClass.checkPassword(req.queryParams("login-name"), req.queryParams("login-pwd"));
-        if(pwdMatch) {
+        if (pwdMatch) {
             req.session().attribute("isLoggedIn", true);
             params.put("isLoggedIn", isLoggedIn(req));
             req.session().removeAttribute("failedLogin");
             params.remove("failedLogin");
             res.redirect("/");
-        }
-        else {
+        } else {
             params.put("failedLogin", true);
             req.session().attribute("failedLogin", true);
         }

@@ -11,11 +11,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class SupplierController extends AbstractController{
+public class SupplierController extends AbstractController {
 
     public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
-        UserController.isLoggedIn(req);
-        params.put("isLoggedIn", UserController.isLoggedIn(req));
+        setLoginDetails(req);
         int supplierId = Integer.parseInt(req.params(":id"));
         List<Product> products = SupplierDaoJDBC.getInstance().find(supplierId).getProducts();
         return setParams(Order.getOrder(req), "/supplier/" + supplierId, products);

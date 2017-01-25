@@ -6,14 +6,12 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class DeliveryController {
+public class DeliveryController extends AbstractController {
 
     public static ModelAndView renderDelivery(Request req, Response res) {
-        Map params = new HashMap<String, Object>();
+        setLoginDetails(req);
         List<ShippingOption> deliveryOptions = new ShippingServiceController().getShippingCost(Order.getOrder(req).getShippingCity());
         req.session().attribute("Shipping", deliveryOptions);
         params.put("deliveryOptions", deliveryOptions);

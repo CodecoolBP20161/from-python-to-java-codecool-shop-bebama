@@ -6,6 +6,7 @@ import com.codecool.shop.dao.implementation.jdbc.SupplierDaoJDBC;
 import com.codecool.shop.model.Product;
 import org.json.JSONObject;
 import spark.ModelAndView;
+import spark.Request;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,6 +17,11 @@ import java.util.Map;
 abstract class AbstractController {
 
     static Map params = new HashMap<>();
+
+    static void setLoginDetails(Request req) {
+        params.put("isLoggedIn", UserController.isLoggedIn(req));
+        params.put("failedLogin", req.session().attribute("failedLogin"));
+    }
 
     static ModelAndView setParams(Order order, String redirect, List<Product> products) throws IOException, URISyntaxException {
         JSONObject jsonObject = new JSONObject(new BannerServiceController().getBanner());
