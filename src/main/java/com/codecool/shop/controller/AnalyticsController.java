@@ -36,25 +36,24 @@ public class AnalyticsController {
     }
 
     private static String getVisitorCount(String apiKey) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder(URL + "/api/visitor_count");
+        URIBuilder builder = new URIBuilder(URL + "/api/visitors");
         builder.addParameter("apiKey", apiKey);
         return execute(builder.build());
     }
 
     private static String getTimeCount(String apiKey) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder(URL + "/api/visit_time_count");
+        URIBuilder builder = new URIBuilder(URL + "/api/times");
         builder.addParameter("apiKey", apiKey);
         return execute(builder.build());
     }
 
     private static String getLocationVisitors(String apiKey) throws URISyntaxException, IOException {
-        URIBuilder builder = new URIBuilder(URL + "/api/location_visits");
+        URIBuilder builder = new URIBuilder(URL + "/api/locations");
         builder.addParameter("apiKey", apiKey);
         return execute(builder.build());
     }
 
     private static String execute(URI uri) throws IOException, URISyntaxException {
-        System.out.println(uri);
-        return String.valueOf(org.apache.http.client.fluent.Request.Post(uri).execute());
+        return org.apache.http.client.fluent.Request.Get(uri).execute().returnContent().asString();
     }
 }
