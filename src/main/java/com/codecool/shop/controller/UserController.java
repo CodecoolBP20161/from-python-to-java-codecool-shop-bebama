@@ -85,7 +85,6 @@ public class UserController extends AbstractController {
             switchLoginData(req, true);
             req.session().removeAttribute("failedLogin");
             params.remove("failedLogin");
-            res.redirect("/");
         } else {
             params.put("failedLogin", true);
             req.session().attribute("failedLogin", true);
@@ -98,6 +97,12 @@ public class UserController extends AbstractController {
         switchLoginData(req, false);
         Order.dropOrder(req);
         res.redirect("/");
+        return res;
+    }
+
+    public static Response failReset(Request req, Response res) {
+        req.session().removeAttribute("failedLogin");
+        params.remove("failedLogin");
         return res;
     }
 }
