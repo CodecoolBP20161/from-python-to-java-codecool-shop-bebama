@@ -23,15 +23,14 @@ public class AnalyticsController {
         String graphURL = "";
         if (neededStatistic.equals("visitor_count")) {
             result = getVisitorCount(apiKey);
-            graphURL = getGraph(result);
         } else if (neededStatistic.equals("visit_time_count")) {
             result = getTimeCount(apiKey);
         } else if (neededStatistic.equals("location_visits")) {
             result = getLocationVisitors(apiKey);
+            graphURL = getGraph(result);
         } else {
             result = "invalid request";
         }
-        System.out.println(graphURL);
         Map params = new HashMap<>();
         params.put("locations", graphURL);
         return new ModelAndView(params, "statistics/analytics");
