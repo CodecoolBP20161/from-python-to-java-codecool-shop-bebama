@@ -45,6 +45,7 @@ public class Main {
         post("/paymentservice", PaymentController::paymentService);
         get("/paymentservice", PaymentController::renderPaymentChecker, new ThymeleafTemplateEngine());
         post("/checkpaymentcode", PaymentController::checkPaymentCode, new ThymeleafTemplateEngine());
+        get("/analytics", AnalyticsController::getStatistics, new ThymeleafTemplateEngine());
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
