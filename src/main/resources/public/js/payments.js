@@ -50,6 +50,7 @@ $("#card_expiry_date").keyup(function() {
 
 if($("#ok-code").length !=0){
     $("#payment-code-panel").remove();
+    $("#paymentInfo").remove();
     setTimeout(function() {
         window.location.href = "http://0.0.0.0:8888/";
     }, 4000);
@@ -57,9 +58,11 @@ if($("#ok-code").length !=0){
 
 if($("#wrong-code").length !=0){
     $("#payment-code-panel").hide();
+    $("#paymentInfo").hide();
     $("#wrong-code").show();
     setTimeout(function() {
         $("#payment-code-panel").show();
+        $("#paymentInfo").show();
         $("#wrong-code").hide();
     }, 4000);
 }

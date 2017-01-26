@@ -15,6 +15,7 @@ public class PaymentService {
 
         port(60020);
 
-        post("/paymentservice", PaymentController::payment);
+        post("/paymentservice", PaymentController::sendPaymentCode);
+        post("/accepted", PaymentController::sendOrderConfirmationEmail);
     }
 }
