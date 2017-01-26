@@ -2,6 +2,8 @@
  * Created by cickib on 2017.01.24..
  */
 
+$("#checkoutVerified").attr("disabled", "disabled");
+
 // autofocus on the checkout form, jumps to next input field on enter
 $(document).ready(function () {
     $("#name").focus();
@@ -12,13 +14,6 @@ $(document).ready(function () {
             $('.form-control').eq(index).focus();
         }
     });
-});
-
-// tick checkbox with enter key
-$('input:checkbox').keypress(function(e){
-    if((e.keyCode ? e.keyCode : e.which) == 13){
-        $(this).trigger('click');
-    }
 });
 
 // when same address checkbox is ticked, autofills shipping fields with billing data

@@ -49,7 +49,7 @@
                 </div>
             </div>
             <br></br>
-            <div class="alert alert-info alert-dismissable fade in" style="width:40%;text-align: center;display: inline-block">
+            <div class="alert alert-info alert-dismissable fade in" style="width:40%;text-align: center;display: inline-block" id="paymentInfo">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 <strong>INFO</strong>
                 <br></br>
@@ -60,12 +60,14 @@
         <div th:switch="${checked}" id="checked-code">
             <div th:case="${null}" class="hidden"></div>
             <div th:case="${true}" id="ok-code">
+                <br></br>
                 <div class="alert alert-success">
                     <p><strong>SUCCESS</strong> You successfully paid for your order. A confirmation email is on its way!</p>
                     <p>We are redirecting you to the main page.</p>
                 </div>
             </div>
             <div th:case="${false}" id="wrong-code">
+                <br></br>
                 <div class="alert alert-danger">
                     <p><strong>ERROR</strong> Invalid payment code!</p>
                     <p>Please enter the number from the email we sent you!</p>

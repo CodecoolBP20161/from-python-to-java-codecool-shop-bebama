@@ -30,6 +30,7 @@ $("#checkout").click(function () {
             });
         } else {
             $("#shippingCity").focus();
+            $("#checkoutVerified").removeAttr("disabled");
             $("#checkoutVerified").trigger('click');
             $("#checkoutVerified").on("click", function () {
                 $("#checkout-form").submit();
@@ -37,6 +38,26 @@ $("#checkout").click(function () {
             });
         }
     });
+});
+
+$('#checkout').keypress(function (e) {
+    if (e.which == 13) {
+        $("#checkout").click();
+    }
+});
+
+$(document).click(function () {
+    $(function () {
+        $("#shippingCity").keyup();
+    });
+});
+
+$(document).keypress(function (e) {
+    if (e.which == 13) {
+        $(function () {
+            $("#checkout").click();
+        });
+    }
 });
 
 $("#shippingCity").blur();

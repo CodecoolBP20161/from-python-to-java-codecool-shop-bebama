@@ -18,7 +18,6 @@ $('#loginModal').on('shown.bs.modal', function () {
 $('#loginModal').keypress(function (e) {
     if (e.which == 13) {
         $('#login-form').submit();
-        return false;
     }
 });
 
