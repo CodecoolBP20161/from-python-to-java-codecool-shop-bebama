@@ -11,10 +11,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Random;
 
-
-/**
- * Created by cickib on 2016.12.14..
- */
 public class PaymentController extends AbstractController {
 
     private static final String URL = "http://localhost:60020";
