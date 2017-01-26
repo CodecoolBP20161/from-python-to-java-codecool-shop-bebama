@@ -2,6 +2,8 @@
  * Created by cickib on 2016.11.14..
  */
 
+$("#submit_delivery").attr("disabled", "disabled");
+
 $('#loginModal').on('hidden.bs.modal', function () {
     $("#login-name").val("");
     $("#login-pwd").val("");
@@ -26,4 +28,8 @@ if ($("#failedLogin").val() != null) {
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
+});
+
+$('#deliveryForm input').on('change', function () {
+    $("#submit_delivery").removeAttr("disabled");
 });
