@@ -27,6 +27,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+            <br></br>
             <div class="panel panel-info" id="payment-code-panel">
                 <div class="panel-heading display-table">
                     <div class="row display-tr">
@@ -37,7 +38,7 @@
                     <form class="form-inline" action="/checkpaymentcode" method="post" id="payment-form">
                         <div class="form-group">
                             <label for="payment-code">Enter code:</label>
-                            <input type="text" class="form-control" id="payment-code" name="payment-code"
+                            <input type="password" class="form-control" id="payment-code" name="payment-code"
                                    placeholder="Payment code" required="required"
                                    maxlength="5" pattern="^([0-9]{4,5})$" title="Numbers only, please!"/>
                         </div>
@@ -47,17 +48,26 @@
                     </form>
                 </div>
             </div>
+            <br></br>
+            <div class="alert alert-info alert-dismissable fade in" style="width:40%;text-align: center;display: inline-block" id="paymentInfo">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong>INFO</strong>
+                <br></br>
+                We sent you a payment code. Please check your emails!
+            </div>
         </div>
         <div class="col-md-2"></div>
         <div th:switch="${checked}" id="checked-code">
             <div th:case="${null}" class="hidden"></div>
             <div th:case="${true}" id="ok-code">
+                <br></br>
                 <div class="alert alert-success">
-                    <p><strong>SUCCESS</strong> You successfully payed for your order. A confirmation email is on its way!</p>
+                    <p><strong>SUCCESS</strong> You successfully paid for your order. A confirmation email is on its way!</p>
                     <p>We are redirecting you to the main page.</p>
                 </div>
             </div>
             <div th:case="${false}" id="wrong-code">
+                <br></br>
                 <div class="alert alert-danger">
                     <p><strong>ERROR</strong> Invalid payment code!</p>
                     <p>Please enter the number from the email we sent you!</p>
@@ -70,11 +80,12 @@
 <div class="footer navbar-fixed-bottom">
     <div class="panel panel-default">
         <div class="panel-body">
-            BeBaMa &copy; 2016 Codecool Budapest
+            BeBaMa &copy; 2016-2017 Codecool Budapest
         </div>
     </div>
 </div>
 <script src="/js/script.js"></script>
 <script src="/js/payments.js"></script>
+<script src="/js/paymentcheck.js"></script>
 </body>
 </html>

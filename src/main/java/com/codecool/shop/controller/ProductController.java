@@ -6,13 +6,14 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-public class ProductController extends AbstractController{
 
-    public static ModelAndView renderProducts(Request req, Response res) {
-        UserController.isLoggedIn(req);
-        params.put("isLoggedIn", UserController.isLoggedIn(req));
-        params.put("failedLogin", req.session().attribute("failedLogin"));
+public class ProductController extends AbstractController {
+
+    public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
+        setLoginDetails(req);
         return setParams(Order.getOrder(req), "/", ProductDaoJDBC.getInstance().getAll());
     }
 }

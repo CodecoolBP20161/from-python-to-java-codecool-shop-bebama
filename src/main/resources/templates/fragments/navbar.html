@@ -6,56 +6,63 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shopNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand active" href="/"><span
                         class="glyphicon glyphicon-home"></span> Home</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="dropdown"><a id="href-cat" class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
-                    <span
-                            class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input></li>
-                        <div id="search-cat">
-                            <li>
+            <div class="collapse navbar-collapse" id="shopNavbar">
+                <ul class="nav navbar-nav filter">
+                    <div>
+                        <button onclick="dropdownFunc('cat')" class="dropbtn" id="catBtn">Categories
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <div id="catDropdown" class="dropdown-content">
+                            <input type="text" placeholder="Search.." id="input-cat" onkeyup="filter('cat')"></input>
+                            <div id="search-cat">
                                 <div th:each="category,iterStat : ${categories}">
                                     <a th:text="${category.name}" th:href="'/category/'+${category.id}">Category</a>
                                 </div>
-                            </li>
+                            </div>
                         </div>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="dropdown" id="dropdown-sup"><a id="href-sup" class="dropdown-toggle" data-toggle="dropdown"
-                                                          href="#">Suppliers <span
-                        class="glyphicon glyphicon-search"></span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input></li>
-                        <div id="search-sup">
-                            <li>
+                    </div>
+                </ul>
+                <ul class="nav navbar-nav filter">
+                    <div>
+                        <button onclick="dropdownFunc('sup')" class="dropbtn" id="supBtn">Suppliers
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <div id="supDropdown" class="dropdown-content">
+                            <input type="text" placeholder="Search.." id="input-sup" onkeyup="filter('sup')"></input>
+                            <div id="search-sup">
                                 <div th:each="supplier,iterStat : ${suppliers}">
                                     <a th:text="${supplier.name}" th:href="'/supplier/'+${supplier.id}">Supplier</a>
                                 </div>
-                            </li>
+                            </div>
                         </div>
-                    </ul>
-                </li>
-            </ul>
+                    </div>
+                </ul>
 
-            <div th:replace="fragments/user_status :: copy"></div>
+                <div th:replace="fragments/user_status :: copy"></div>
 
-            <div th:replace="fragments/failed_login :: copy"></div>
+                <div th:replace="fragments/failed_login :: copy"></div>
 
-            <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
-                <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a href="#"><span
-                        th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
-                                                                                          class="glyphicon glyphicon-shopping-cart"></span></a>
-                </li>
-            </ul>
+                <ul th:if="${order.getTotalQuantity() != 0}" class="nav navbar-nav navbar-right">
+                    <li id="cart" data-dismiss="modal" data-toggle="modal" data-target="#productsModal"><a
+                            href="#"><span
+                            th:text="${order.getTotalQuantity()}+' item(s) in '"></span><span id="cart-icon"
+                                                                                              class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
 </div>
-
 </body>
 </html>

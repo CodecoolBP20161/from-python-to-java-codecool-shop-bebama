@@ -18,17 +18,7 @@
 
 <div th:replace="fragments/loginmodal :: copy"></div>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand active" href="/"><span
-                    class="glyphicon glyphicon-home"></span> Home</a>
-        </div>
-
-        <div th:replace="fragments/user_status :: copy"></div>
-
-    </div>
-</nav>
+<div th:replace="fragments/basic_navbar :: copy"></div>
 
 <div class="container-fluid">
     <div class="row">
@@ -55,6 +45,14 @@
                     <td th:text="${item.getQuantity()}"></td>
                     <td th:text="${item.getProduct().getDefaultPrice()}+ ' ' +USD">1.0 USD</td>
                     <td th:text="${item.getTotalPrice()}+ ' ' +USD">1.0 USD</td>
+                </tr>
+                <tr>
+                    <td th:text="'Your chosen delivery option: '+${order.shipping.name}">
+                        Delivery option
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${order.shipping.cost}+ ' ' +USD">Cost</td>
                 </tr>
                 <tr id="totalprice" class="table-success">
                     <td colspan="3">Total price to pay:</td>
