@@ -26,6 +26,14 @@ if ($("#failedLogin").val() != null) {
     $('#failed-login').appendTo("body").modal('show');
 }
 
+$('#failed-login').on('hidden.bs.modal', function () {
+    console.log("find me");
+    $.ajax({
+        url: "/failreset",
+        type: "GET"
+    });
+})
+
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
