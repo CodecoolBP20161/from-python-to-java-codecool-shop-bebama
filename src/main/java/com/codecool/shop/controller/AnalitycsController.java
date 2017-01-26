@@ -5,19 +5,20 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AnalitycsController {
 
-    private static final String URL = "localhost:60000";
+    private static final String URL = "http://localhost:60015";
 
-    public static ModelAndView getStatistics(Request request, Response response) throws URISyntaxException {
+    public static ModelAndView getStatistics(Request request, Response response) throws URISyntaxException, IOException {
 
         String apiKey = request.queryParams("apiKey");
         String neededStatistic = request.queryParams("statistic");
-        System.out.println(neededStatistic);
         String result;
         if (neededStatistic.equals("visitor_count")) {
             result = getVisitorCount(apiKey);
@@ -34,21 +35,26 @@ public class AnalitycsController {
         return new ModelAndView(params, "statistics/test");
     }
 
-    private static String getVisitorCount(String apiKey) throws URISyntaxException {
+    private static String getVisitorCount(String apiKey) throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder(URL + "/api/visitor_count");
         builder.addParameter("apiKey", apiKey);
-        return String.valueOf(builder.build());
+        return execute(builder.build());
     }
 
-    private static String getTimeCount(String apiKey) throws URISyntaxException {
+    private static String getTimeCount(String apiKey) throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder(URL + "/api/visit_time_count");
         builder.addParameter("apiKey", apiKey);
-        return String.valueOf(builder.build());
+        return execute(builder.build());
     }
 
-    private static String getLocationVisitors(String apiKey) throws URISyntaxException {
+    private static String getLocationVisitors(String apiKey) throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder(URL + "/api/location_visits");
         builder.addParameter("apiKey", apiKey);
-        return String.valueOf(builder.build());
+        return execute(builder.build());
+    }
+
+    private static String execute(URI uri) throws IOException, URISyntaxException {
+        System.out.println(uri);
+        return String.valueOf(org.apache.http.client.fluent.Request.Post(uri).execute());
     }
 }
