@@ -9,9 +9,9 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnalitycsController {
+public class AnalyticsController {
 
-    private static final String URL = "localhost:60000";
+    private static final String URL = "localhost:60015";
 
     public static ModelAndView getStatistics(Request request, Response response) throws URISyntaxException {
 

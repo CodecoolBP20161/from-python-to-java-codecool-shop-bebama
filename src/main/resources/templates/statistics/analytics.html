@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop</title>
+
+    <div th:replace="fragments/styles :: copy"></div>
+
+</head>
+
+<body>
+
+<div class="jumbotron text-center">
+    <h1>Codecool Shop - Analytics</h1>
+</div>
+
+<!--<div th:replace="fragments/basic_navbar :: copy"></div>-->
+
+<div class="container-fluid">
+    <div id="products" class="row list-group">
+        <div class="item col-xs-4 col-lg-4">
+            <img th:src="${stat}"/>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: copy"></div>
+<script src="/js/script.js"></script>
+<!--<script src="/js/navbar.js"></script>-->
+
+</body>
+</html>
