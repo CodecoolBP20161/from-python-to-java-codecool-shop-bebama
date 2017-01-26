@@ -52,6 +52,9 @@ public class DefaultStock {
             Supplier samsung = new Supplier("Samsung", "Computers");
             supplierDataStore.add(samsung);
             samsung = supplierDataStore.find(4);
+            Supplier proCase = new Supplier("ProCase", "Accessories");
+            supplierDataStore.add(proCase);
+            proCase = supplierDataStore.find(5);
 
             //setting up a new product category
             ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
@@ -65,6 +68,7 @@ public class DefaultStock {
             laptop = productCategoryDataStore.find(3);
             ProductCategory accessories = new ProductCategory("Accessories", "Hardware", "Cell phones have become one of the most crucial personal technology purchases. Buy cell phone, iPhone case, or Bluetooth headset.");
             productCategoryDataStore.add(accessories);
+            accessories = productCategoryDataStore.find(4);
 
             //setting up products and printing it
             productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
@@ -74,6 +78,8 @@ public class DefaultStock {
             productDataStore.add(new Product("Random laptop", 139, "USD", "Lorem ipsum blablabla.", laptop, samsung));
             productDataStore.add(new Product("Exploding phone", 79, "USD", "If you like to live dangerously, buy this one.", phone, samsung));
             productDataStore.add(new Product("AmazonPhone", 59, "USD", "Amazon's very own budget phone.", phone, amazon));
+            productDataStore.add(new Product("Lenovo Thinkpad Tablet Case", 29, "USD", "Work hard and play hard with your new tablet by covering up in the Lenovo Thinkpad Tablet Case.", accessories, lenovo));
+            productDataStore.add(new Product("ProCase cover bag Macbook iPad Pro", 19.9f, "USD", "Slim, portable and lightweight to take alone, or slide it into your briefcase.", accessories, proCase));
         }
     }
 

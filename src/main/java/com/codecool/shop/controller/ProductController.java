@@ -10,12 +10,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-public class ProductController extends AbstractController{
+public class ProductController extends AbstractController {
 
     public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
-        UserController.isLoggedIn(req);
-        params.put("isLoggedIn", UserController.isLoggedIn(req));
-        params.put("failedLogin", req.session().attribute("failedLogin"));
+        setLoginDetails(req);
         return setParams(Order.getOrder(req), "/", ProductDaoJDBC.getInstance().getAll());
     }
 }

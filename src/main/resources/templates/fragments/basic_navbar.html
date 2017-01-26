@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shopNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand active" href="/"><span
+                        class="glyphicon glyphicon-home"></span> Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="shopNavbar">
+
+                <div th:replace="fragments/user_status :: copy"></div>
+
+                <div th:replace="fragments/failed_login :: copy"></div>
+
+            </div>
+        </div>
+    </nav>
+
+</div>
+<script src="/js/navbar.js"></script>
+</body>
+</html>

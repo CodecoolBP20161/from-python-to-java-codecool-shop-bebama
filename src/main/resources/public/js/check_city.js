@@ -17,7 +17,7 @@ $("#checkout").click(function () {
                 $("#shippingCity").focus();
                 $("#shippingCityDiv").addClass("has-error");
                 $("#shippingCityDiv").addClass("has-feedback");
-                $("#shippingCityDiv").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Location too far. Please choose another destination!</strong></div>');
+                $("#shippingCityDiv").after('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Location too far. Please choose another destination!</strong></div>');
                 $("#shippingCity").after('<span id="errSpan" class="glyphicon glyphicon-remove form-control-feedback"></span>')
             });
         } else if (data.result === "invalid") {
@@ -25,11 +25,12 @@ $("#checkout").click(function () {
                 $("#shippingCity").focus();
                 $("#shippingCityDiv").addClass("has-error");
                 $("#shippingCityDiv").addClass("has-feedback");
-                $("#shippingCityDiv").append('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Invalid location. Please choose another destination!</strong></div>');
+                $("#shippingCityDiv").after('<div class="alert alert-danger alert-dismissable fade in" id="errMsg"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Invalid location. Please choose another destination!</strong></div>');
                 $("#shippingCity").after('<span id="errSpan" class="glyphicon glyphicon-remove form-control-feedback"></span>')
             });
         } else {
             $("#shippingCity").focus();
+            $("#checkoutVerified").removeAttr("disabled");
             $("#checkoutVerified").trigger('click');
             $("#checkoutVerified").on("click", function () {
                 $("#checkout-form").submit();
@@ -37,6 +38,26 @@ $("#checkout").click(function () {
             });
         }
     });
+});
+
+$('#checkout').keypress(function (e) {
+    if (e.which == 13) {
+        $("#checkout").click();
+    }
+});
+
+$(document).click(function () {
+    $(function () {
+        $("#shippingCity").keyup();
+    });
+});
+
+$(document).keypress(function (e) {
+    if (e.which == 13) {
+        $(function () {
+            $("#checkout").click();
+        });
+    }
 });
 
 $("#shippingCity").blur();

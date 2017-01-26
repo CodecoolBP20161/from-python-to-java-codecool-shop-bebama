@@ -18,17 +18,8 @@
 
 <div th:replace="fragments/loginmodal :: copy"></div>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand active" href="/"><span
-                    class="glyphicon glyphicon-home"></span> Home</a>
-        </div>
+<div th:replace="fragments/basic_navbar :: copy"></div>
 
-        <div th:replace="fragments/user_status :: copy"></div>
-
-    </div>
-</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron text-center">
