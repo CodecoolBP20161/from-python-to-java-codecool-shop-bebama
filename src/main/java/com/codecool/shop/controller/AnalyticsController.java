@@ -20,9 +20,10 @@ public class AnalyticsController {
         String apiKey = request.queryParams("apiKey");
         String neededStatistic = request.queryParams("statistic");
         String result;
-        String graphURL;
+        String graphURL = "";
         if (neededStatistic.equals("visitor_count")) {
             result = getVisitorCount(apiKey);
+            graphURL = getGraph(result);
         } else if (neededStatistic.equals("visit_time_count")) {
             result = getTimeCount(apiKey);
         } else if (neededStatistic.equals("location_visits")) {
@@ -30,10 +31,9 @@ public class AnalyticsController {
         } else {
             result = "invalid request";
         }
-        graphURL = getGraph(result);
         System.out.println(graphURL);
         Map params = new HashMap<>();
-        params.put("stat", graphURL);
+        params.put("locations", graphURL);
         return new ModelAndView(params, "statistics/analytics");
     }
 
