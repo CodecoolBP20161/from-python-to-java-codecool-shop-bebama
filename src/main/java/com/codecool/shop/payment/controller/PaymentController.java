@@ -39,7 +39,7 @@ public class PaymentController {
     }
 
     private static String createConfirmationEmailBody(Request req) {
-        String listOfItems = "You payed for the following products: \n\n";
+        String listOfItems = "You purchased the following products: \n\n";
         List<LineItem> items = Order.getOrder(req).getListOfSelectedItems();
         for (LineItem item : items) {
             listOfItems += item.getProduct().getName() + "\n";
