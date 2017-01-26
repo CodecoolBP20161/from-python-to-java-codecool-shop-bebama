@@ -20,6 +20,7 @@ public class AnalyticsController {
         String apiKey = request.queryParams("apiKey");
         String neededStatistic = request.queryParams("statistic");
         String result;
+        String graphURL;
         if (neededStatistic.equals("visitor_count")) {
             result = getVisitorCount(apiKey);
         } else if (neededStatistic.equals("visit_time_count")) {
@@ -29,10 +30,17 @@ public class AnalyticsController {
         } else {
             result = "invalid request";
         }
+        graphURL = getGraph(result);
+        System.out.println(graphURL);
         Map params = new HashMap<>();
-        params.put("apikey", apiKey);
-        params.put("result", result);
-        return new ModelAndView(params, "statistics/test");
+        params.put("stat", graphURL);
+        return new ModelAndView(params, "statistics/analytics");
+    }
+
+    private static String getGraph(String result) throws URISyntaxException, IOException {
+        URIBuilder builder = new URIBuilder(URL + "/graph");
+        builder.addParameter("result", result);
+        return execute(builder.build());
     }
 
     private static String getVisitorCount(String apiKey) throws URISyntaxException, IOException {
