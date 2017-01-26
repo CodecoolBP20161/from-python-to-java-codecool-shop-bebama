@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnalitycsController {
+public class AnalyticsController {
 
     private static final String URL = "http://localhost:60015";
 
